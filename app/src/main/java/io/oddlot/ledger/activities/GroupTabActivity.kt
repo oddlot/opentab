@@ -32,7 +32,7 @@ import kotlin.concurrent.thread
 
 
 class GroupTabActivity: AppCompatActivity() {
-    private val TAG = "GROUP_TAB_ACTIVITY"
+    private val TAG = "GROUP_TAB_ACTIVITYZZZ"
     private lateinit var mParcelable: TabParcelable
     private lateinit var mGroupTab: GroupTabViewModel
     private var mLedger: Ledger? = null
