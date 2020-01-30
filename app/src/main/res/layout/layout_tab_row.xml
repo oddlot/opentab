@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    <!--<androidx.appcompat.widget.AppCompatImageView-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:src="@mipmap/ic_launcher"-->
+            <!--android:itemId="@+itemId/tabImage"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:padding="15dp"-->
+            <!--android:layout_alignParentTop="true"/>-->
+
+    <!--android:layout_toEndOf="@itemId/tabImage"-->
+    <TextView
+            android:id="@+id/tabName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="-1dp"
+            android:layout_marginTop="-4dp"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            tools:text="Cecilia"
+            android:textColor="@android:color/secondary_text_light"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
+<!--    <ImageView-->
+<!--            android:id="@+id/tabTypeIcon"-->
+<!--            app:srcCompat="@drawable/ic_baseline_person_outline_24px"-->
+<!--            android:contentDescription="Individual person tab icon"-->
+<!--            android:layout_marginTop="22dp"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_toEndOf="@+id/tabName"-->
+<!--            android:layout_marginStart="8dp" />-->
+
+    <TextView
+            android:id="@+id/tabCurrency"
+            android:text="HKD"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:paddingTop="4dp"
+            android:layout_toStartOf="@+id/tabBalance"
+            android:textSize="10sp" />
+
+    <TextView
+            android:id="@+id/tabBalance"
+            android:layout_alignBaseline="@id/tabName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="end"
+            android:paddingEnd="12dp"
+            android:text="0.00"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+</RelativeLayout>

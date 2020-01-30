@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+            android:id="@+id/menu_edit_members"
+            android:title="@string/actionbar_overflow_edit_members" />
+<!--    <item-->
+<!--            android:id="@+id/menu_set_currency"-->
+<!--            android:title="@string/actionbar_overflow_set_currency" />-->
+    <item
+            android:id="@+id/menu_rename_tab"
+            android:title="@string/actionbar_overflow_rename_tab" />
+    <item
+            android:id="@+id/menu_export_to_csv"
+            android:title="@string/actionbar_overflow_export" />
+<!--    <item-->
+<!--            android:id="@+id/menu_restore_from_csv"-->
+<!--            android:title="@string/actionbar_overflow_restore" />-->
+</menu>

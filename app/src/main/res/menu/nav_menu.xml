@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/nav_item_tabs"
+                android:icon="@drawable/ic_label_24px"
+                android:title="Tabs" />
+<!--        <item-->
+<!--                android:id="@+id/nav_item_help"-->
+<!--                android:icon="@drawable/ic_help_24px"-->
+<!--                android:title="@string/actionbar_overflow_help" />-->
+        <item
+                android:id="@+id/nav_item_settings"
+                android:icon="@drawable/ic_settings_white_24dp"
+                android:title="@string/actionbar_overflow_settings" />
+    </group>
+</menu>

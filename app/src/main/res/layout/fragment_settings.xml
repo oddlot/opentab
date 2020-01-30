@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/tabsHeader"
+            android:background="@color/appTheme"
+            android:paddingTop="96dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="18dp"
+            android:paddingBottom="18dp"
+            android:text="Settings"
+            android:textColor="@android:color/white"
+            android:textSize="32sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/nameHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:paddingEnd="14dp"
+                android:text="Name"
+                android:textSize="16sp"/>
+    </LinearLayout>
+
+<!--    <TextView-->
+<!--            android:id="@+id/editNameIcon"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="40"-->
+<!--            android:drawablePadding="-5dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:text="Name"-->
+<!--            android:textColor="@color/colorGreen"-->
+<!--            style="@style/behindMenuItemLabel" />-->
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="2dp">
+        <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="14dp"
+                tools:text="Thomas"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        <ImageView
+                android:id="@+id/editNameIcon"
+                android:contentDescription="Edit icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_edit_grey_24dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<resources>
+    <string-array name="currencies">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>CHF</item>
+        <item>CNH</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>HKD</item>
+        <item>JPY</item>
+        <item>THB</item>
+        <item>USD</item>
+    </string-array>
+
+    <string-array name="type_array">
+        <item>Debit</item>
+        <item>Credit</item>
+    </string-array>
+
+</resources>

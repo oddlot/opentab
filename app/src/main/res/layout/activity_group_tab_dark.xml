@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBlack"
+        tools:context=".activities.IndividualTabActivity">
+
+    <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_transparent"/>
+
+    <LinearLayout
+            android:id="@+id/header_row"
+            android:layout_below="@id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:paddingStart="18dp"
+            android:paddingEnd="0dp" >
+
+        <TextView
+                android:id="@+id/tabName"
+                tools:text="Example Tab Name"
+                android:layout_gravity="bottom"
+                android:textColor="@color/darkWhite"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        <!--        <TextView-->
+        <!--                android:id="@+id/tabCurrency"-->
+        <!--                android:layout_gravity="center"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginEnd="2dp"-->
+        <!--                android:textSize="24sp"-->
+        <!--                tools:text="USD" />-->
+
+        <Spinner
+                android:id="@+id/currencySpinner"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/darkWhite"
+                android:textSize="24sp" />
+
+        <!--        <TextView-->
+        <!--                android:id="@+id/groupTabBalance"-->
+        <!--                tools:text="12125.0"-->
+        <!--                android:gravity="end"-->
+        <!--                android:layout_gravity="bottom"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:paddingStart="4dp"-->
+        <!--                android:textSize="32sp"-->
+        <!--                android:textStyle="bold" />-->
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/subHeader"
+            android:gravity="center_vertical"
+            android:layout_below="@id/header_row"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/addGroupMemberIcon"
+                android:tint="@color/darkWhite"
+                android:contentDescription="Add group member icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_group_add_black_24dp" />
+
+        <TextView
+                android:id="@+id/tabMembers"
+                android:layout_toRightOf="@id/addGroupMemberIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/darkWhite"
+                android:textSize="12sp"
+                tools:text="Cecilia, Thomas, Cecilia"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+            android:id="@+id/transactionsHeader"
+            android:text="Transactions"
+            android:layout_below="@id/subHeader"
+            android:textColor="@color/colorSecondaryDark"
+            android:textSize="18sp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingStart="18dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/groupItemRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_below="@id/transactionsHeader"
+            android:minHeight="540dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addGroupItemFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="644dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:tint="#FFFFFF"
+            app:srcCompat="@android:drawable/ic_input_add"/>
+
+</RelativeLayout>

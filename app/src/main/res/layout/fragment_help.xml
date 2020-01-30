@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="Delete Tab or Item"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="16sp" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="Press and hold"
+                android:textSize="16sp" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="2. Export tab data from the options menu.  Restore items by uploading files in the same format."
+                android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+        <TextView
+                android:id="@+id/versionHeaderView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="About"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textSize="16sp" />
+
+        <TextView
+                android:id="@+id/versionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/versionHeaderView"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="Taboo v1.0.0"
+                android:textStyle=""
+                android:textSize="16sp" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="Developed by Thomas Lee"
+                android:textSize="16sp" />
+
+<!--        <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:paddingLeft="14dp"-->
+<!--                android:text="Contact Developer"-->
+<!--                android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+<!--                android:textSize="16sp" />-->
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="0dp"
+                android:paddingLeft="14dp"
+                android:text="Contact: thomaschlee@yahoo.com"
+                android:textSize="16sp" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_home" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:paddingLeft="12dp"
+            android:text="Developer"
+            android:textSize="16sp" />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="0dp"
+            android:paddingLeft="12dp"
+            android:text="Thomas Lee"
+            android:textSize="16sp" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    <TextView
+            android:id="@+id/versionHeaderView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:paddingLeft="12dp"
+            android:text="Version"
+            android:textSize="16sp" />
+
+    <TextView
+            android:id="@+id/versionView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/versionHeaderView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="0dp"
+            android:paddingLeft="12dp"
+            android:text="Taboo v1.0.0"
+            android:textSize="16sp" />
+<!--            android:textStyle="bold" -->
+
+</LinearLayout>
