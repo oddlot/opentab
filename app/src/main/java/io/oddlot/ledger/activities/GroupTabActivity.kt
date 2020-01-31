@@ -10,12 +10,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.R
-import io.oddlot.ledger.adapters.GroupItemsAdapter
+import io.oddlot.ledger.adapters.GroupExpensesAdapter
 import io.oddlot.ledger.classes.*
 import io.oddlot.ledger.classes.Ledger
 import io.oddlot.ledger.data.*
@@ -98,10 +97,10 @@ class GroupTabActivity: AppCompatActivity() {
             }
         })
 
-        mGroupTab.items.observe(this@GroupTabActivity, Observer { groupItems ->
+        mGroupTab.items.observe(this@GroupTabActivity, Observer { groupExpenses ->
             mLedger = null // reset ledger
             groupItemRecyclerView.layoutManager = LinearLayoutManager(this@GroupTabActivity)
-            groupItemRecyclerView.adapter = GroupItemsAdapter(groupItems).apply {
+            groupItemRecyclerView.adapter = GroupExpensesAdapter(groupExpenses).apply {
                 notifyDataSetChanged()
             }
         })
