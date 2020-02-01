@@ -14,7 +14,7 @@ data class GroupExpense(
     var payerId: Int,
     var amount: Double,
     var date: Long = System.currentTimeMillis(),
-    var description: String?,
+    var description: String? = null,
     var allocation: String? = null
 ) : Comparable<GroupExpense> {
     override fun compareTo(other: GroupExpense): Int {
@@ -47,5 +47,5 @@ interface GroupExpenseDao {
 }
 
 suspend fun <T : GroupExpense> T.submit(): Long {
-    return db.groupItemDao().insert(this)
+    return db.groupExpenseDao().insert(this)
 }

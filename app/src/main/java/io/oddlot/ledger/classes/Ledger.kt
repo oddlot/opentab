@@ -32,7 +32,7 @@ class Ledger(tabId: Int?): HashMap<String, Double>() {
 
             withContext(IO) {
                 members = db.memberDao().getMembersByTabId(tabId)
-                groupExpenses = db.groupItemDao().getGroupExpenseByTabId(tabId)
+                groupExpenses = db.groupExpenseDao().getGroupExpenseByTabId(tabId)
             }
 
             groupExpenses?.forEach { item ->

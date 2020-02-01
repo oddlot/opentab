@@ -24,7 +24,7 @@ class GroupTabViewModel(tabId: Int) : ViewModel() {
     }
 
     val items: LiveData<List<GroupExpense>> by lazy {
-        db.groupItemDao().getLiveGroupItemsByTabId(tabId)
+        db.groupExpenseDao().getLiveGroupItemsByTabId(tabId)
     }
 
     val balance: MutableLiveData<Double> by lazy {

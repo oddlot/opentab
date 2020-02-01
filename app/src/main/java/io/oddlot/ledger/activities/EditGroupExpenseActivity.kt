@@ -57,7 +57,7 @@ class EditGroupExpenseActivity: AppCompatActivity() {
         val uiJob = CoroutineScope(Main).launch {
             setSupportActionBar(findViewById(R.id.toolbar))
             supportActionBar?.apply {
-                title = "Edit Group Item"
+                title = resources.getString(R.string.actionbar_title_edit_group_expense)
                 setDisplayShowHomeEnabled(true)
                 setDisplayHomeAsUpEnabled(true)
             }
@@ -69,7 +69,7 @@ class EditGroupExpenseActivity: AppCompatActivity() {
          */
         CoroutineScope(IO).launch {
             mMembers = async { db.memberDao().getMembersByTabId(tabId) }
-            mGroupExpense = db.groupItemDao().getGroupExpenseById(expenseId)
+            mGroupExpense = db.groupExpenseDao().getGroupExpenseById(expenseId)
             mGroupExpenseVM = ViewModelProviders
                 .of(this@EditGroupExpenseActivity, GroupItemViewModelFactory(tabId, mGroupExpense))
                 .get(GroupExpenseViewModel::class.java)

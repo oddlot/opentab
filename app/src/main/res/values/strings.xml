@@ -23,6 +23,7 @@
     <string name="group_item_description_hint">(optional)</string>
 
     <!-- Actionbar -->
+    <string name="actionbar_title_edit_group_expense">Edit Group Expense</string>
     <string name="actionbar_overflow_add_item">Add Item</string>
     <string name="actionbar_overflow_add_member">Add Member</string>
     <string name="actionbar_overflow_edit_members">Edit Members</string>

@@ -103,7 +103,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
                 thread {
                     Looper.prepare()
                     val item = groupExpenses[position]
-                    db.groupItemDao().deleteGroupItemById(item.id!!)
+                    db.groupExpenseDao().deleteGroupItemById(item.id!!)
                     Toast.makeText(it.context, "Item deleted", Toast.LENGTH_LONG).show()
                 }
             }

@@ -1,6 +1,5 @@
 package io.oddlot.ledger.view_models
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -51,12 +50,11 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
 
             CoroutineScope(Dispatchers.IO).launch {
                 var alloc = groupExpense?.allocation?.deserialize()
-                _payees = alloc?.keys.map {
+                _payees = alloc?.keys!!.map {
                     db.memberDao().getMemberById(it)
                 }
 
                 withContext(Dispatchers.Main) {
-                    Log.d("ASDSADFAFADS", _payees.toString())
                     it.value = _payees
                 }
             }
@@ -111,7 +109,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
             allocation = allocation.value!!.serialize()
         ).also {
             thread {
-                db.groupItemDao().insert(it)
+                db.groupExpenseDao().insert(it)
             }
         }
 
@@ -131,7 +129,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
     }
 
     fun update(groupExpense: GroupExpense) {
-        db.groupItemDao().updateGroupItem(groupExpense)
+        db.groupExpenseDao().updateGroupItem(groupExpense)
     }
 }
 

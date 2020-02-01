@@ -10,6 +10,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun itemDao(): ItemDao
     abstract fun memberDao(): MemberDao
     abstract fun membershipDao(): MembershipDao
-//    abstract fun groupTabDao(): GroupTabDao
-    abstract fun groupItemDao(): GroupExpenseDao
+    abstract fun groupExpenseDao(): GroupExpenseDao
 }
