@@ -56,6 +56,11 @@
                 android:configChanges="orientation"
                 android:screenOrientation="portrait" />
         <activity
+                android:name=".activities.GroupExpenseActivity"
+                android:configChanges="orientation"
+                android:parentActivityName=".activities.GroupTabActivity"
+                android:screenOrientation="portrait" />
+        <activity
                 android:name=".activities.AddGroupExpenseActivity"
                 android:configChanges="orientation"
                 android:parentActivityName=".activities.GroupTabActivity"

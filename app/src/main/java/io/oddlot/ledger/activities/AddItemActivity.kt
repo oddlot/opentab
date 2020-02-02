@@ -66,9 +66,9 @@ class AddItemActivity : AppCompatActivity() {
             itemDate = Date()
             val dateString = formatter.format(itemDate)
 
-            addItemDatePicker.text = dateString
+            datePicker.text = dateString
 
-            addItemDatePicker.setOnClickListener {
+            datePicker.setOnClickListener {
                 var dpd = DatePickerDialog(this@AddItemActivity)
                 dpd.setOnDateSetListener { view, year, month, day ->
                     // Set month and day string variables
@@ -80,7 +80,7 @@ class AddItemActivity : AppCompatActivity() {
                     if (day.length < 2) day = "0" + day
 
                     var dialogDate = "$year/$month/$day"
-                    addItemDatePicker.text = dialogDate
+                    datePicker.text = dialogDate
 //                    itemDate = LocalDate.parse(dialogDate, formatter)
                     itemDate = formatter.parse(dialogDate)
                 }
@@ -129,7 +129,7 @@ class AddItemActivity : AppCompatActivity() {
 
                     newExpense = Expense(null, tabParcelable.id, itemAmount, itemDescription,
                         Utils.millisFromDateString(
-                            addItemDatePicker.text.toString(), "yyyy/MM/dd"
+                            datePicker.text.toString(), "yyyy/MM/dd"
                         )
                     )
                     db.itemDao().insert(newExpense)

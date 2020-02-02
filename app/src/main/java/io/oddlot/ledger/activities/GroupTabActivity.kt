@@ -151,10 +151,12 @@ class GroupTabActivity: AppCompatActivity() {
 //                imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT) // Does not work
         }
 
-        // Add Group Item
+        // FAB
         addGroupItemFab.setOnClickListener {
-            val intent = Intent(this, AddGroupExpenseActivity::class.java)
-            intent.putExtra("TAB_PARCELABLE", mParcelable)
+//            val intent = Intent(this, AddGroupExpenseActivity::class.java)
+            val intent = Intent(this, GroupExpenseActivity::class.java)
+            intent.putExtra("GROUP_TAB_PARCELABLE", mParcelable)
+            intent.putExtra("GROUP_TAB_ID", mParcelable.id)
             startActivity(intent)
         }
     }

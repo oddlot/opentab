@@ -50,19 +50,17 @@ class EditGroupExpenseActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_expense)
 
-        val expenseId = intent.getIntExtra("GROUP_ITEM_ID", 0)
+        // Extras
+        val expenseId = intent.getIntExtra("GROUP_EXPENSE_ID", 0)
         val tabId = intent.getIntExtra("GROUP_TAB_ID", 0)
 
         // Toolbar
-        val uiJob = CoroutineScope(Main).launch {
-            setSupportActionBar(findViewById(R.id.toolbar))
-            supportActionBar?.apply {
-                title = resources.getString(R.string.actionbar_title_edit_group_expense)
-                setDisplayShowHomeEnabled(true)
-                setDisplayHomeAsUpEnabled(true)
-            }
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.apply {
+            title = resources.getString(R.string.actionbar_title_edit_group_expense)
+            setDisplayShowHomeEnabled(true)
+            setDisplayHomeAsUpEnabled(true)
         }
-
 
         /**
          * ViewModel
@@ -113,14 +111,14 @@ class EditGroupExpenseActivity: AppCompatActivity() {
         }
 
         // Date, Amount, Description
-        CoroutineScope(Main + uiJob).launch {
+        CoroutineScope(Main).launch {
             val formatter = SimpleDateFormat("yyyy/MM/dd")
             var date = Date(mGroupExpense.date)
             val dateString = formatter.format(date)
 
             mGroupExpenseVM.date.value = Utils.millisFromDateString(dateString, "yyyy/MM/dd")
-            addItemDatePicker.text = dateString
-            addItemDatePicker.setOnClickListener {
+            datePicker.text = dateString
+            datePicker.setOnClickListener {
                 DatePickerDialog(this@EditGroupExpenseActivity).apply {
                     // Set item date on open
                     this.updateDate(dateString.slice(0..3).toInt(), dateString.slice(5..6).toInt() - 1, dateString.slice(8..9).toInt())

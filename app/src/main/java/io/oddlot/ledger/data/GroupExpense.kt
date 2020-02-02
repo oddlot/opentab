@@ -46,6 +46,6 @@ interface GroupExpenseDao {
     fun updateGroupItem(groupExpense: GroupExpense)
 }
 
-suspend fun <T : GroupExpense> T.submit(): Long {
+fun <T : GroupExpense> T.submit(): Long {
     return db.groupExpenseDao().insert(this)
 }

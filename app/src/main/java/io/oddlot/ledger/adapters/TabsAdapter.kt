@@ -65,7 +65,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 //                else "0"
 //        }
 
-        /* Click listener */
+        // Click listener
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
@@ -75,7 +75,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
             startActivity(holder.view.context, intent, null)
         }
 
-        /* Click listener (long) */
+        // Long click listener
         holder.view.setOnLongClickListener {
             val dialog = AlertDialog.Builder(it.context)
             dialog.setTitle("Delete \"$tabName\"?")

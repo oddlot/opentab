@@ -35,7 +35,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/addItemDatePicker"
+            android:id="@+id/datePicker"
             android:clickable="true"
             android:focusable="true"
             android:layout_width="0dp"
@@ -54,7 +54,7 @@
             android:text="Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/addItemDatePicker"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
             android:layout_marginTop="12dp" />
 
@@ -104,7 +104,7 @@
             android:layout_marginBottom="12dp"
             app:layout_constraintBottom_toTopOf="@+id/paidBySpinner"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/addItemDatePicker" />
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
     <Button
             android:id="@+id/itemSubmitBtn"

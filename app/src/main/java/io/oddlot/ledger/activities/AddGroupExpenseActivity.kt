@@ -1,6 +1,5 @@
 package io.oddlot.ledger.activities
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -26,7 +25,6 @@ import io.oddlot.ledger.adapters.AllocationAdapter
 import io.oddlot.ledger.classes.Allocation
 import io.oddlot.ledger.classes.Utils
 import io.oddlot.ledger.classes.round
-import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.data.submit
 import io.oddlot.ledger.parcelables.TabParcelable
@@ -41,11 +39,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddGroupExpenseActivity : AppCompatActivity() {
-    val TAG = "GROUP TICKET ACTIVITY"
+    val TAG = "ADD GROUP EXPENSE ACTIVITY"
     private lateinit var mParcelable: TabParcelable
     private lateinit var mGroupExpenseVM: GroupExpenseViewModel
     private lateinit var mMembers: List<Member>
-    private var mPayees = mutableListOf<Member>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +54,7 @@ class AddGroupExpenseActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
-            title = "Add Group Item"
+            title = resources.getString(R.string.actionbar_title_add_group_expense)
             setDisplayShowHomeEnabled(true)
             setDisplayHomeAsUpEnabled(true)
         }
@@ -65,7 +62,7 @@ class AddGroupExpenseActivity : AppCompatActivity() {
         /**
          * Member variables
          */
-        mParcelable = intent.getParcelableExtra("TAB_PARCELABLE")!!
+        mParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
 //        mGroupExpense = GroupExpense(null, mParcelable.id, 0, 0.0, System.currentTimeMillis(), "", Allocation().serialize())
 
         /**
@@ -122,8 +119,8 @@ class AddGroupExpenseActivity : AppCompatActivity() {
             val dateString = formatter.format(date)
 
             mGroupExpenseVM.date.value = Utils.millisFromDateString(dateString, "yyyy/MM/dd")
-            addItemDatePicker.text = dateString
-            addItemDatePicker.setOnClickListener {
+            datePicker.text = dateString
+            datePicker.setOnClickListener {
                 DatePickerDialog(this@AddGroupExpenseActivity).apply {
                     this.setOnDateSetListener { datePicker, year, month, day ->
                         // Set month and day string variables
