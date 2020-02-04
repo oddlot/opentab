@@ -17,11 +17,11 @@
             android:layout_width="183dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="24dp"
-            app:layout_constraintStart_toEndOf="@+id/totalAmount"
+            app:layout_constraintStart_toEndOf="@+id/amountPaid"
             android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@+id/totalAmount"
-            app:layout_constraintTop_toTopOf="@+id/totalAmount"
+            app:layout_constraintBottom_toBottomOf="@+id/amountPaid"
+            app:layout_constraintTop_toTopOf="@+id/amountPaid"
             app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -50,7 +50,7 @@
             android:textColor="@android:color/black" />
 
     <TextView
-            android:id="@+id/itemAmountLabel"
+            android:id="@+id/amountLabel"
             android:text="Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,34 +59,34 @@
             android:layout_marginTop="12dp" />
 
     <EditText
-            android:id="@+id/totalAmount"
+            android:id="@+id/amountPaid"
             android:layout_width="170dp"
             android:layout_height="47dp"
             android:inputType="numberDecimal"
             android:ems="10"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/itemAmountLabel"
+            app:layout_constraintTop_toBottomOf="@+id/amountLabel"
             android:layout_marginTop="12dp" />
 
     <TextView
-            android:id="@+id/itemDescriptionLabel"
+            android:id="@+id/labelDescription"
             android:text="Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/totalAmount"
+            app:layout_constraintTop_toBottomOf="@+id/amountPaid"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="24dp" />
 
     <EditText
-            android:id="@+id/itemDescriptionInput"
+            android:id="@+id/editDescription"
             android:hint="@string/item_description_hint"
             android:inputType="textCapSentences"
             android:layout_width="0dp"
             android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescriptionLabel"
+            app:layout_constraintTop_toBottomOf="@+id/labelDescription"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
@@ -117,6 +117,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDescriptionInput" />
+            app:layout_constraintTop_toBottomOf="@+id/editDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

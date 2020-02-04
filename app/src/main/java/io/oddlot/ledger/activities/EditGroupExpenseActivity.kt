@@ -147,9 +147,9 @@ class EditGroupExpenseActivity: AppCompatActivity() {
                 }
             }
 
-            totalAmount.text = SpannableStringBuilder(mGroupExpense.amount.toString())
+            amountPaid.text = SpannableStringBuilder(mGroupExpense.amount.toString())
 
-            totalAmount.addTextChangedListener(object : TextWatcher {
+            amountPaid.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(amount: Editable?) {
                     if (amount.isNullOrBlank()) {
                         mGroupExpenseVM.amountPaid.value = 0.0
@@ -164,7 +164,7 @@ class EditGroupExpenseActivity: AppCompatActivity() {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             })
 
-            itemDescriptionInput.text = SpannableStringBuilder(mGroupExpense.description)
+            editDescription.text = SpannableStringBuilder(mGroupExpense.description)
         }
 
         /**
@@ -244,7 +244,7 @@ class EditGroupExpenseActivity: AppCompatActivity() {
                     if (mGroupExpenseVM.amountPaid.value == 0.0 || mGroupExpenseVM.unallocated() != 0.0) {
                         throw IllegalStateException("Amount not fully allocated")
                     } else {
-                        mGroupExpenseVM.description.value = itemDescriptionInput.text.toString()
+                        mGroupExpenseVM.description.value = editDescription.text.toString()
 
                         CoroutineScope(IO).launch {
                             mGroupExpenseVM

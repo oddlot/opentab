@@ -16,7 +16,7 @@
             android:paddingBottom="5dp"
             tools:text="Cecilia paid"
             android:textSize="14sp"
-            app:layout_constraintEnd_toStartOf="@+id/totalAmount"
+            app:layout_constraintEnd_toStartOf="@+id/amountPaid"
             app:layout_constraintStart_toEndOf="@+id/itemDateView"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_wrapHeight="51"
@@ -37,7 +37,7 @@
             tools:layout_conversion_wrapHeight="56"/>
 
     <TextView
-            android:id="@+id/itemDescriptionInput"
+            android:id="@+id/editDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxWidth="255dp"
@@ -48,7 +48,7 @@
             tools:text="Test item for a test tab for a test example. Lorem Ipsum blah blahblahblah jksdhkah"
             android:textSize="14sp"
             android:textColor="@android:color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/totalAmount"
+            app:layout_constraintBottom_toBottomOf="@+id/amountPaid"
             app:layout_constraintStart_toStartOf="@+id/whoPaid"
             app:layout_constraintTop_toBottomOf="@+id/whoPaid"
             app:layout_constraintVertical_bias="0.0"
@@ -56,7 +56,7 @@
             tools:layout_conversion_wrapWidth="585"/>
 
     <TextView
-            android:id="@+id/totalAmount"
+            android:id="@+id/amountPaid"
             app:layout_constraintBaseline_toBaselineOf="@id/itemDateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
             android:paddingEnd="12dp"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/itemDescriptionInput"
+            app:layout_constraintTop_toTopOf="@+id/editDescription"
             tools:text="(12010)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

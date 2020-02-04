@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
@@ -22,6 +23,8 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.NumberFormat
+import java.util.*
 import kotlin.concurrent.thread
 
 class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabViewHolder>() {
@@ -54,16 +57,16 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
             text = tab.currency
         }
         val tabBalanceView = holder.view.findViewById<TextView>(R.id.tabBalance)
-//            .apply {
-//            text =
-//                if (tab.balance > 0.0) {
-//                    NumberFormat.getNumberInstance(Locale.getDefault()).format(tab.balance.round(0))
-//                }
-//                else if (tab.balance < 0.0) NumberFormat.getNumberInstance(Locale.getDefault()).format((tab.balance * -1.0).round(0)).also {
-//                    this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.colorAppTheme))
-//                }
-//                else "0"
-//        }
+            .apply {
+            text =
+                if (tab.balance > 0.0) {
+                    tab.balance.round(2).toString()
+                }
+                else if (tab.balance < 0.0) NumberFormat.getNumberInstance(Locale.getDefault()).format((tab.balance * -1.0).round(2)).also {
+                    this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.appTheme))
+                }
+                else "0.00"
+        }
 
         // Click listener
         holder.view.setOnClickListener {

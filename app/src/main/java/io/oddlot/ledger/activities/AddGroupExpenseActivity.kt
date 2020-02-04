@@ -94,7 +94,7 @@ class AddGroupExpenseActivity : AppCompatActivity() {
          * Amount paid
          */
         CoroutineScope(Main).launch {
-            totalAmount.addTextChangedListener(object : TextWatcher {
+            amountPaid.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(amount: Editable?) {
                     if (amount.isNullOrBlank()) {
                         mGroupExpenseVM.amountPaid.value = 0.0
@@ -153,7 +153,7 @@ class AddGroupExpenseActivity : AppCompatActivity() {
          */
         equalSplitBtn.setOnClickListener {
             val equalAlloc = mGroupExpenseVM.equalAllocation(mGroupExpenseVM.allocation.value!!.payees.toList())
-            mGroupExpenseVM.allocation.value = equalAlloc
+//            mGroupExpenseVM.allocation.value = equalAlloc
 
             payeeAllocation.adapter = AllocationAdapter(mGroupExpenseVM, mMembers, mGroupExpenseVM.allocation.value!!)
         }
@@ -251,7 +251,7 @@ class AddGroupExpenseActivity : AppCompatActivity() {
                         if (mGroupExpenseVM.amountPaid.value == 0.0 || mGroupExpenseVM.unallocated() != 0.0) {
                             throw IllegalStateException("Amount not fully allocated")
                         } else {
-                            mGroupExpenseVM.description.value = itemDescriptionInput.text.toString()
+                            mGroupExpenseVM.description.value = editDescription.text.toString()
 
                             CoroutineScope(IO).launch {
                                 mGroupExpenseVM

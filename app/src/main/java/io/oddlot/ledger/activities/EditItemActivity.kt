@@ -48,8 +48,8 @@ class EditItemActivity : AppCompatActivity() {
             text = Utils.dateStringFromMillis(itemDate).replace("-", "/")
         }
 
-        totalAmount.text = SpannableStringBuilder(if (mItemAmount > 0.0) mItemAmount.toString() else (mItemAmount * -1.0).toString())
-        itemDescriptionInput.text = SpannableStringBuilder(itemDescription)
+        amountPaid.text = SpannableStringBuilder(if (mItemAmount > 0.0) mItemAmount.toString() else (mItemAmount * -1.0).toString())
+        editDescription.text = SpannableStringBuilder(itemDescription)
 
         editItemDate.setOnClickListener {
             DatePickerDialog(this).apply {
@@ -89,10 +89,10 @@ class EditItemActivity : AppCompatActivity() {
 
         itemEditBtn.setOnClickListener {
             // Local Item Update
-            var itemAmount = totalAmount.text.toString().toDouble() // Positive amount if "Debit"
+            var itemAmount = amountPaid.text.toString().toDouble() // Positive amount if "Debit"
             if (paidBySpinner.selectedItem == "Credit") itemAmount *= -1.0 // Negative if "Credit"
 
-            val updateItem = Expense(itemId, tabId, itemAmount, itemDescriptionInput.text.toString(), itemDate)
+            val updateItem = Expense(itemId, tabId, itemAmount, editDescription.text.toString(), itemDate)
 
             thread {
                 db.itemDao().insert(updateItem)

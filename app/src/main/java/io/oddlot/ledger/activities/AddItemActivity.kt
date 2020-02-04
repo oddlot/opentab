@@ -88,7 +88,7 @@ class AddItemActivity : AppCompatActivity() {
                 dpd.show()
             }
 
-            val amount = findViewById<TextView>(R.id.totalAmount)
+            val amount = findViewById<TextView>(R.id.amountPaid)
             amount.isFocusable = true
             amount.requestFocus()
 
@@ -119,13 +119,13 @@ class AddItemActivity : AppCompatActivity() {
 
             CoroutineScope(IO).launch {
                 try {
-                    if (totalAmount.text.isBlank()) throw IllegalArgumentException("Amount required")
+                    if (amountPaid.text.isBlank()) throw IllegalArgumentException("Amount required")
 
-                    var itemAmount = totalAmount.text.toString().toDouble()
+                    var itemAmount = amountPaid.text.toString().toDouble()
 
                     itemAmount = if (mPaidBy == mUsername) itemAmount else itemAmount * -1.0 // Convert to negative if not paid by owner
 //                    itemAmount = if (mPaidBy == "Debit") itemAmount else itemAmount * -1.0 // Convert to negative if "Credit"
-                    itemDescription = itemDescriptionInput.text.toString()
+                    itemDescription = editDescription.text.toString()
 
                     newExpense = Expense(null, tabParcelable.id, itemAmount, itemDescription,
                         Utils.millisFromDateString(

@@ -1,6 +1,7 @@
 package io.oddlot.ledger.adapters
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import io.oddlot.ledger.classes.deserialize
 import io.oddlot.ledger.classes.commatize
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
+import io.oddlot.ledger.parcelables.GroupTabParcelable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -81,7 +83,8 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
         holder.view.findViewById<TextView>(R.id.amount).apply {
             text = groupExpense.amount.commatize()
             setTextColor(
-                if (groupExpense.amount > 0.0) ContextCompat.getColor(context, R.color.colorWatermelon)
+//                if (groupExpense.amount > 0.0) ContextCompat.getColor(context, R.color.colorWatermelon)
+                if (groupExpense.amount > 0.0) Color.CYAN
                 else (resources.getColor(android.R.color.holo_red_dark))
             )
         }
@@ -99,7 +102,15 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
                 groupExpense.description
             ))
             intent.putExtra("GROUP_TAB_ID", groupExpense.tabId)
-            startActivity(it.context, intent, null)
+
+            CoroutineScope(IO).launch {
+                val tab = db.tabDao().get(groupExpense.tabId)
+                intent.putExtra("GROUP_TAB_PARCELABLE", GroupTabParcelable(tab.id!!, tab.name, tab.currency))
+
+                withContext(Main) {
+                    startActivity(it.context, intent, null)
+                }
+            }
         }
 
         // Long click

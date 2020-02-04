@@ -58,8 +58,8 @@ class ItemsAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0
 
         // View Variables
         val itemDateView = holder.view.findViewById<TextView>(R.id.itemDateView)
-        val itemDescriptionView = holder.view.findViewById<TextView>(R.id.itemDescriptionInput)
-        val itemAmountView = holder.view.findViewById<TextView>(R.id.totalAmount)
+        val itemDescriptionView = holder.view.findViewById<TextView>(R.id.editDescription)
+        val itemAmountView = holder.view.findViewById<TextView>(R.id.amountPaid)
         val itemBalanceView = holder.view.findViewById<TextView>(R.id.dynamicTabBalance)
 
         itemBalanceView.apply {

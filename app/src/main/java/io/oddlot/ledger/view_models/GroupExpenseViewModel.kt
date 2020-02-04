@@ -73,7 +73,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
 
     fun unallocated(): Double = amountPaid.value!!.minus(allocated()).round(2)
 
-    fun equalAllocation(payees: List<Member>): Allocation {
+    fun equalAllocation(payees: List<Member> = this.payees.value!!): Allocation {
         val allocation = Allocation()
         allocation.payees = payees.toMutableSet()
 
@@ -94,6 +94,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
             bpsUnallocated += 1
         }
 
+        this.allocation.value = allocation
         return allocation
     }
 

@@ -19,14 +19,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 
 //class AllocationAdapter(val allocation: Allocation) : RecyclerView.Adapter<AllocationAdapter.PayeeViewHolder>() {
-class AllocationAdapter(var groupExpense: GroupExpenseViewModel, val members: List<Member>, var allocation: Allocation) : RecyclerView.Adapter<AllocationAdapter.PayeeViewHolder>() {
+class AllocationAdapter(var vmGroupExpense: GroupExpenseViewModel, val members: List<Member>, var allocation: Allocation) : RecyclerView.Adapter<AllocationAdapter.PayeeViewHolder>() {
     val TAG = "ALLOCATION_ADAPTER"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PayeeViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.payee_allocation_row, parent, false)
         val holder = PayeeViewHolder(view)
-        val pos = holder.adapterPosition
 
         return holder
     }
@@ -55,16 +54,18 @@ class AllocationAdapter(var groupExpense: GroupExpenseViewModel, val members: Li
                 }
             }
         }
-        nameView.setOnClickListener {
-            var _payees = groupExpense.payees.value ?: listOf<Member>()
 
-            if (payee in _payees!!) {
-                _payees.minus(payee)
+        // Click listener
+        nameView.setOnClickListener {
+            var _payees = vmGroupExpense.payees.value ?: listOf()
+
+            if (payee in _payees) {
+                vmGroupExpense.payees.value = _payees.minus(payee)
                 nameView.setBackgroundColor(white)
                 nameView.setTextColor(secondaryColor)
 
             } else {
-                _payees.plus(payee)
+                vmGroupExpense.payees.value = _payees.plus(payee)
                 nameView.setBackgroundColor(appColor)
                 nameView.setTextColor(white)
             }
