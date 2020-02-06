@@ -74,7 +74,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
                 holder.view.context,
                 if (tab.isGroup) GroupTabActivity::class.java else IndividualTabActivity::class.java
             )
-            intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
+            intent.putExtra("GROUP_TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)
         }
 

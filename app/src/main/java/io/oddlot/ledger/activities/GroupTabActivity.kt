@@ -42,7 +42,7 @@ class GroupTabActivity: AppCompatActivity() {
         setContentView(R.layout.activity_group_tab_dark)
 
         // Member Variables
-        mParcelable = intent.getParcelableExtra("TAB_PARCELABLE")!!
+        mParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
 
         CoroutineScope(IO).launch {
             mMembers = db.memberDao().getMembersByTabId(mParcelable.id)

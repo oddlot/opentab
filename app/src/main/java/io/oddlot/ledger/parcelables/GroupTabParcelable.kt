@@ -28,10 +28,10 @@ class GroupTabParcelable(
     )
 
     // 1. Invoked when calling Intent.putExtra()
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(tabId)
-        parcel.writeString(name)
-        parcel.writeString(currency)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(tabId)
+        dest.writeString(name)
+        dest.writeString(currency)
     }
     override fun describeContents() = 0
 }

@@ -38,8 +38,9 @@ import kotlinx.coroutines.Dispatchers.Main
 import java.text.SimpleDateFormat
 import java.util.*
 
+private const val TAG = "ADD GROUP EXPENSE ACTIVITY"
+
 class AddGroupExpenseActivity : AppCompatActivity() {
-    val TAG = "ADD GROUP EXPENSE ACTIVITY"
     private lateinit var mParcelable: TabParcelable
     private lateinit var mGroupExpenseVM: GroupExpenseViewModel
     private lateinit var mMembers: List<Member>

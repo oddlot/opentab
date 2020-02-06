@@ -20,7 +20,7 @@ import io.oddlot.ledger.classes.deserialize
 import io.oddlot.ledger.classes.commatize
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
-import io.oddlot.ledger.parcelables.GroupTabParcelable
+import io.oddlot.ledger.parcelables.TabParcelable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -101,13 +101,14 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
                 groupExpense.date,
                 groupExpense.description
             ))
+
             intent.putExtra("GROUP_TAB_ID", groupExpense.tabId)
 
             CoroutineScope(IO).launch {
                 val tab = db.tabDao().get(groupExpense.tabId)
-                intent.putExtra("GROUP_TAB_PARCELABLE", GroupTabParcelable(tab.id!!, tab.name, tab.currency))
 
                 withContext(Main) {
+                    intent.putExtra("GROUP_TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
                     startActivity(it.context, intent, null)
                 }
             }

@@ -21,7 +21,6 @@ import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.data.submit
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
-import io.oddlot.ledger.parcelables.GroupTabParcelable
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.view_models.GroupExpenseViewModel
 import io.oddlot.ledger.view_models.GroupItemViewModelFactory
@@ -31,13 +30,16 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
+
+private const val TAG = "GROUP EXPENSE ACTIVITY"
 
 class GroupExpenseActivity : AppCompatActivity() {
     private var groupExpense: GroupExpense? = null
     private lateinit var members: List<Member>
     private var paGroupExpense: GroupExpenseParcelable? = null
-    private var paGroupTab: GroupTabParcelable? = null
-    private lateinit var vmGroupExpense: GroupExpenseViewModel
+    private var paGroupTab: TabParcelable? = null
+    private lateinit var viewModel: GroupExpenseViewModel
     private var tabId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,37 +47,39 @@ class GroupExpenseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_group_expense)
 
         // Extras
-        tabId = intent.extras?.getInt("GROUP_TAB_ID") ?: 0
+        tabId = intent.getIntExtra("GROUP_TAB_ID", 0)
 
         // Parcelable
         paGroupExpense = intent.extras?.getParcelable("GROUP_EXPENSE_PARCELABLE")
-        paGroupTab = intent.extras?.getParcelable("GROUP_TAB_PARCELABLE")
+        paGroupTab = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")
+        Log.d(TAG, paGroupTab?.toString() ?: "aslkudhaskudh")
 
-        // ViewModel
         intent.extras?.getInt("GROUP_EXPENSE_ID")?.let {
+            // ViewModel
             CoroutineScope(IO).launch {
                 groupExpense = db.groupExpenseDao().getGroupExpenseById(it)
-                vmGroupExpense = ViewModelProviders
+                viewModel = ViewModelProviders
                     .of(this@GroupExpenseActivity, GroupItemViewModelFactory(tabId, groupExpense))
                     .get(GroupExpenseViewModel::class.java)
             }.invokeOnCompletion {
-                // Bind ViewModel
-                datePicker.text = Utils.dateStringFromMillis(paGroupExpense?.date!!, "yyyy/MM/dd")
-                paGroupExpense?.let {
-                    CoroutineScope(IO).launch {
-                        members = db.memberDao().getMembersByTabId(tabId)
+                CoroutineScope(IO).launch {
+                    members = db.memberDao().getMembersByTabId(tabId)
 
-                        withContext(Main){
-                            datePicker.text = Utils.dateStringFromMillis(it.date, "yyyy/MM/dd")
+                    withContext(Main){
+                        datePicker.text = Utils.dateStringFromMillis(paGroupExpense?.date ?: Date().time, "yyyy/MM/dd")
+                        // Initialize Payer Spinner
+                        val adapter = ArrayAdapter<String>(
+                            this@GroupExpenseActivity,
+                            android.R.layout.simple_spinner_item,
+                            members.map { it.name }.toTypedArray()
+                        )
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        paidBySpinner.adapter = adapter
+                        paidBySpinner.setSelection(members.map { it.id }.indexOf(0))
+
+                        paGroupExpense?.let {
+                            // Bind ViewModel
                             amountPaid.text = SpannableStringBuilder(it.amountPaid.toString())
-
-                            val adapter = ArrayAdapter<String>(
-                                this@GroupExpenseActivity,
-                                android.R.layout.simple_spinner_item,
-                                members.map { it.name }.toTypedArray()
-                            )
-                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                            paidBySpinner.adapter = adapter
                             paidBySpinner.setSelection(members.map { it.id }.indexOf(it.payerId))
 
                             paidBySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
@@ -83,18 +87,16 @@ class GroupExpenseActivity : AppCompatActivity() {
                                 }
 
                                 override fun onItemSelected(adapter: AdapterView<*>?, v: View?, i: Int, p3: Long) {
-                                    CoroutineScope(Main).launch {
-                                        vmGroupExpense.payer.value = members[i]
-                                    }
+                                    viewModel.payer.value = members[i]
                                 }
 
                             }
                             editDescription.text = SpannableStringBuilder(it.description)
                             payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
-                            payeeAllocation.adapter = AllocationAdapter(vmGroupExpense, members, vmGroupExpense.allocation.value!!)
+                            payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
 
                             // Observers
-                            vmGroupExpense.allocation.observe(this@GroupExpenseActivity, Observer {
+                            viewModel.allocation.observe(this@GroupExpenseActivity, Observer {
 //                                payeeAllocation.adapter!!.notifyDataSetChanged()
                             })
                         }
@@ -118,8 +120,8 @@ class GroupExpenseActivity : AppCompatActivity() {
         }
 
         equalSplitBtn.setOnClickListener {
-            vmGroupExpense.equalAllocation()
-            payeeAllocation.adapter = AllocationAdapter(vmGroupExpense, members, vmGroupExpense.allocation.value!!)
+            viewModel.equalAllocation()
+            payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
         }
     }
 
@@ -136,20 +138,20 @@ class GroupExpenseActivity : AppCompatActivity() {
             }
             0 -> { // submit
                 try {
-                    if (vmGroupExpense.amountPaid.value == 0.0 || vmGroupExpense.unallocated() != 0.0) {
+                    if (viewModel.amountPaid.value == 0.0 || viewModel.unallocated() != 0.0) {
                         throw IllegalStateException("Amount not fully allocated")
                     } else {
-                        vmGroupExpense.description.value = editDescription.text.toString()
+                        viewModel.description.value = editDescription.text.toString()
 
                         CoroutineScope(IO).launch {
-                            vmGroupExpense
+                            viewModel
                                 .stage(groupExpense!!.id)
                                 .submit()
 
                             val groupTab = db.tabDao().get(groupExpense!!.tabId)
                             val intent = Intent(this@GroupExpenseActivity, GroupTabActivity::class.java).apply {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                putExtra("TAB_PARCELABLE", paGroupTab)
+                                putExtra("GROUP_TAB_PARCELABLE", paGroupTab)
                             }
                             startActivity(intent)
                             finish()
