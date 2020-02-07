@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.classes.Allocation
 import io.oddlot.ledger.classes.deserialize
-import io.oddlot.ledger.classes.round
+import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
 import kotlinx.coroutines.CoroutineScope

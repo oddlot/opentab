@@ -1,4 +1,4 @@
-package io.oddlot.ledger.classes
+package io.oddlot.ledger
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

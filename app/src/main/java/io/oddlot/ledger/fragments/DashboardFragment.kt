@@ -18,7 +18,7 @@ import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.TabsAdapter
 import io.oddlot.ledger.view_models.TabsViewModel
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.classes.basicEditText
+import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -103,7 +103,9 @@ class DashboardFragment : Fragment() {
 //                builder.show()
 
                 var groupTabDialog = AlertDialog.Builder(context!!).apply {
-                    val tabNameInput = basicEditText(context).also { it.requestFocus() }
+                    val tabNameInput = basicEditText(
+                        context
+                    ).also { it.requestFocus() }
                     val container = FrameLayout(context).apply {
                         addView(tabNameInput)
                     }
@@ -158,7 +160,8 @@ class DashboardFragment : Fragment() {
 
             setOnLongClickListener {
                 var groupTabDialog = AlertDialog.Builder(context!!).apply {
-                    val tabNameInput = basicEditText(context)
+                    val tabNameInput =
+                        basicEditText(context)
                     val container = FrameLayout(context).apply {
                         addView(tabNameInput)
                     }

@@ -1,27 +1,22 @@
 package io.oddlot.ledger.fragments
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputType
 import android.text.SpannableStringBuilder
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.activities.prefs
-import io.oddlot.ledger.classes.basicEditText
+import io.oddlot.ledger.utils.basicEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.coroutines.coroutineContext
 
 class SettingsFragment : Fragment() {
 

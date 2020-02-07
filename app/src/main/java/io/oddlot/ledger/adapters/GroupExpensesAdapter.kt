@@ -9,15 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.GroupExpenseActivity
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.classes.Utils
+import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.classes.deserialize
-import io.oddlot.ledger.classes.commatize
+import io.oddlot.ledger.utils.commatize
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
 import io.oddlot.ledger.parcelables.TabParcelable

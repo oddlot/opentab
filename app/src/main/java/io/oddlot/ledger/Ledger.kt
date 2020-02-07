@@ -1,10 +1,11 @@
-package io.oddlot.ledger.classes
+package io.oddlot.ledger
 
 import android.content.Context
 import android.widget.TextView
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
+import io.oddlot.ledger.utils.round
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch

@@ -19,6 +19,8 @@ import io.oddlot.ledger.classes.*
 import io.oddlot.ledger.classes.Ledger
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
+import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.view_models.GroupTabViewModel
 import io.oddlot.ledger.view_models.GroupTabViewModelFactory
 import kotlinx.android.synthetic.main.activity_group_tab.*

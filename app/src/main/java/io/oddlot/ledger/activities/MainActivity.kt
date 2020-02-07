@@ -1,6 +1,5 @@
 package io.oddlot.ledger.activities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.SharedPreferences
@@ -16,11 +15,10 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.classes.App
 import io.oddlot.ledger.R
-import io.oddlot.ledger.classes.basicEditText
+import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.fragments.DashboardFragment
 import io.oddlot.ledger.fragments.SettingsFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.thread
 

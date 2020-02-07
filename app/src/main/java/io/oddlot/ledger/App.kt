@@ -1,4 +1,4 @@
-package io.oddlot.ledger.classes
+package io.oddlot.ledger
 
 import android.content.Context
 import android.content.SharedPreferences

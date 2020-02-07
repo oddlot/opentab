@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import io.oddlot.ledger.R
-import io.oddlot.ledger.classes.Utils
+import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.data.Expense
 import io.oddlot.ledger.parcelables.TabParcelable
 import kotlinx.android.synthetic.main.activity_add_item.*

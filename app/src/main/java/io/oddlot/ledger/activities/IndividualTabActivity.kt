@@ -20,12 +20,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.view_models.ItemsViewModel
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.ItemsAdapter
-import io.oddlot.ledger.classes.Utils
+import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.classes.reqCodes
-import io.oddlot.ledger.classes.round
-import io.oddlot.ledger.classes.commatize
+import io.oddlot.ledger.utils.round
+import io.oddlot.ledger.utils.commatize
 import kotlinx.android.synthetic.main.activity_individual_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

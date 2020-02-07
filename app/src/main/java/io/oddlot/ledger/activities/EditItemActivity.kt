@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.*
 import io.oddlot.ledger.R
-import io.oddlot.ledger.classes.Utils
+import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.parcelables.ItemParcelable
 import io.oddlot.ledger.data.Expense
 import io.oddlot.ledger.parcelables.TabParcelable

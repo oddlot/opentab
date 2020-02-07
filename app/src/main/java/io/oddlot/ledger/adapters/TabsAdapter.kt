@@ -2,7 +2,6 @@ package io.oddlot.ledger.adapters
 
 import android.content.Intent
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.*
 import io.oddlot.ledger.classes.Ledger
-import io.oddlot.ledger.classes.round
+import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Tab
 import io.oddlot.ledger.parcelables.TabParcelable
 import kotlinx.coroutines.CoroutineScope
