@@ -54,6 +54,16 @@ class GroupExpenseActivity : AppCompatActivity() {
         paGroupTab = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")
         Log.d(TAG, paGroupTab?.toString() ?: "aslkudhaskudh")
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        if (paGroupExpense == null) {
+            // Init fresh Activity for new expense
+            supportActionBar.apply {
+                title = resources.getString(R.string.actionbar_title_add_group_expense)
+            }
+            datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM-dd")
+        }
+
         intent.extras?.getInt("GROUP_EXPENSE_ID")?.let {
             // ViewModel
             CoroutineScope(IO).launch {
@@ -66,7 +76,7 @@ class GroupExpenseActivity : AppCompatActivity() {
                     members = db.memberDao().getMembersByTabId(tabId)
 
                     withContext(Main){
-                        datePicker.text = Utils.dateStringFromMillis(paGroupExpense?.date ?: Date().time, "yyyy/MM/dd")
+//                        datePicker.text = Utils.dateStringFromMillis(paGroupExpense?.date ?: Date().time, "yyyy/MM/dd")
                         // Initialize Payer Spinner
                         val adapter = ArrayAdapter<String>(
                             this@GroupExpenseActivity,
@@ -108,7 +118,6 @@ class GroupExpenseActivity : AppCompatActivity() {
         }
 
         // Toolbar
-        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
             title = if (groupExpense != null) {
                 resources.getString(R.string.actionbar_title_edit_group_expense)
