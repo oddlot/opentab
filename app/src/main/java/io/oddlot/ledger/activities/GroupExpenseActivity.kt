@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -56,13 +58,15 @@ class GroupExpenseActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        val uiJob = CoroutineScope(IO).launch {
-            members = db.memberDao().getMembersByTabId(tabId)
-            groupExpense = if (expenseId >= 0) db.groupExpenseDao().getGroupExpenseById(expenseId) else null
-            withContext(Main) {
-                payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
-                payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
+        val uiJob = CoroutineScope(Main).launch {
+            datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM/dd")
+
+            withContext(IO) {
+                members = db.memberDao().getMembersByTabId(tabId)
+                groupExpense = if (expenseId >= 0) db.groupExpenseDao().getGroupExpenseById(expenseId) else null
             }
+            payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
+            payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
         }
 
         if (paGroupExpense == null) {
@@ -70,7 +74,6 @@ class GroupExpenseActivity : AppCompatActivity() {
             supportActionBar.apply {
                 title = resources.getString(R.string.actionbar_title_add_group_expense)
             }
-            datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM/dd")
         }
 
         intent.extras?.getInt("GROUP_EXPENSE_ID")?.let {
@@ -125,6 +128,19 @@ class GroupExpenseActivity : AppCompatActivity() {
             viewModel.equalAllocation()
             payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+
+        menu!!.add("").apply {
+            icon = getDrawable(R.drawable.ic_check_white_24dp)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+
+        inflater.inflate(R.menu.ticket_overflow, menu)
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

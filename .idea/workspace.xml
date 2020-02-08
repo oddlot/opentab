@@ -13,38 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc087d52-0350-4a85-bf0a-1d1217226b64" name="Default Changelist" comment="&quot;Testing text color&quot;">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_volley_volley_1_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_analyzer_1_6_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_analyzer_1_6_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_android_1_6_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_android_1_6_3_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ledger.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Ledger.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/AddGroupExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/AddGroupExpenseActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditGroupExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditGroupExpenseActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/IndividualTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/IndividualTabActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/AllocationAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/AllocationAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/GroupExpensesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/GroupExpensesAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_circle_green_64dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_add_circle_green_64dp.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -88,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="77" column="39" lean-forward="true" selection-start-line="77" selection-start-column="39" selection-end-line="77" selection-end-column="39" />
+            <state relative-caret-position="343">
+              <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -97,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="641">
+              <caret line="48" column="62" lean-forward="true" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="62" />
               <folding>
                 <element signature="e#38#588#0" expanded="true" />
               </folding>
@@ -242,7 +211,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/GroupExpensesAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/IndividualTabActivity.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/AllocationAdapter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" />
@@ -250,6 +218,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditGroupExpenseActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/AddGroupExpenseActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" />
       </list>
     </option>
@@ -981,13 +950,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/AllocationAdapter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
@@ -1044,10 +1006,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/AllocationAdapter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
+          <caret line="14" column="23" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/GroupExpenseViewModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="48" column="62" lean-forward="true" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="62" />
           <folding>
             <element signature="e#38#588#0" expanded="true" />
           </folding>
@@ -1056,8 +1025,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="77" column="39" lean-forward="true" selection-start-line="77" selection-start-column="39" selection-end-line="77" selection-end-column="39" />
+        <state relative-caret-position="343">
+          <caret line="67" column="9" lean-forward="true" selection-start-line="67" selection-start-column="9" selection-end-line="67" selection-end-column="9" />
         </state>
       </provider>
     </entry>
