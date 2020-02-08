@@ -40,80 +40,73 @@ class GroupExpenseActivity : AppCompatActivity() {
     private var paGroupExpense: GroupExpenseParcelable? = null
     private var paGroupTab: TabParcelable? = null
     private lateinit var viewModel: GroupExpenseViewModel
-    private var tabId: Int = 0
+    private var tabId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_expense)
 
         // Extras
-        tabId = intent.getIntExtra("GROUP_TAB_ID", 0)
+        tabId = intent.getIntExtra("GROUP_TAB_ID", -1)
+        val expenseId = intent.extras?.getInt("GROUP_EXPENSE_ID") ?: -1
 
         // Parcelable
         paGroupExpense = intent.extras?.getParcelable("GROUP_EXPENSE_PARCELABLE")
         paGroupTab = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")
-        Log.d(TAG, paGroupTab?.toString() ?: "aslkudhaskudh")
 
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        val uiJob = CoroutineScope(IO).launch {
+            members = db.memberDao().getMembersByTabId(tabId)
+            groupExpense = if (expenseId >= 0) db.groupExpenseDao().getGroupExpenseById(expenseId) else null
+            withContext(Main) {
+                payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
+                payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
+            }
+        }
 
         if (paGroupExpense == null) {
             // Init fresh Activity for new expense
             supportActionBar.apply {
                 title = resources.getString(R.string.actionbar_title_add_group_expense)
             }
-            datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM-dd")
+            datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM/dd")
         }
 
         intent.extras?.getInt("GROUP_EXPENSE_ID")?.let {
             // ViewModel
             CoroutineScope(IO).launch {
-                groupExpense = db.groupExpenseDao().getGroupExpenseById(it)
+
                 viewModel = ViewModelProviders
                     .of(this@GroupExpenseActivity, GroupItemViewModelFactory(tabId, groupExpense))
                     .get(GroupExpenseViewModel::class.java)
             }.invokeOnCompletion {
-                CoroutineScope(IO).launch {
-                    members = db.memberDao().getMembersByTabId(tabId)
+                // Initialize Payer Spinner
+                val adapter = ArrayAdapter<String>(
+                    this@GroupExpenseActivity,
+                    android.R.layout.simple_spinner_item,
+                    members.map { it.name }.toTypedArray() // Member[] > String[]
+                )
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                paidBySpinner.adapter = adapter
+                paidBySpinner.setSelection(members.map { it.id }.indexOf(0))
 
-                    withContext(Main){
-//                        datePicker.text = Utils.dateStringFromMillis(paGroupExpense?.date ?: Date().time, "yyyy/MM/dd")
-                        // Initialize Payer Spinner
-                        val adapter = ArrayAdapter<String>(
-                            this@GroupExpenseActivity,
-                            android.R.layout.simple_spinner_item,
-                            members.map { it.name }.toTypedArray()
-                        )
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        paidBySpinner.adapter = adapter
-                        paidBySpinner.setSelection(members.map { it.id }.indexOf(0))
+                paGroupExpense?.let {
+                    // Bind ViewModel
+                    amountPaid.text = SpannableStringBuilder(it.amountPaid.toString())
+                    paidBySpinner.setSelection(members.map { it.id }.indexOf(it.payerId))
 
-                        paGroupExpense?.let {
-                            // Bind ViewModel
-                            amountPaid.text = SpannableStringBuilder(it.amountPaid.toString())
-                            paidBySpinner.setSelection(members.map { it.id }.indexOf(it.payerId))
-
-                            paidBySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-                                override fun onNothingSelected(p0: AdapterView<*>?) {
-                                }
-
-                                override fun onItemSelected(adapter: AdapterView<*>?, v: View?, i: Int, p3: Long) {
-                                    viewModel.payer.value = members[i]
-                                }
-
-                            }
-                            editDescription.text = SpannableStringBuilder(it.description)
-                            payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
-                            payeeAllocation.adapter = AllocationAdapter(viewModel, members, viewModel.allocation.value!!)
-
-                            // Observers
-                            viewModel.allocation.observe(this@GroupExpenseActivity, Observer {
-//                                payeeAllocation.adapter!!.notifyDataSetChanged()
-                            })
+                    paidBySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(p0: AdapterView<*>?) {
                         }
+
+                        override fun onItemSelected(adapter: AdapterView<*>?, v: View?, i: Int, p3: Long) {
+                            viewModel.payer.value = members[i]
+                        }
+
                     }
+                    editDescription.text = SpannableStringBuilder(it.description)
                 }
-
-
             }
         }
 

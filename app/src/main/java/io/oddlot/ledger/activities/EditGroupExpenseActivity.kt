@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.AllocationAdapter
 import io.oddlot.ledger.utils.Utils
-import io.oddlot.ledger.classes.deserialize
+import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member

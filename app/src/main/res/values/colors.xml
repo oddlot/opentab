@@ -9,5 +9,5 @@
     <color name="colorTeal">#27DB91</color>
     <color name="defaultWhite">#FAFAFA</color>
     <color name="darkWhite">#E2E2E2</color>
-    <color name="colorWatermelon">#FF7575</color>
+    <color name="watermelon">#FF7575</color>
 </resources>

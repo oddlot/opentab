@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.*
-import io.oddlot.ledger.classes.Ledger
+import io.oddlot.ledger.Ledger
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Tab
 import io.oddlot.ledger.parcelables.TabParcelable

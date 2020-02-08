@@ -23,7 +23,7 @@ import io.oddlot.ledger.adapters.ItemsAdapter
 import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
-import io.oddlot.ledger.classes.reqCodes
+import io.oddlot.ledger.reqCodes
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.utils.commatize
 import kotlinx.android.synthetic.main.activity_individual_tab.*

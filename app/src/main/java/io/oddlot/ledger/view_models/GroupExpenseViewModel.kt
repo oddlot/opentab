@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.classes.Allocation
-import io.oddlot.ledger.classes.deserialize
+import io.oddlot.ledger.Allocation
+import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
@@ -49,8 +49,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
             var _payees: List<Member> = listOf<Member>() // []
 
             CoroutineScope(Dispatchers.IO).launch {
-                var alloc = groupExpense?.allocation?.deserialize()
-                _payees = alloc?.keys!!.map {
+                _payees = allocation.value!!.keys.map {
                     db.memberDao().getMemberById(it)
                 }
 

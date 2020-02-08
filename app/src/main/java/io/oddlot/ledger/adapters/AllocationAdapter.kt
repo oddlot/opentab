@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.classes.Allocation
+import io.oddlot.ledger.Allocation
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.view_models.GroupExpenseViewModel
 import kotlinx.coroutines.*

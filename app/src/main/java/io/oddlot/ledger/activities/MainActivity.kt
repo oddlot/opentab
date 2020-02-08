@@ -13,7 +13,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
-import io.oddlot.ledger.classes.App
+import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*

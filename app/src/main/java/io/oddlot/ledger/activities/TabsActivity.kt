@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.RequestQueue
-import io.oddlot.ledger.classes.App
+import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.TabsAdapter
 import io.oddlot.ledger.view_models.TabsViewModel

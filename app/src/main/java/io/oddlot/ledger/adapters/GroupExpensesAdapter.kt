@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.GroupExpenseActivity
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.utils.Utils
-import io.oddlot.ledger.classes.deserialize
+import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.commatize
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
@@ -82,9 +83,10 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
         holder.view.findViewById<TextView>(R.id.amount).apply {
             text = groupExpense.amount.commatize()
             setTextColor(
-//                if (groupExpense.amount > 0.0) ContextCompat.getColor(context, R.color.colorWatermelon)
-                if (groupExpense.amount > 0.0) Color.CYAN
-                else (resources.getColor(android.R.color.holo_red_dark))
+                ContextCompat.getColor(
+                    context,
+                    if (groupExpense.amount > 0.0) R.color.watermelon else R.color.appTheme
+                )
             )
         }
 

@@ -15,8 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.GroupExpensesAdapter
-import io.oddlot.ledger.classes.*
-import io.oddlot.ledger.classes.Ledger
+import io.oddlot.ledger.*
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.Utils
