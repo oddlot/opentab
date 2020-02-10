@@ -43,8 +43,6 @@ class GroupTabActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_tab_dark)
 
-        val rmv = RedManView(this)
-
         // Member Variables
         mParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
 
