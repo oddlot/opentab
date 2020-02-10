@@ -95,15 +95,15 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
             val intent = Intent(it.context, GroupExpenseActivity::class.java)
 
             intent.putExtra("GROUP_EXPENSE_ID", groupExpense.id)
+            intent.putExtra("GROUP_TAB_ID", groupExpense.tabId)
             intent.putExtra("GROUP_EXPENSE_PARCELABLE", GroupExpenseParcelable(
                 groupExpense.id!!,
                 groupExpense.payerId,
                 groupExpense.amount,
                 groupExpense.date,
-                groupExpense.description
+                groupExpense.description,
+                groupExpense.tabId
             ))
-
-            intent.putExtra("GROUP_TAB_ID", groupExpense.tabId)
 
             CoroutineScope(IO).launch {
                 val tab = db.tabDao().get(groupExpense.tabId)

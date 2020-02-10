@@ -3,7 +3,6 @@ package io.oddlot.ledger.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -13,7 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.R
@@ -42,18 +40,18 @@ class GroupExpenseActivity : AppCompatActivity() {
     private var paGroupExpense: GroupExpenseParcelable? = null
     private var paGroupTab: TabParcelable? = null
     private lateinit var viewModel: GroupExpenseViewModel
-    private var tabId: Int = -1
+    private var mTabId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_expense)
 
         // Extras
-        tabId = intent.getIntExtra("GROUP_TAB_ID", -1)
         val expenseId = intent.extras?.getInt("GROUP_EXPENSE_ID") ?: -1
+        mTabId = intent.extras?.getInt("GROUP_TAB_ID") ?: -1
 
         // Parcelable
-        paGroupExpense = intent.extras?.getParcelable("GROUP_EXPENSE_PARCELABLE")
+        paGroupExpense = intent.extras!!.getParcelable("GROUP_EXPENSE_PARCELABLE")
         paGroupTab = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")
 
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -62,7 +60,7 @@ class GroupExpenseActivity : AppCompatActivity() {
             datePicker.text = Utils.dateStringFromMillis(Date().time, "yyyy/MM/dd")
 
             withContext(IO) {
-                members = db.memberDao().getMembersByTabId(tabId)
+                members = db.memberDao().getMembersByTabId(mTabId)
                 groupExpense = if (expenseId >= 0) db.groupExpenseDao().getGroupExpenseById(expenseId) else null
             }
             payeeAllocation.layoutManager = LinearLayoutManager(this@GroupExpenseActivity)
@@ -81,7 +79,7 @@ class GroupExpenseActivity : AppCompatActivity() {
             CoroutineScope(IO).launch {
 
                 viewModel = ViewModelProviders
-                    .of(this@GroupExpenseActivity, GroupItemViewModelFactory(tabId, groupExpense))
+                    .of(this@GroupExpenseActivity, GroupItemViewModelFactory(mTabId, groupExpense))
                     .get(GroupExpenseViewModel::class.java)
             }.invokeOnCompletion {
                 // Initialize Payer Spinner
@@ -147,8 +145,8 @@ class GroupExpenseActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> { // home
                 CoroutineScope(IO).launch {
-                    val tab = db.tabDao().get(tabId)
-                    val parcelable = TabParcelable(tabId, tab.name, tab.currency)
+                    val tab = db.tabDao().get(mTabId)
+                    val parcelable = TabParcelable(mTabId, tab.name, tab.currency)
                     NavUtils.navigateUpTo(this@GroupExpenseActivity, intent.putExtra("GROUP_TAB_PARCELABLE", parcelable))
                 }
 

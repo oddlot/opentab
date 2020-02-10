@@ -22,6 +22,7 @@ import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.view_models.GroupTabViewModel
 import io.oddlot.ledger.view_models.GroupTabViewModelFactory
+import io.oddlot.ledger.views.RedManView
 import kotlinx.android.synthetic.main.activity_group_tab.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
@@ -41,6 +42,8 @@ class GroupTabActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_tab_dark)
+
+        val rmv = RedManView(this)
 
         // Member Variables
         mParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
