@@ -22,7 +22,6 @@ import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.view_models.GroupTabViewModel
 import io.oddlot.ledger.view_models.GroupTabViewModelFactory
-import io.oddlot.ledger.views.RedManView
 import kotlinx.android.synthetic.main.activity_group_tab.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO

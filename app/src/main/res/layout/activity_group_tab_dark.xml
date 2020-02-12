@@ -22,8 +22,7 @@
             android:paddingStart="18dp"
             android:paddingEnd="0dp" >
 
-        <io.oddlot.ledger.views.RedManView
-                android:background="@android:color/holo_blue_bright"
+        <io.oddlot.ledger.RedManView
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
 
