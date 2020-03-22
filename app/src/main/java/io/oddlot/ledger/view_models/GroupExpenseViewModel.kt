@@ -9,34 +9,55 @@ import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlin.concurrent.thread
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlin.math.ceil
 
-class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = null): ViewModel() {
+private const val TAG = "GROUP EXPENSE VIEW MODEL"
+
+class GroupExpenseViewModel(private val groupExpense: GroupExpense? = null): ViewModel() {
+
+    init {
+        groupExpense?.let {
+            fromGroupExpense(it)
+        }
+    }
+
+    private fun fromGroupExpense(groupExpense: GroupExpense) {
+        this.date = groupExpense.date
+        this.amountPaid.value = groupExpense.amount
+        this.payer.value = db.memberDao().getMemberById(this.payerId)
+        this.description.value = groupExpense.description ?: ""
+        this.allocation.value = groupExpense.allocation?.deserialize() ?: Allocation()
+    }
 
     val description: MutableLiveData<String> by lazy {
         MutableLiveData<String>().also {
-            it.value = groupExpense?.description ?: ""
+            it.value = ""
         }
     }
 
-    val date: MutableLiveData<Long> by lazy {
-        MutableLiveData<Long>()
-    }
+    var date: Long = groupExpense?.date ?: 0
 
     val allocation: MutableLiveData<Allocation> by lazy {
         MutableLiveData<Allocation>().also {
-            it.value = groupExpense?.allocation?.deserialize() ?: Allocation()
+            it.value = Allocation()
         }
     }
 
-    val payer: MutableLiveData<Member> by lazy {
-        MutableLiveData<Member>()
+    val payer: MutableLiveData<Member> = MutableLiveData<Member>().also {
+        var payer: Member
+        CoroutineScope(IO).launch {
+            payer = db.memberDao().getMemberById(0)
+
+            withContext(Main) {
+                it.value = payer
+            }
+        }
     }
+
+    var payerId: Int = 0
 
     val amountPaid: MutableLiveData<Double> by lazy {
         MutableLiveData<Double>().also {
@@ -44,7 +65,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
         }
     }
 
-    val payees: MutableLiveData<List<Member>> by lazy {
+    val livePayees: MutableLiveData<List<Member>> by lazy {
         MutableLiveData<List<Member>>().also {
             var _payees: List<Member> = listOf<Member>() // []
 
@@ -60,6 +81,8 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
         }
     }
 
+    var payees: List<Member> = listOf()
+
     fun allocated(): Double {
         var amount = 0.0
 
@@ -72,7 +95,7 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
 
     fun unallocated(): Double = amountPaid.value!!.minus(allocated()).round(2)
 
-    fun equalAllocation(payees: List<Member> = this.payees.value!!): Allocation {
+    fun equalAllocation(payees: List<Member> = this.livePayees.value!!): Allocation {
         val allocation = Allocation()
         allocation.payees = payees.toMutableSet()
 
@@ -97,46 +120,15 @@ class GroupExpenseViewModel(val tabId: Int, val groupExpense: GroupExpense? = nu
         return allocation
     }
 
-    // Create and insert new Group Item
-    fun submit(): GroupExpense {
-        val groupItem = GroupExpense(
-            null,
-            tabId = tabId,
-            payerId = payer.value!!.id!!,
-            amount = amountPaid.value!!,
-            description = description.value,
-            date = date.value!!,
-            allocation = allocation.value!!.serialize()
-        ).also {
-            thread {
-                db.groupExpenseDao().insert(it)
-            }
-        }
-
-        return groupItem
-    }
-
-    fun stage(groupItemId: Int? = null): GroupExpense {
-        return GroupExpense(
-            id = groupItemId,
-            tabId = tabId,
-            payerId = payer.value!!.id!!,
-            amount = amountPaid.value!!,
-            description = description.value,
-            date = date.value!!,
-            allocation = allocation.value!!.serialize()
-        )
-    }
-
     fun update(groupExpense: GroupExpense) {
         db.groupExpenseDao().updateGroupItem(groupExpense)
     }
 }
 
-class GroupItemViewModelFactory(var tabId: Int, var groupExpense: GroupExpense? = null) : ViewModelProvider.Factory {
+class GroupExpenseViewModelFactory(var groupExpense: GroupExpense? = null) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(GroupExpenseViewModel::class.java)) {
-            GroupExpenseViewModel(tabId, groupExpense) as T
+            GroupExpenseViewModel(groupExpense) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }

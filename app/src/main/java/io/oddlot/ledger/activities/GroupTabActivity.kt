@@ -30,9 +30,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
-
 class GroupTabActivity: AppCompatActivity() {
-    private val TAG = "GROUP_TAB_ACTIVITYZZZ"
+    private val TAG = "GROUP TAB ACTIVITY"
     private lateinit var mParcelable: TabParcelable
     private lateinit var mGroupTab: GroupTabViewModel
     private var mLedger: Ledger? = null
@@ -152,12 +151,16 @@ class GroupTabActivity: AppCompatActivity() {
 //                imm.showSoftInput(it, InputMethodManager.SHOW_IMPLICIT) // Does not work
         }
 
-        // FAB
-        addGroupItemFab.setOnClickListener {
-//            val intent = Intent(this, AddGroupExpenseActivity::class.java)
+        // Add New Group Expense
+        newGroupExpense.setOnClickListener {
             val intent = Intent(this, GroupExpenseActivity::class.java)
-            intent.putExtra("GROUP_TAB_PARCELABLE", mParcelable)
-            intent.putExtra("GROUP_TAB_ID", mParcelable.id)
+
+            var extras = Bundle().apply {
+                putParcelable("GROUP_TAB_PARCELABLE", mParcelable)
+                putInt("GROUP_TAB_ID", mParcelable.id)
+            }
+            Log.d(TAG, extras.toString())
+            intent.putExtras(extras)
             startActivity(intent)
         }
     }

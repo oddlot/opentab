@@ -2,6 +2,7 @@ package io.oddlot.ledger.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.oddlot.ledger.Allocation
 import io.oddlot.ledger.activities.db
 
 @Entity
@@ -11,11 +12,11 @@ data class GroupExpense(
     @ForeignKey(entity = Tab::class, parentColumns = ["id"], childColumns = ["tabId"])
     var tabId: Int,
     @ForeignKey(entity = Member::class, parentColumns = ["id"], childColumns = ["payerId"])
-    var payerId: Int,
-    var amount: Double,
+    var payerId: Int = -1,
+    var amount: Double = 0.0,
     var date: Long = System.currentTimeMillis(),
     var description: String? = null,
-    var allocation: String? = null
+    var allocation: String? = Allocation().serialize()
 ) : Comparable<GroupExpense> {
     override fun compareTo(other: GroupExpense): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
