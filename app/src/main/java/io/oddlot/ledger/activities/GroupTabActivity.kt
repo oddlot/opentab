@@ -32,20 +32,20 @@ import kotlin.concurrent.thread
 
 class GroupTabActivity: AppCompatActivity() {
     private val TAG = "GROUP TAB ACTIVITY"
-    private lateinit var mParcelable: TabParcelable
-    private lateinit var mGroupTab: GroupTabViewModel
+    private lateinit var groupTabParcelable: TabParcelable
+    private lateinit var groupTabVM: GroupTabViewModel
     private var mLedger: Ledger? = null
-    private var mMembers: List<Member>? = null
+    private var groupMembers: List<Member>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_tab_dark)
 
         // Member Variables
-        mParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
+        groupTabParcelable = intent.getParcelableExtra("GROUP_TAB_PARCELABLE")!!
 
         CoroutineScope(IO).launch {
-            mMembers = db.memberDao().getMembersByTabId(mParcelable.id)
+            groupMembers = db.memberDao().getMembersByTabId(groupTabParcelable.id)
         }
 
         // Toolbar
@@ -74,30 +74,30 @@ class GroupTabActivity: AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                mGroupTab.currency.value = currencies[position]
+                groupTabVM.currency.value = currencies[position]
                 CoroutineScope(IO).launch {
-                    db.tabDao().setCurrency(mParcelable.id, currencies[position])
+                    db.tabDao().setCurrency(groupTabParcelable.id, currencies[position])
                 }
             }
 
         }
 
         // ViewModels
-        mGroupTab = ViewModelProviders
-            .of(this@GroupTabActivity, GroupTabViewModelFactory(mParcelable.id))
+        groupTabVM = ViewModelProviders
+            .of(this@GroupTabActivity, GroupTabViewModelFactory(groupTabParcelable.id))
             .get(GroupTabViewModel::class.java)
 
         // Observers
-        mGroupTab.memberships.observe(this@GroupTabActivity, Observer {
+        groupTabVM.memberships.observe(this@GroupTabActivity, Observer {
             CoroutineScope(IO).launch {
-                mMembers = db.memberDao().getMembersByTabId(mParcelable.id)
+                groupMembers = db.memberDao().getMembersByTabId(groupTabParcelable.id)
                 withContext(Main) {
-                    tabMembers.text = mMembers?.map { it.name }!!.joinToString(", ")
+                    tabMembers.text = groupMembers?.map { it.name }!!.joinToString(", ")
                 }
             }
         })
 
-        mGroupTab.items.observe(this@GroupTabActivity, Observer { groupExpenses ->
+        groupTabVM.items.observe(this@GroupTabActivity, Observer { groupExpenses ->
             mLedger = null // reset ledger
             groupItemRecyclerView.layoutManager = LinearLayoutManager(this@GroupTabActivity)
             groupItemRecyclerView.adapter = GroupExpensesAdapter(groupExpenses).apply {
@@ -105,12 +105,12 @@ class GroupTabActivity: AppCompatActivity() {
             }
         })
 
-        mGroupTab.liveTab.observe(this@GroupTabActivity, Observer {
+        groupTabVM.liveTab.observe(this@GroupTabActivity, Observer {
 //            tabCurrency.text = it.currency // textview
         })
 
-        mGroupTab.currency.observe(this@GroupTabActivity, Observer {
-            val currencyIndex = resources.getStringArray(R.array.currencies).indexOf(mGroupTab.currency.value)
+        groupTabVM.currency.observe(this@GroupTabActivity, Observer {
+            val currencyIndex = resources.getStringArray(R.array.currencies).indexOf(groupTabVM.currency.value)
 
             currencySpinner.setSelection(currencyIndex)
         })
@@ -118,18 +118,18 @@ class GroupTabActivity: AppCompatActivity() {
         /**
          * UI
          */
-        tabName.text = mParcelable.name
+        tabName.text = groupTabParcelable.name
         CoroutineScope(IO).launch {
-            val currency = db.tabDao().get(mParcelable.id).currency
+            val currency = db.tabDao().get(groupTabParcelable.id).currency
             withContext(Main) {
-                mGroupTab.currency.value = currency
+                groupTabVM.currency.value = currency
             }
         }
 
         // Tab Summary
         tabName.setOnClickListener {
             CoroutineScope(Main).launch {
-                val ledger = mLedger ?: Ledger.getLedger(mParcelable.id).also { mLedger = it }
+                val ledger = mLedger ?: Ledger.getLedger(groupTabParcelable.id).also { mLedger = it }
 
                 val builder = AlertDialog.Builder(this@GroupTabActivity).apply {
                         setTitle("Summary")
@@ -156,8 +156,9 @@ class GroupTabActivity: AppCompatActivity() {
             val intent = Intent(this, GroupExpenseActivity::class.java)
 
             var extras = Bundle().apply {
-                putParcelable("GROUP_TAB_PARCELABLE", mParcelable)
-                putInt("GROUP_TAB_ID", mParcelable.id)
+                putParcelable("GROUP_TAB_PARCELABLE", groupTabParcelable)
+                putInt("GROUP_TAB_ID", groupTabParcelable.id)
+                putLis
             }
             Log.d(TAG, extras.toString())
             intent.putExtras(extras)
@@ -223,7 +224,7 @@ class GroupTabActivity: AppCompatActivity() {
                             else {
                                 thread {
 //                                    val tab = Tab(tabParcelable.id, tabNameInput.text.toString())
-                                    val tab = db.tabDao().get(mParcelable.id).also {
+                                    val tab = db.tabDao().get(groupTabParcelable.id).also {
                                         it.name = tabNameInput.text.toString()
                                     }
                                     db.tabDao().updateTab(tab)
@@ -252,7 +253,7 @@ class GroupTabActivity: AppCompatActivity() {
                     type = "text/csv"
                     putExtra(
                         Intent.EXTRA_TITLE,
-                        "${ mParcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
+                        "${ groupTabParcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
                     )
 
                     startActivityForResult(this, reqCodes.indexOf("CREATE_DOCUMENT")) // invokes onActivityResult()
@@ -317,8 +318,8 @@ class GroupTabActivity: AppCompatActivity() {
                         val memberId = member.id ?: db.memberDao().insert(member).toInt() // -1 if member exists
 
                         // Get existing membership or initialize new one
-                        val ms = db.membershipDao().getMembership(mParcelable.id, memberId)
-                            ?: Membership(null, mParcelable.id, memberId)
+                        val ms = db.membershipDao().getMembership(groupTabParcelable.id, memberId)
+                            ?: Membership(null, groupTabParcelable.id, memberId)
 
                         // ...insert new membership
                         db.membershipDao().insert(ms)
@@ -345,7 +346,7 @@ class GroupTabActivity: AppCompatActivity() {
     }
 
     private fun editMembersDialog() {
-        val members: Array<String> = mMembers!!.map { it.name }.toTypedArray()
+        val members: Array<String> = groupMembers!!.map { it.name }.toTypedArray()
         val selectedMembers = ArrayList<Int>()
         val checkedMembers = BooleanArray(members.size)
 
@@ -363,9 +364,9 @@ class GroupTabActivity: AppCompatActivity() {
             it.setPositiveButton("Remove") { dialog, which ->
                 CoroutineScope(IO).launch {
                     selectedMembers.forEach { index ->
-                        val memberToDelete = mMembers!![index]
+                        val memberToDelete = groupMembers!![index]
 
-                        db.membershipDao().delete(mParcelable.id, memberToDelete.id!!)
+                        db.membershipDao().delete(groupTabParcelable.id, memberToDelete.id!!)
                     }
                     mLedger = null // reset ledger so it can be recalculated
                 }

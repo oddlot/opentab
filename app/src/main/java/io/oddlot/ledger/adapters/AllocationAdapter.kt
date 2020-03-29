@@ -57,15 +57,15 @@ class AllocationAdapter(var vmGroupExpense: GroupExpenseViewModel, val members: 
 
         // Click listener
         nameView.setOnClickListener {
-            var _payees = vmGroupExpense.livePayees.value ?: listOf()
+            var _payees = vmGroupExpense.payees.value ?: listOf()
 
             if (payee in _payees) {
-                vmGroupExpense.livePayees.value = _payees.minus(payee)
+                vmGroupExpense.payees.value = _payees.minus(payee)
                 nameView.setBackgroundColor(white)
                 nameView.setTextColor(secondaryColor)
 
             } else {
-                vmGroupExpense.livePayees.value = _payees.plus(payee)
+                vmGroupExpense.payees.value = _payees.plus(payee)
                 nameView.setBackgroundColor(appColor)
                 nameView.setTextColor(white)
             }

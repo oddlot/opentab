@@ -36,15 +36,15 @@ class Ledger(tabId: Int?): HashMap<String, Double>() {
                 groupExpenses = db.groupExpenseDao().getGroupExpenseByTabId(tabId)
             }
 
-            groupExpenses?.forEach { item ->
+            groupExpenses?.forEach { groupExpense ->
                 // Get item allocation
-                val dsrMap = item.allocation!!.deserialize() // { 1=28.0, 3=28.0 }
+                val dsrMap = groupExpense.allocation!!.deserialize() // { 1=28.0, 3=28.0 }
 
                 withContext(IO) {
                     // Update paid amounts
-                    val payer = db.memberDao().getMemberById(item.payerId)
+                    val payer = db.memberDao().getMemberById(groupExpense.payerId)
                     if (payer.name in ledger.keys) {
-                        ledger[payer.name] = ledger[payer.name]!!.minus(item.amount)
+                        ledger[payer.name] = ledger[payer.name]!!.minus(groupExpense.amount)
                     }
 
                     // Update owed amounts
@@ -68,11 +68,11 @@ class Ledger(tabId: Int?): HashMap<String, Double>() {
         var textString = ""
 
         this.forEach {
-            val isOwedOrNot = it.value?.let { amount ->
+            val isOwedOrNot = it.value.let { amount ->
                 if (amount < 0.0) "is owed" else "owes"
             }
 
-            textString += "${it.key} $isOwedOrNot ${it.value?.absoluteValue?.round(2)}\n"
+            textString += "${it.key} $isOwedOrNot ${it.value.absoluteValue.round(2)}\n"
         }
 
         view.text = textString

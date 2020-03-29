@@ -2,6 +2,7 @@ package io.oddlot.ledger.parcelables
 
 import android.os.Parcel
 import android.os.Parcelable
+import io.oddlot.ledger.data.Member
 
 
 class GroupTabParcelable(

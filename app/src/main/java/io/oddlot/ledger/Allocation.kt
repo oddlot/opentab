@@ -45,21 +45,20 @@ class Allocation(var payees: MutableSet<Member> = mutableSetOf()) : HashMap<Int,
         }
     }
 
-    /* Convert Allocation tp JSON string */
+    /* Convert Allocation object to JSON string */
     fun serialize(): String = Gson().toJson(this)
-
 }
 
-/* Convert JSON mapping/string to Allocation */
+/* Convert JSON string to Allocation object */
 fun <T: String?> T.deserialize(): Allocation {
     val type = object: TypeToken<Allocation>() {}.type
 
-    return Gson().fromJson<Allocation>(this, type)
+    return Gson().fromJson(this, type)
 }
 
 // Alternatively
-inline fun <reified T> String.deserialize(): T {
-    val type = object: TypeToken<T>() {}.type
-
-    return Gson().fromJson<T>(this, type)
-}
+//inline fun <reified T> String.deserialize(): T {
+//    val type = object: TypeToken<T>() {}.type
+//
+//    return Gson().fromJson<T>(this, type)
+//}
