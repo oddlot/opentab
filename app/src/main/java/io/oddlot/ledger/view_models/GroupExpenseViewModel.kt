@@ -121,7 +121,7 @@ class GroupExpenseViewModel(private val groupExpense: GroupExpense? = null, val 
     }
 }
 
-class GroupExpenseViewModelFactory(var groupExpense: GroupExpense? = null, val memberIds: List<Int>?) : ViewModelProvider.Factory {
+class GroupExpenseViewModelFactory(var groupExpense: GroupExpense? = null, val memberIds: List<Int>? = null) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(GroupExpenseViewModel::class.java)) {
             GroupExpenseViewModel(groupExpense, memberIds) as T

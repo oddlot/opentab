@@ -31,7 +31,8 @@ import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
 
 class GroupTabActivity: AppCompatActivity() {
-    private val TAG = "GROUP TAB ACTIVITY"
+    private val TAG = this::class.java.simpleName
+
     private lateinit var groupTabParcelable: TabParcelable
     private lateinit var groupTabVM: GroupTabViewModel
     private var mLedger: Ledger? = null
@@ -158,7 +159,6 @@ class GroupTabActivity: AppCompatActivity() {
             var extras = Bundle().apply {
                 putParcelable("GROUP_TAB_PARCELABLE", groupTabParcelable)
                 putInt("GROUP_TAB_ID", groupTabParcelable.id)
-                putLis
             }
             Log.d(TAG, extras.toString())
             intent.putExtras(extras)

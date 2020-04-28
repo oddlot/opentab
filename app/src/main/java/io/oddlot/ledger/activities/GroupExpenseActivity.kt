@@ -37,14 +37,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class GroupExpenseActivity : AppCompatActivity() {
+    private val TAG = this::class.java.simpleName
+
     private lateinit var groupExpense: GroupExpense
     private lateinit var groupMembers: List<Member>
     private var groupExpenseParcelable: GroupExpenseParcelable? = null
     private var groupTabParcelable: TabParcelable? = null
     private lateinit var mViewModel: GroupExpenseViewModel
     private var tabId: Int = -1
-
-    private val TAG = this::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
