@@ -15,7 +15,7 @@ import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.data.Expense
 import io.oddlot.ledger.parcelables.TabParcelable
-import kotlinx.android.synthetic.main.activity_add_item.*
+import kotlinx.android.synthetic.main.activity_create_expense.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -25,18 +25,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AddItemActivity : AppCompatActivity() {
+class CreateExpenseActivity : AppCompatActivity() {
     val TAG = "ADD_ITEM_ACTIVITY"
     lateinit var newExpense: Expense
     lateinit var mPaidBy: String
-    lateinit var itemDescription: String
+    lateinit var expenseDescription: String
     lateinit var itemDate: Date
     private lateinit var tabParcelable: TabParcelable
     private lateinit var mUsername: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_item)
+        setContentView(R.layout.activity_create_expense)
 
         /**
          * Member variables
@@ -69,7 +69,7 @@ class AddItemActivity : AppCompatActivity() {
             datePicker.text = dateString
 
             datePicker.setOnClickListener {
-                var dpd = DatePickerDialog(this@AddItemActivity)
+                var dpd = DatePickerDialog(this@CreateExpenseActivity)
                 dpd.setOnDateSetListener { view, year, month, day ->
                     // Set month and day string variables
                     var month = (month + 1).toString()
@@ -96,7 +96,7 @@ class AddItemActivity : AppCompatActivity() {
              * Payer Spinner
              */
             val paidBySpinner: Spinner = findViewById(R.id.paidBySpinner)
-            val adapter = ArrayAdapter<String>(this@AddItemActivity, android.R.layout.simple_spinner_item, arrayOf(mUsername, tabParcelable.name))
+            val adapter = ArrayAdapter<String>(this@CreateExpenseActivity, android.R.layout.simple_spinner_item, arrayOf(mUsername, tabParcelable.name))
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             paidBySpinner.adapter = adapter
             paidBySpinner.setSelection(0)
@@ -125,9 +125,9 @@ class AddItemActivity : AppCompatActivity() {
 
                     itemAmount = if (mPaidBy == mUsername) itemAmount else itemAmount * -1.0 // Convert to negative if not paid by owner
 //                    itemAmount = if (mPaidBy == "Debit") itemAmount else itemAmount * -1.0 // Convert to negative if "Credit"
-                    itemDescription = editDescription.text.toString()
+                    expenseDescription = editDescription.text.toString()
 
-                    newExpense = Expense(null, tabParcelable.id, itemAmount, itemDescription,
+                    newExpense = Expense(null, tabParcelable.id, itemAmount, expenseDescription,
                         Utils.millisFromDateString(
                             datePicker.text.toString(), "yyyy/MM/dd"
                         )
@@ -140,7 +140,7 @@ class AddItemActivity : AppCompatActivity() {
 
                 withContext(Main) {
                     // Redirect to Tab Activity
-                    Intent(this@AddItemActivity, IndividualTabActivity::class.java).apply {
+                    Intent(this@CreateExpenseActivity, TabActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         putExtra("TAB_PARCELABLE", tabParcelable)
                         startActivity(this)

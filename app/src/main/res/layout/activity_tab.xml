@@ -7,7 +7,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.IndividualTabActivity">
+        tools:context=".activities.TabActivity">
 
     <include
             android:id="@+id/toolbar"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USD"
-                android:textSize="28sp"
+                android:textSize="20sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tabName"
                 app:layout_constraintEnd_toStartOf="@+id/tabBalance"/>
 
