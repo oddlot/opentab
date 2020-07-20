@@ -40,20 +40,20 @@ class IndividualTabActivity : AppCompatActivity() {
     private val TAG = "INDIVIDUAL_TAB_ACTIVITY"
     private var mTabBalance = 0.0
     private var tabExpenses: MutableList<Expense> = mutableListOf()
-    private lateinit var mParcelable: TabParcelable
-    private lateinit var mTab: Tab
+    private lateinit var parcelable: TabParcelable
+    private lateinit var tab: Tab
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_individual_tab)
 
-        mParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
+        parcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
 
         // Init member variables
         CoroutineScope(IO).launch {
-            mTab = db.tabDao().get(mParcelable.id)
+            tab = db.tabDao().get(parcelable.id)
             tabExpenses = db.itemDao()
-                .getItemsByTabId(mParcelable.id)
+                .getItemsByTabId(parcelable.id)
                 .toMutableList()
             tabExpenses.sortDescending()
 
@@ -65,11 +65,11 @@ class IndividualTabActivity : AppCompatActivity() {
             balanceType.text = if (mTabBalance > 0.0) "owes" else if (mTabBalance < 0.0) "is owed" else ""
 
             // Update tab object and data views
-            db.tabDao().updateTabBalance(mParcelable.id, mTabBalance)
-            mTab = db.tabDao().get(mParcelable.id)
+            db.tabDao().updateTabBalance(parcelable.id, mTabBalance)
+            tab = db.tabDao().get(parcelable.id)
 
             withContext(Main) {
-                loadTabDataViews(mTab)
+                loadTabDataViews(tab)
                 loadItemsView(tabExpenses)
             }
         }
@@ -92,7 +92,7 @@ class IndividualTabActivity : AppCompatActivity() {
                 .show()
 
             Intent(this, AddItemActivity::class.java).also {
-                it.putExtra("TAB_PARCELABLE", mParcelable)
+                it.putExtra("TAB_PARCELABLE", parcelable)
                 startActivity(it)
                 // finish()
             }
@@ -103,7 +103,7 @@ class IndividualTabActivity : AppCompatActivity() {
         super.onRestart()
         Log.d(TAG, "Restarting activity")
 
-        mParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
+        parcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
     }
 
     override fun onResume() {
@@ -123,7 +123,7 @@ class IndividualTabActivity : AppCompatActivity() {
             reqCodes.indexOf("WRITE_EXTERNAL_STORAGE") -> {
                 data!!.putExtra(
                     "FILENAME",
-                    "${ mParcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }"
+                    "${ parcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }"
                 )
 
                 writeExportFile(data)
@@ -133,9 +133,9 @@ class IndividualTabActivity : AppCompatActivity() {
 
                 // Delete items
                 val deleteThread = thread {
-                    val tabItems = db.itemDao().getItemsByTabId(mParcelable.id)
+                    val tabItems = db.itemDao().getItemsByTabId(parcelable.id)
                     for (item in tabItems) db.itemDao().deleteItemById(item.id!!)
-                    db.tabDao().updateTabBalance(mParcelable.id, 0.0)
+                    db.tabDao().updateTabBalance(parcelable.id, 0.0)
                 }
 
                 deleteThread.join()
@@ -177,7 +177,7 @@ class IndividualTabActivity : AppCompatActivity() {
                     type = "text/csv"
                     this.putExtra(
                         Intent.EXTRA_TITLE,
-                        "${ mParcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
+                        "${ parcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
                     )
                     // Launch Content Provider
                     startActivityForResult(this, reqCodes.indexOf("CREATE_DOCUMENT")) // invokes onActivityResult()
@@ -215,8 +215,8 @@ class IndividualTabActivity : AppCompatActivity() {
                         thread {
                             Looper.prepare()
                             val selectedCurrency = currencies[which].also {
-                                db.tabDao().setCurrency(mParcelable.id, it)
-                                mTab.currency = it
+                                db.tabDao().setCurrency(parcelable.id, it)
+                                tab.currency = it
                             }
                             runOnUiThread {
                                 tabCurrency.text = selectedCurrency
@@ -241,7 +241,7 @@ class IndividualTabActivity : AppCompatActivity() {
                         setMargins(60, 50, 60, 0)
                     }
                     showSoftInputOnFocus = true
-                    text = SpannableStringBuilder(mTab.name)
+                    text = SpannableStringBuilder(tab.name)
                 }
                 val container = FrameLayout(this)
                 container.addView(tabNameInput)
@@ -255,7 +255,7 @@ class IndividualTabActivity : AppCompatActivity() {
                             if (tabNameInput.text.isBlank() or (inputText.length > 15))
                                 throw IllegalArgumentException("Name is missing or too long")
                             else {
-                                val newTab = Tab(mParcelable.id, tabNameInput.text.toString(), 0.0)
+                                val newTab = Tab(parcelable.id, tabNameInput.text.toString(), 0.0)
                                 thread {
                                     db.tabDao().updateTab(newTab)
 
@@ -291,12 +291,12 @@ class IndividualTabActivity : AppCompatActivity() {
                                 // Insert closing transaction
                                 thread {
                                     db.itemDao().insert(
-                                        Expense(null, mParcelable.id, mTab.balance * -1.0, "Closing", Date().time)
+                                        Expense(null, parcelable.id, tab.balance * -1.0, "Closing", Date().time)
                                     )
                                 }
 
                                 type = "text/csv"
-                                putExtra(Intent.EXTRA_TITLE, "${mParcelable.name} (closed).csv")
+                                putExtra(Intent.EXTRA_TITLE, "${parcelable.name} (closed).csv")
 
                                 // Invoke onActivityResult()
                                 startActivityForResult(this, reqCodes.indexOf("CLOSE_TAB"))
@@ -327,8 +327,8 @@ class IndividualTabActivity : AppCompatActivity() {
 //            tab.balance < 0.0 -> tabBalanceTypeView.text = "...is owed"
 //            else -> tabBalanceTypeView.text = ""
 //        }
-        tabName.text = mParcelable.name
-        tabCurrency.text = mParcelable.currency
+        tabName.text = parcelable.name
+        tabCurrency.text = parcelable.currency
         tabBalance.text = if (tab.balance >= 0.0) "${tab.balance.commatize()}" else "${(tab.balance * -1.0).commatize()}"
         if (tab.balance < 0.0) tabBalance.setTextColor(getColor(R.color.appTheme))
     }
@@ -337,7 +337,7 @@ class IndividualTabActivity : AppCompatActivity() {
 
         // Export to CSV
         contentResolver.openOutputStream(data!!.data!!, "w").use {
-            it!!.write("${ mParcelable.name }\n".toByteArray())
+            it!!.write("${ parcelable.name }\n".toByteArray())
             it.write("Date,Description,Amount\n".toByteArray())
             val sortedList = tabExpenses.toMutableList().apply { sort() }
 
@@ -371,7 +371,7 @@ class IndividualTabActivity : AppCompatActivity() {
 
                     val item = Expense(
                         null,
-                        tabId = mParcelable.id,
+                        tabId = parcelable.id,
                         amount = rowItem[2].toDouble(),
                         description = rowItem[1].removeSurrounding("\""),
                         date = Utils.millisFromDateString(rowItem[0])
@@ -386,15 +386,15 @@ class IndividualTabActivity : AppCompatActivity() {
                     }
                 }
 
-                tabExpenses = db.itemDao().getItemsByTabId(mParcelable.id).toMutableList()
+                tabExpenses = db.itemDao().getItemsByTabId(parcelable.id).toMutableList()
                 tabExpenses.sortDescending()
 
-                db.tabDao().updateTabBalance(mParcelable.id, mTabBalance)
-                mTab = db.tabDao().get(mParcelable.id)
+                db.tabDao().updateTabBalance(parcelable.id, mTabBalance)
+                tab = db.tabDao().get(parcelable.id)
 
                 runOnUiThread {
                     Toast.makeText(this, "Items Restored!", Toast.LENGTH_LONG).show()
-                    loadTabDataViews(mTab)
+                    loadTabDataViews(tab)
                     loadItemsView(tabExpenses)
                 }
                 it.close()
