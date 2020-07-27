@@ -7,6 +7,16 @@
         android:layout_height="match_parent"
         tools:context=".activities.EditItemActivity">
 
+    <TextView
+            android:id="@+id/txnTypeLabel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="96dp"
+            android:text="Type"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_home" />
@@ -48,6 +58,30 @@
             android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@android:color/black" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/txnTypeSwitch"
+            app:layout_constraintTop_toTopOf="@id/txnTypeSwitch"
+            android:paddingTop="4dp"
+            android:text="Paid"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/txnTypeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemDateLabel"
+            app:layout_constraintTop_toTopOf="@id/datePicker" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/txnTypeSwitch"
+            app:layout_constraintTop_toTopOf="@id/txnTypeSwitch"
+            android:paddingTop="4dp"
+            android:text="Owes"/>
 
     <TextView
             android:id="@+id/amountLabel"

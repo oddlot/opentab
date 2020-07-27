@@ -37,7 +37,7 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme" />
         <activity
-                android:name=".activities.IndividualTabActivity"
+                android:name=".activities.TabActivity"
                 android:configChanges="orientation"
                 android:label=""
                 android:parentActivityName=".activities.MainActivity"
@@ -52,7 +52,7 @@
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".activities.AddItemActivity"
+                android:name=".activities.ExpenseActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait" />
         <activity
@@ -68,7 +68,7 @@
         <activity
                 android:name=".activities.EditItemActivity"
                 android:configChanges="orientation"
-                android:parentActivityName=".activities.IndividualTabActivity"
+                android:parentActivityName=".activities.TabActivity"
                 android:screenOrientation="portrait" />
         <activity
                 android:name=".activities.EditGroupExpenseActivity"

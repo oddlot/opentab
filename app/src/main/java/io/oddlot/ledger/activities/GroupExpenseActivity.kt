@@ -97,7 +97,7 @@ class GroupExpenseActivity : AppCompatActivity() {
 
                 true
             }
-            0 -> { // submit
+            0 -> { // Submit
                 try {
                     if (mViewModel.amountPaid.value == 0.0 || mViewModel.unallocated() != 0.0) {
                         Log.d(TAG, mViewModel.amountPaid.value.toString() + mViewModel.unallocated().toString())

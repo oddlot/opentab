@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.activities.EditItemActivity
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.IndividualTabActivity
+import io.oddlot.ledger.activities.TabActivity
 import io.oddlot.ledger.parcelables.ItemParcelable
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.utils.Utils
@@ -29,7 +29,7 @@ import java.util.*
 import kotlin.concurrent.thread
 
 
-class ItemsAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
+class ExpensesAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0) : RecyclerView.Adapter<ExpensesAdapter.ExpenseViewHolder>() {
 //class ItemsAdapter(var items: JSONArray) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
     private val TAG = "ITEMS_ADAPTER"
     private lateinit var tabParcelable: TabParcelable
@@ -40,14 +40,14 @@ class ItemsAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0
 //    override fun getItemCount(): Int = items.length()
     override fun getItemCount(): Int = expenses.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.layout_item_row_2, parent, false)
 
-        return ItemViewHolder(view)
+        return ExpenseViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         // Item Data
         val item = expenses[position]
         val itemTabId = item.tabId
@@ -149,7 +149,7 @@ class ItemsAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0
                     db.itemDao().deleteItemById(itemId!!)
                     Toast.makeText(it.context, "Item deleted", Toast.LENGTH_LONG).show()
 
-                    val intent = Intent(it.context, IndividualTabActivity::class.java)
+                    val intent = Intent(it.context, TabActivity::class.java)
                     intent.putExtra("TAB_PARCELABLE", tabParcelable)
                     startActivity(it.context, intent,null)
 
@@ -200,5 +200,5 @@ class ItemsAdapter(var expenses: List<Expense>, startingTabBalance: Double = 0.0
 
     }
 
-    class ItemViewHolder(val view: View): RecyclerView.ViewHolder(view)
+    class ExpenseViewHolder(val view: View): RecyclerView.ViewHolder(view)
 }

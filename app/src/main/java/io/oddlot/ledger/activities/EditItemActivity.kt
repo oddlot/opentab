@@ -11,7 +11,7 @@ import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.parcelables.ItemParcelable
 import io.oddlot.ledger.data.Expense
 import io.oddlot.ledger.parcelables.TabParcelable
-import kotlinx.android.synthetic.main.activity_edit_item.*
+import kotlinx.android.synthetic.main.activity_edit_expense.*
 import kotlin.concurrent.thread
 
 class EditItemActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class EditItemActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_item)
+        setContentView(R.layout.activity_edit_expense)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.apply {
@@ -100,7 +100,7 @@ class EditItemActivity : AppCompatActivity() {
             }
 
             // Redirect to Tab Activity
-            Intent(this, IndividualTabActivity::class.java).apply {
+            Intent(this, TabActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // finish all activities on top of individual tab activity
 //                addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // keeps individual tab activity instead of recreating
 

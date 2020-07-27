@@ -22,13 +22,25 @@
             android:textSize="24sp"
             android:textStyle="bold"/>
 
+    <ImageView
+            android:id="@+id/tabType"
+            android:tint="@color/defaultWhite"
+            android:contentDescription="Individual or Group Tab Icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tabName"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            android:paddingTop="2sp"
+            app:srcCompat="@drawable/ic_baseline_person_outline_24px" />
+
     <TextView
             android:id="@+id/tabCurrency"
-            android:layout_centerVertical="true"
+            android:layout_alignTop="@id/tabBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:paddingTop="4dp"
+            android:paddingTop="6dp"
             android:layout_toStartOf="@+id/tabBalance"
             android:text="HKD"
             android:textColor="@color/defaultWhite"

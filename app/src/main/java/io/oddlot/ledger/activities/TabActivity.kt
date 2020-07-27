@@ -19,14 +19,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.view_models.ItemsViewModel
 import io.oddlot.ledger.R
-import io.oddlot.ledger.adapters.ItemsAdapter
+import io.oddlot.ledger.adapters.ExpensesAdapter
 import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.reqCodes
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.utils.commatize
-import kotlinx.android.synthetic.main.activity_individual_tab.*
+import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -36,7 +36,7 @@ import java.util.*
 import kotlin.concurrent.thread
 
 
-class IndividualTabActivity : AppCompatActivity() {
+class TabActivity : AppCompatActivity() {
     private val TAG = "INDIVIDUAL_TAB_ACTIVITY"
     private var mTabBalance = 0.0
     private var tabExpenses: MutableList<Expense> = mutableListOf()
@@ -45,12 +45,11 @@ class IndividualTabActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_individual_tab)
+        setContentView(R.layout.activity_tab)
 
         parcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
 
-        // Init member variables
-        CoroutineScope(IO).launch {
+        CoroutineScope(IO).launch { // Initialize member variables
             tab = db.tabDao().get(parcelable.id)
             tabExpenses = db.itemDao()
                 .getItemsByTabId(parcelable.id)
@@ -64,8 +63,7 @@ class IndividualTabActivity : AppCompatActivity() {
 
             balanceType.text = if (mTabBalance > 0.0) "owes" else if (mTabBalance < 0.0) "is owed" else ""
 
-            // Update tab object and data views
-            db.tabDao().updateTabBalance(parcelable.id, mTabBalance)
+            db.tabDao().updateTabBalance(parcelable.id, mTabBalance) // Update tab object and data views
             tab = db.tabDao().get(parcelable.id)
 
             withContext(Main) {
@@ -91,7 +89,7 @@ class IndividualTabActivity : AppCompatActivity() {
             Toast.makeText(this, "Add a new item", Toast.LENGTH_SHORT)
                 .show()
 
-            Intent(this, AddItemActivity::class.java).also {
+            Intent(this, ExpenseActivity::class.java).also {
                 it.putExtra("TAB_PARCELABLE", parcelable)
                 startActivity(it)
                 // finish()
@@ -318,7 +316,7 @@ class IndividualTabActivity : AppCompatActivity() {
 
     private fun loadItemsView(expenses: MutableList<Expense>) {
         itemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        itemsRecyclerView.adapter = ItemsAdapter(expenses, mTabBalance)
+        itemsRecyclerView.adapter = ExpensesAdapter(expenses, mTabBalance)
     }
 
     private fun loadTabDataViews(tab: Tab) {

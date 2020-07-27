@@ -13,11 +13,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc087d52-0350-4a85-bf0a-1d1217226b64" name="Default Changelist" comment="&quot;Testing text color&quot;">
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/taskHistory.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" afterDir="false" />
@@ -74,10 +83,27 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_analyzer_1_6_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_analyzer_1_6_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_android_1_6_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_leakcanary_leakcanary_android_1_6_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ledger.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Ledger.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditItemActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditItemActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/ExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/ExpenseActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/ExpensesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/ExpensesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_expense.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_expense.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_expense.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_expense.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_tab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_tab.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_tabs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_tabs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_tab_row_dark.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_tab_row_dark.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -132,10 +158,15 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="25e27b873a057ece" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-28T15:00:24.499Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="88KX01C3K" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-07-26T08:16:19.455Z" />
     <property name="ExportApk.ApkPath" value="$PROJECT_DIR$/app" />
     <property name="ExportApk.BuildVariants" value="debug" />
     <property name="ExportApk.SignV1" value="true" />
@@ -146,19 +177,20 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="device.picker.selection" value="Pixel_3_XL_API_27" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
+    <property name="recommended.upgrade.last.time.stamp" value="1595084215232" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1571745531225" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/utils" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/classes" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="io.oddlot.ledger" />
@@ -175,25 +207,13 @@
       <recent name="io.oddlot.ledger.activities.TabsActivity" />
       <recent name="" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/utils" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/classes" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\main\res\layout" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Android App.app">
     <configuration name="ExampleUnitTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
@@ -394,6 +414,36 @@
     <MESSAGE value="Adding Settings Activity" />
     <MESSAGE value="&quot;Testing text color&quot;" />
     <option name="LAST_COMMIT_MESSAGE" value="&quot;Testing text color&quot;" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1243" height="485" key="GridCell.Tab.0.bottom" timestamp="1595759947912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1243" height="485" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1595759947912" />
+    <state width="1243" height="485" key="GridCell.Tab.0.center" timestamp="1595759947912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1243" height="485" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1595759947912" />
+    <state width="1243" height="485" key="GridCell.Tab.0.left" timestamp="1595759947911">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1243" height="485" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1595759947911" />
+    <state width="1243" height="485" key="GridCell.Tab.0.right" timestamp="1595759947912">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1243" height="485" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1595759947912" />
+    <state x="439" y="155" key="SettingsEditor" timestamp="1595249295338">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="439" y="155" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1595249295338" />
+    <state x="92" y="92" width="1736" height="856" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595085809590">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595085809590" />
+    <state x="591" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1595688031524">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="591" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595688031524" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

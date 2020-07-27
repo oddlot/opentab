@@ -3,12 +3,12 @@ package io.oddlot.ledger.activities
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import io.oddlot.ledger.R
@@ -21,11 +21,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CreateExpenseActivity : AppCompatActivity() {
+class ExpenseActivity : AppCompatActivity() {
     val TAG = "ADD_ITEM_ACTIVITY"
     lateinit var newExpense: Expense
     lateinit var mPaidBy: String
@@ -33,29 +34,30 @@ class CreateExpenseActivity : AppCompatActivity() {
     lateinit var itemDate: Date
     private lateinit var tabParcelable: TabParcelable
     private lateinit var mUsername: String
+    private var isCredit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_expense)
 
-        /**
-         * Member variables
+        /*
+         Member variables
          */
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
         mUsername = prefs.getString("USERNAME", "null")!!
 
-        /**
-         * Toolbar
-         */
         CoroutineScope(Main).launch {
+            /*
+            Toolbar
+             */
             val toolbar = findViewById<Toolbar>(R.id.toolbar)
             setSupportActionBar(toolbar)
-            supportActionBar?.title = "Add Item"
+            supportActionBar?.title = "New Expense"
             supportActionBar?.setDisplayShowHomeEnabled(true)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            /**
-             * Date Picker Dialog
+            /*
+            Date Picker Dialog
              */
 //            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd") // min API level 26
             val formatter = SimpleDateFormat("yyyy/MM/dd")
@@ -69,7 +71,7 @@ class CreateExpenseActivity : AppCompatActivity() {
             datePicker.text = dateString
 
             datePicker.setOnClickListener {
-                var dpd = DatePickerDialog(this@CreateExpenseActivity)
+                var dpd = DatePickerDialog(this@ExpenseActivity)
                 dpd.setOnDateSetListener { view, year, month, day ->
                     // Set month and day string variables
                     var month = (month + 1).toString()
@@ -88,15 +90,25 @@ class CreateExpenseActivity : AppCompatActivity() {
                 dpd.show()
             }
 
+            /*
+            Type Switch
+             */
+            val txnTypeSwitch = findViewById<SwitchCompat>(R.id.txnTypeSwitch)
+            txnTypeSwitch.text = "Paid"
+            txnTypeSwitch.textOff = "Owed"
+
+            txnTypeSwitch.setOnCheckedChangeListener(new CompoundButton.OnC)
+            }
+
+            /*
+            Amount Field
+             */
             val amount = findViewById<TextView>(R.id.amountPaid)
             amount.isFocusable = true
             amount.requestFocus()
 
-            /**
-             * Payer Spinner
-             */
             val paidBySpinner: Spinner = findViewById(R.id.paidBySpinner)
-            val adapter = ArrayAdapter<String>(this@CreateExpenseActivity, android.R.layout.simple_spinner_item, arrayOf(mUsername, tabParcelable.name))
+            val adapter = ArrayAdapter<String>(this@ExpenseActivity, android.R.layout.simple_spinner_item, arrayOf(mUsername, tabParcelable.name))
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             paidBySpinner.adapter = adapter
             paidBySpinner.setSelection(0)
@@ -113,13 +125,15 @@ class CreateExpenseActivity : AppCompatActivity() {
 //            paidBySpinner.adapter = adapter
 //        }
 
-        // Submit Button Click Listener
+        /*
+        Submit btn
+         */
         itemSubmitBtn.setOnClickListener {
             mPaidBy = paidBySpinner.selectedItem.toString()
 
             CoroutineScope(IO).launch {
                 try {
-                    if (amountPaid.text.isBlank()) throw IllegalArgumentException("Amount required")
+                    if (amountPaid.text.isBlank()) throw IllegalArgumentException("Amount required") // throw error if user didn't enter an amount
 
                     var itemAmount = amountPaid.text.toString().toDouble()
 
@@ -135,12 +149,14 @@ class CreateExpenseActivity : AppCompatActivity() {
                     db.itemDao().insert(newExpense)
                 }
                 catch (e: IllegalArgumentException) {
-                    Toast.makeText(it.context, "Amount is required", Toast.LENGTH_LONG).show()
+                    CoroutineScope(Main).launch {
+                        Toast.makeText(it.context, "Amount required", Toast.LENGTH_LONG).show()
+                    }
                 }
 
                 withContext(Main) {
                     // Redirect to Tab Activity
-                    Intent(this@CreateExpenseActivity, TabActivity::class.java).apply {
+                    Intent(this@ExpenseActivity, TabActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         putExtra("TAB_PARCELABLE", tabParcelable)
                         startActivity(this)
@@ -153,12 +169,33 @@ class CreateExpenseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+
+        menu!!.add("").apply { // Add tick submit icon
+            icon = getDrawable(R.drawable.ic_check_white_24dp)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+
+        inflater.inflate(R.menu.ticket_overflow, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 val intent = intent.putExtra("TAB_PARCELABLE", intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable)
                 NavUtils.navigateUpTo(this, intent)
 
+                true
+            }
+            0 -> {
+                try {
+
+                } catch (e: IllegalStateException) {
+
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

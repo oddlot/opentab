@@ -5,6 +5,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -49,9 +50,9 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 
         /* Bind views */
         val tabNameView = holder.view.findViewById<TextView>(R.id.tabName).apply { text = tab.name }
-//        val tabTypeIcon = holder.view.findViewById<ImageView>(R.id.tabTypeIcon).apply {
-//            if (tab.isGroup) setImageResource(R.drawable.ic_people_outline_black_24dp)
-//        }
+        val tabTypeIcon = holder.view.findViewById<ImageView>(R.id.tabType).apply {
+            if (tab.isGroup) setImageResource(R.drawable.ic_people_outline_black_24dp)
+        }
         val tabCurrencyView = holder.view.findViewById<TextView>(R.id.tabCurrency).apply {
             text = tab.currency
         }
@@ -71,9 +72,9 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
-                if (tab.isGroup) GroupTabActivity::class.java else IndividualTabActivity::class.java
+                if (tab.isGroup) GroupTabActivity::class.java else TabActivity::class.java
             )
-            intent.putExtra("GROUP_TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
+            intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)
         }
 

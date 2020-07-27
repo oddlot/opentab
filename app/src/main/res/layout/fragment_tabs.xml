@@ -18,7 +18,7 @@
             android:paddingBottom="24dp"
             android:text="Tabs"
             android:textColor="@android:color/white"
-            android:textSize="32sp"
+            android:textSize="22sp"
             android:gravity="top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -97,7 +97,7 @@
             android:layout_marginBottom="0dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addTabFab"
+            android:id="@+id/createTabFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

@@ -80,7 +80,7 @@ class TabsActivity : AppCompatActivity() {
         }
 //        loadTabsView()
 
-        addTabFab.setOnClickListener {
+        createTabFab.setOnClickListener {
             val tabNameInput = EditText(this).apply {
                 inputType = InputType.TYPE_CLASS_TEXT
                 inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES

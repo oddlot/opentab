@@ -17,7 +17,7 @@ import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
-import io.oddlot.ledger.fragments.DashboardFragment
+import io.oddlot.ledger.fragments.MainFragment
 import io.oddlot.ledger.fragments.SettingsFragment
 import java.util.*
 import kotlin.concurrent.thread
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         mDrawer = findViewById(R.id.navDrawer)
         mDrawer.bringToFront()
 
-        firstTimeLoginPrompt()
+        checkIfFirstLaunch()
         setGreeting()
 
         mDrawer.setNavigationItemSelectedListener {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item_tabs -> {
                     mFragmentManager
                         .beginTransaction()
-                        .replace(R.id.main_container, DashboardFragment())
+                        .replace(R.id.main_container, MainFragment())
                         .commit()
                     it.isChecked = true
                     mDrawerLayout.closeDrawer(GravityCompat.START)
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
         mFragmentManager = supportFragmentManager.also {
             it.beginTransaction()
-                .add(R.id.main_container, DashboardFragment())
+                .add(R.id.main_container, MainFragment())
                 .commit()
             mDrawer.setCheckedItem(R.id.nav_item_tabs)
         }
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Private functions
      */
-    private fun firstTimeLoginPrompt() {
+    private fun checkIfFirstLaunch() {
         val username = prefs.getString("USERNAME", null)
         if (username == null) {
             val usernameInput = basicEditText(this)

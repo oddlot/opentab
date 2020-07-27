@@ -49,6 +49,15 @@
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@android:color/black" />
 
+    <ToggleButton
+            android:id="@+id/txnTypeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemDateLabel"
+            app:layout_constraintTop_toTopOf="@id/datePicker" />
+
     <TextView
             android:id="@+id/amountLabel"
             android:text="Amount"
@@ -94,17 +103,16 @@
             app:layout_constraintHorizontal_bias="0.0" />
 
     <TextView
-            android:id="@+id/paidBy"
-            android:text="Paid By"
             android:layout_width="186dp"
             android:layout_height="19dp"
             android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="12dp"
+            android:text="Paid By"
             app:layout_constraintBottom_toTopOf="@+id/paidBySpinner"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker"
+            app:layout_constraintVertical_bias="0.0" />
 
     <Button
             android:id="@+id/itemSubmitBtn"
