@@ -100,8 +100,8 @@ class GroupTabActivity: AppCompatActivity() {
 
         groupTabVM.items.observe(this@GroupTabActivity, Observer { groupExpenses ->
             mLedger = null // reset ledger
-            groupItemRecyclerView.layoutManager = LinearLayoutManager(this@GroupTabActivity)
-            groupItemRecyclerView.adapter = GroupExpensesAdapter(groupExpenses).apply {
+            groupTransactionsRecyclerView.layoutManager = LinearLayoutManager(this@GroupTabActivity)
+            groupTransactionsRecyclerView.adapter = GroupExpensesAdapter(groupExpenses).apply {
                 notifyDataSetChanged()
             }
         })
@@ -153,7 +153,7 @@ class GroupTabActivity: AppCompatActivity() {
         }
 
         // Add New Group Expense
-        newGroupExpense.setOnClickListener {
+        newTransactionFab.setOnClickListener {
             val intent = Intent(this, GroupExpenseActivity::class.java)
 
             var extras = Bundle().apply {

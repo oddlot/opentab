@@ -10,14 +10,18 @@ import android.text.InputType
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.*
+import android.view.animation.OvershootInterpolator
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.oddlot.ledger.view_models.ItemsViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.robinhood.ticker.TickerUtils
+import io.oddlot.ledger.view_models.TransactionsViewModel
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.TransactionsAdapter
 import io.oddlot.ledger.utils.Utils
@@ -26,7 +30,7 @@ import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.reqCodes
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.utils.commatize
-import kotlinx.android.synthetic.main.activity_tab.*
+import kotlinx.android.synthetic.main.activity_individual_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -36,16 +40,17 @@ import java.util.*
 import kotlin.concurrent.thread
 
 
-class TabActivity : AppCompatActivity() {
-    private val TAG = "TAB_ACTIVITY"
+class IndividualTabActivity : AppCompatActivity() {
+    private val TAG = "INDIVIDUAL_TAB_ACTIVITY"
     private var mTabBalance = 0.0
-    private var tabExpenses: MutableList<Transaction> = mutableListOf()
+    private var transactions: MutableList<Transaction> = mutableListOf()
     private lateinit var pTab: TabParcelable
     private lateinit var tab: Tab
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tab)
+        setContentView(R.layout.activity_individual_tab)
+//        setContentView(R.layout.activity_individual_tab_dark)
 
         pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
 
@@ -55,17 +60,17 @@ class TabActivity : AppCompatActivity() {
 
         CoroutineScope(IO).launch { // Initialize member variables
             tab = db.tabDao().get(pTab.id)
-            tabExpenses = db.itemDao()
-                .getItemsByTabId(pTab.id)
+            transactions = db.itemDao()
+                .getTransactionsByTabId(pTab.id)
                 .toMutableList()
-            tabExpenses.sortDescending()
+            transactions.sortDescending()
 
             /*
             1. Sum up tab amounts
             2. Update Tab balance
             3. Load data in views
              */
-            for (item in tabExpenses) {
+            for (item in transactions) {
                 mTabBalance += item.amount
             }
 
@@ -75,7 +80,7 @@ class TabActivity : AppCompatActivity() {
 
             withContext(Main) {
                 loadTabDataViews(tab)
-                loadItemsView(tabExpenses)
+                loadTransactionsRecyclerView(transactions)
             }
         }
 
@@ -85,21 +90,25 @@ class TabActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        itemsRecyclerView.layoutManager = LinearLayoutManager(this)
+        transactionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        ViewModelProviders.of(this).get(ItemsViewModel::class.java)
+        ViewModelProviders.of(this).get(TransactionsViewModel::class.java)
             .getItems().observe(this, Observer {
 
         })
 
-        addItemFab.setOnClickListener {
-            Toast.makeText(this, "Add a new item", Toast.LENGTH_SHORT)
-                .show()
+        /*
+        New Transaction Fab
+         */
+        findViewById<FloatingActionButton>(R.id.newTransactionFab).also {
+            it.setOnClickListener {
+                Toast.makeText(this, "Add transaction", Toast.LENGTH_SHORT)
+                    .show()
 
-            Intent(this, TransactionActivity::class.java).also {
-                it.putExtra("TAB_PARCELABLE", pTab)
-                startActivity(it)
-                // finish()
+                Intent(this, IndividualTransactionActivity::class.java).also {
+                    it.putExtra("TAB_PARCELABLE", pTab)
+                    startActivity(it)
+                }
             }
         }
     }
@@ -138,7 +147,7 @@ class TabActivity : AppCompatActivity() {
 
                 // Delete items
                 val deleteThread = thread {
-                    val tabItems = db.itemDao().getItemsByTabId(pTab.id)
+                    val tabItems = db.itemDao().getTransactionsByTabId(pTab.id)
                     for (item in tabItems) db.itemDao().deleteItemById(item.id!!)
                     db.tabDao().updateTabBalance(pTab.id, 0.0)
                 }
@@ -149,8 +158,13 @@ class TabActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     // Reset views
-                    tabBalance.text = "0.00"
-                    loadItemsView(mutableListOf())
+                    tabBalance.apply {
+                        setCharacterLists(TickerUtils.provideNumberList())
+                        animationInterpolator = OvershootInterpolator()
+                        animationDuration = 800
+                        tabBalance.typeface = ResourcesCompat.getFont(this@IndividualTabActivity, R.font.abel)
+                    }
+                    loadTransactionsRecyclerView(mutableListOf())
                 }
             }
             reqCodes.indexOf("CREATE_DOCUMENT") -> writeExportFile(data)
@@ -193,24 +207,21 @@ class TabActivity : AppCompatActivity() {
 
                 true
             }
-            R.id.menu_restore_from_csv -> {
-                val needsPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                if (needsPermission) {
-                    // Should we show an explanation?
-                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
-
-                }
-
-                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-                    type = "text/csv"
-
-                    // Launch Content Provider
-                    startActivityForResult(this, reqCodes.indexOf("READ_EXTERNAL_STORAGE")) // invokes onActivityResult()
-                }
-
-                true
-            }
-//            R.id.menu_settings -> {
+//            R.id.menu_restore_from_csv -> {
+//                val needsPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//                if (needsPermission) {
+//                    // Should we show an explanation?
+//                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+//
+//                }
+//
+//                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+//                    type = "text/csv"
+//
+//                    // Launch Content Provider
+//                    startActivityForResult(this, reqCodes.indexOf("READ_EXTERNAL_STORAGE")) // invokes onActivityResult()
+//                }
+//
 //                true
 //            }
             R.id.menu_set_currency -> {
@@ -266,7 +277,7 @@ class TabActivity : AppCompatActivity() {
 
                                     runOnUiThread {
 //                                        supportActionBar!!.title = newTab.name
-                                        tabName.text = newTab.name
+//                                        tabName.text = newTab.name
                                     }
                                 }
                                 Toast.makeText(context,"Tab renamed \"${newTab.name}\"", Toast.LENGTH_LONG)
@@ -287,7 +298,7 @@ class TabActivity : AppCompatActivity() {
 
                 true
             }
-            R.id.menu_close_tab -> {
+            R.id.menu_delete_tab -> {
                 val dialog = AlertDialog.Builder(this).apply {
                     setTitle("Close tab and export to CSV?")
                     setPositiveButton("OK") { dialog, which ->
@@ -311,7 +322,19 @@ class TabActivity : AppCompatActivity() {
                             Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
                         }
                     }
-                    setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+                    setNegativeButton("No, just Delete") { dialog, which ->
+                        CoroutineScope(IO).launch {
+                            db.tabDao().deleteTabById(tab.id!!)
+                        }
+
+                        // Return to main activity
+                        Intent(context, MainActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(this)
+                        }
+
+//                        dialog.cancel()
+                    }
                 }
                 dialog.show()
                 true
@@ -321,29 +344,49 @@ class TabActivity : AppCompatActivity() {
 
     }
 
-    private fun loadItemsView(expenses: MutableList<Transaction>) {
-        itemsRecyclerView.layoutManager = LinearLayoutManager(this)
-        itemsRecyclerView.adapter = TransactionsAdapter(expenses, mTabBalance)
+    private fun loadTransactionsRecyclerView(transactions: MutableList<Transaction>) {
+        transactionsRecyclerView.layoutManager = LinearLayoutManager(this)
+        transactionsRecyclerView.adapter = TransactionsAdapter(transactions, mTabBalance)
     }
 
     private fun loadTabDataViews(tab: Tab) {
-        tabName.text = if (mTabBalance > 0.0) "${pTab.name} owes you" else if (mTabBalance < 0.0) "You owe ${pTab.name} " else ""
+        balanceDescriptor.text = if (mTabBalance > 0.0) "${pTab.name} owes you" else if (mTabBalance < 0.0) "${pTab.name} is owed" else resources.getString(R.string.flat_balance_primary)
         tabCurrency.text = pTab.currency
-        tabBalance.text = if (tab.balance >= 0.0) "${tab.balance.commatize()}" else "${(tab.balance * -1.0).commatize()}"
-        if (tab.balance < 0.0) tabBalance.setTextColor(getColor(R.color.appTheme))
+//        tabBalance.text = if (tab.balance >= 0.0) "${tab.balance.commatize()}" else "${(tab.balance * -1.0).commatize()}"
+
+        tabBalance.apply {
+            setCharacterLists(TickerUtils.provideNumberList())
+            animationInterpolator = OvershootInterpolator()
+            animationDuration = 1000
+            tabBalance.typeface = ResourcesCompat.getFont(this@IndividualTabActivity, R.font.abel)
+            text = if (tab.balance > 0.0) "${tab.balance.commatize()}" else if (tab.balance < 0.0) "${(tab.balance * -1.0).commatize()}" else "0.0"
+        }
+
+        when {
+            tab.balance < 0.0 -> getColor(R.color.watermelon).apply {
+                tabBalance.setTextColor(this)
+                tabCurrency.setTextColor(this)
+                Log.d(TAG, tab.balance.toString())
+            }
+            tab.balance > 0.0 -> getColor(R.color.colorTeal).apply {
+                tabBalance.setTextColor(this)
+                tabCurrency.setTextColor(this)
+                Log.d(TAG, tab.balance.toString())
+            }
+            else -> null
+        }
     }
 
     private fun writeExportFile(data: Intent?) {
-
         // Export to CSV
         contentResolver.openOutputStream(data!!.data!!, "w").use {
             it!!.write("${ pTab.name }\n".toByteArray())
             it.write("Date,Description,Amount\n".toByteArray())
-            val sortedList = tabExpenses.toMutableList().apply { sort() }
+            val transactionsSorted = transactions.toMutableList().apply { sort() }
 
-            for (i in 0 until sortedList.size) {
+            for (i in 0 until transactionsSorted.size) {
                 var mItemDescription = ""
-                val item = sortedList[i]
+                val item = transactionsSorted[i]
                 val mItemDateString = Utils.dateStringFromMillis(item.date)
                 item.description?.apply {
                     mItemDescription = '"' + this + '"'
@@ -389,8 +432,8 @@ class TabActivity : AppCompatActivity() {
                     }
                 }
 
-                tabExpenses = db.itemDao().getItemsByTabId(pTab.id).toMutableList()
-                tabExpenses.sortDescending()
+                transactions = db.itemDao().getTransactionsByTabId(pTab.id).toMutableList()
+                transactions.sortDescending()
 
                 db.tabDao().updateTabBalance(pTab.id, mTabBalance)
                 tab = db.tabDao().get(pTab.id)
@@ -398,7 +441,7 @@ class TabActivity : AppCompatActivity() {
                 runOnUiThread {
                     Toast.makeText(this, "Items Restored!", Toast.LENGTH_LONG).show()
                     loadTabDataViews(tab)
-                    loadItemsView(tabExpenses)
+                    loadTransactionsRecyclerView(transactions)
                 }
                 it.close()
             }

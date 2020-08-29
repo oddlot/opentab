@@ -25,7 +25,7 @@ import io.oddlot.ledger.adapters.TabsAdapter
 import io.oddlot.ledger.view_models.TabsViewModel
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.data.Tab
-import kotlinx.android.synthetic.main.fragment_tabs.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -39,7 +39,7 @@ class TabsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_tabs)
+        setContentView(R.layout.fragment_main)
 
         mPrefs = getSharedPreferences("io.oddlot.ledger.prefs", MODE_PRIVATE)
         mQueue = App.getRequestQueue(applicationContext)!!
@@ -152,7 +152,7 @@ class TabsActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.overflow_menu, menu)
+        inflater.inflate(R.menu.main_overflow_menu, menu)
 
         return true
     }

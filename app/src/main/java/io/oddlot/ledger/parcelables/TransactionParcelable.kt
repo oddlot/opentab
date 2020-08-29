@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-class ItemParcelable(
+class TransactionParcelable(
     val tabId: Int,
     val itemId: Int,
     var amount: Double,
@@ -13,11 +13,11 @@ class ItemParcelable(
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.Creator<ItemParcelable> {
-            override fun createFromParcel(parcel: Parcel): ItemParcelable {
-                return ItemParcelable(parcel)
+        val CREATOR = object : Parcelable.Creator<TransactionParcelable> {
+            override fun createFromParcel(parcel: Parcel): TransactionParcelable {
+                return TransactionParcelable(parcel)
             }
-            override fun newArray(p0: Int): Array<ItemParcelable> {
+            override fun newArray(p0: Int): Array<TransactionParcelable> {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         }

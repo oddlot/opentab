@@ -9,15 +9,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    <FrameLayout
-            android:id="@+id/main_container"
+    <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_home" />
-    </FrameLayout>
+            android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <androidx.viewpager.widget.PagerTabStrip
+                    android:id="@+id/vpPagerTabStrip"
+                    android:background="@color/watermelon"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_drawer_menu"

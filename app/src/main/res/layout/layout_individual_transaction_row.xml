@@ -8,22 +8,23 @@
         android:layout_height="wrap_content">
 
     <TextView
-            android:id="@+id/whoPaid"
-            app:layout_constraintBaseline_toBaselineOf="@id/itemDateView"
+            android:id="@+id/paidBy"
+            app:layout_constraintBaseline_toBaselineOf="@id/txnDateView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingStart="12dp"
             android:paddingBottom="5dp"
             tools:text="Cecilia paid"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/amountPaid"
-            app:layout_constraintStart_toEndOf="@+id/itemDateView"
+            app:layout_constraintStart_toEndOf="@+id/txnDateView"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_wrapHeight="51"
             tools:layout_conversion_wrapWidth="163" />
 
     <TextView
-            android:id="@+id/itemDateView"
+            android:id="@+id/txnDateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -45,31 +46,46 @@
             android:paddingStart="14dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="[no description]"
+            android:text="No description"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/amountPaid"
-            app:layout_constraintStart_toStartOf="@+id/whoPaid"
-            app:layout_constraintTop_toBottomOf="@+id/whoPaid"
+            app:layout_constraintStart_toStartOf="@+id/paidBy"
+            app:layout_constraintTop_toBottomOf="@+id/paidBy"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_conversion_wrapHeight="96"
             tools:layout_conversion_wrapWidth="585"/>
 
     <TextView
             android:id="@+id/amountPaid"
-            app:layout_constraintBaseline_toBaselineOf="@id/itemDateView"
+            app:layout_constraintBaseline_toBaselineOf="@id/txnDateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="bottom|start|top"
             android:paddingStart="4dp"
             android:paddingEnd="12dp"
             tools:text="0.00"
-            android:textColor="@color/colorSecondaryDark"
+            android:textColor="?android:attr/textColorTertiary"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_wrapHeight="147"
             tools:layout_conversion_wrapWidth="174" />
+
+<!--    <com.robinhood.ticker.TickerView-->
+<!--            android:id="@+id/amountPaid"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:paddingStart="4dp"-->
+<!--            android:paddingTop="4dp"-->
+<!--            android:paddingEnd="12dp"-->
+<!--            android:text="0"-->
+<!--            android:textColor="?android:attr/textColorTertiary"-->
+<!--            android:textSize="20sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
             android:id="@+id/dynamicTabBalance"

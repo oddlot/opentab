@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import java.util.*
 
-@Entity
+@Entity(
+    indices = [
+        Index(value = ["name"], unique = true)
+    ]
+)
 data class Tab(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
@@ -27,6 +31,9 @@ interface TabDao {
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
     fun getLiveTabById(tabId: Int): LiveData<Tab>
+
+    @Query("SELECT * FROM Tab WHERE name = :tabName")
+    fun getTabByName(tabName: String): Tab
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     fun insert(tab: Tab): Long

@@ -43,7 +43,7 @@ class AllocationAdapter(var vmGroupExpense: GroupExpenseViewModel, val members: 
         val white = ContextCompat.getColor(holder.view.context, R.color.defaultWhite)
         val appColor = ContextCompat.getColor(holder.view.context, R.color.appTheme)
         val primaryColor = ContextCompat.getColor(holder.view.context, R.color.colorPrimary)
-        val secondaryColor = ContextCompat.getColor(holder.view.context, R.color.colorSecondaryDark)
+        val secondaryColor = ContextCompat.getColor(holder.view.context, R.color.colorSecondary)
 
         // Name views
         nameView.text = payee.name.also {

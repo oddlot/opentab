@@ -1,21 +1,30 @@
 package io.oddlot.ledger.fragments
 
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputFilter
 import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.activities.prefs
+import io.oddlot.ledger.utils.UsernameFilter
+import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.utils.basicEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.lang.Exception
+import java.lang.reflect.Type
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -32,7 +41,9 @@ class SettingsFragment : Fragment() {
         iv.setOnClickListener {
             val input = basicEditText(context!!).apply {
                 text = SpannableStringBuilder(prefs.getString("USERNAME", ""))
+                typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
                 setSelection(text.length)
+                filters = arrayOf(UsernameFilter())
             }
 //            val input = EditText(context).apply {
 ////                background = null
@@ -77,7 +88,7 @@ class SettingsFragment : Fragment() {
                     nameView.text = newName
 
                     // Update name in nav drawer
-                    activity!!.findViewById<NavigationView>(R.id.navDrawer)
+                    activity!!.findViewById<NavigationView>(R.id.nav_drawer_menu)
                         .getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary).apply {
                             val c = Calendar.getInstance()
 

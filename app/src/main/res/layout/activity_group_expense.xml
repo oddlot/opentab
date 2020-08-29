@@ -5,14 +5,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.EditItemActivity">
+        tools:context=".activities.EditTransactionActivity">
 
     <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_home" />
 
     <TextView
-            android:id="@+id/itemDateLabel"
+            android:id="@+id/dateLabel"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -34,7 +34,7 @@
             android:paddingLeft="8dp"
             android:textColor="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/itemDateLabel" />
+            app:layout_constraintTop_toBottomOf="@+id/dateLabel" />
 
     <TextView
             android:id="@+id/payeeLabel"
@@ -85,7 +85,7 @@
 
     <ImageView
             android:id="@+id/equalSplitBtn"
-            android:tint="@color/colorSecondaryDark"
+            android:tint="@color/colorSecondary"
             android:contentDescription="Equal split icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             app:srcCompat="@drawable/ic_swap_horiz_grey_24dp" />
 
     <TextView
-            android:id="@+id/labelDescription"
+            android:id="@+id/descriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
     <TextView
             android:id="@+id/allocationLabel"

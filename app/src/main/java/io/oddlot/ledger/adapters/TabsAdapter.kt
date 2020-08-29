@@ -1,5 +1,6 @@
 package io.oddlot.ledger.adapters
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Looper
 import android.view.LayoutInflater
@@ -14,15 +15,14 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.*
-import io.oddlot.ledger.Ledger
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Tab
 import io.oddlot.ledger.parcelables.TabParcelable
+import io.oddlot.ledger.utils.commatize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.NumberFormat
 import java.util.*
 import kotlin.concurrent.thread
@@ -37,7 +37,8 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.layout_tab_row_dark, parent, false)
+//        val view = inflater.inflate(R.layout.layout_tab_row_dark, parent, false) // Dark layout (to be deprecated)
+        val view = inflater.inflate(R.layout.layout_individual_tab_row, parent, false)
 
         return TabViewHolder(view)
     }
@@ -56,15 +57,19 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         val tabCurrencyView = holder.view.findViewById<TextView>(R.id.tabCurrency).apply {
             text = tab.currency
         }
+
         val tabBalanceView = holder.view.findViewById<TextView>(R.id.tabBalance)
             .apply {
             text =
-                if (tab.balance > 0.0) {
-                    tab.balance.round(2).toString()
+                if (tab.balance < 0.0) { (tab.balance * -1.0).round(2).commatize()
+                    .also {
+                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.watermelon))
+                    }
                 }
-                else if (tab.balance < 0.0) NumberFormat.getNumberInstance(Locale.getDefault()).format((tab.balance * -1.0).round(2)).also {
-                    this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.appTheme))
-                }
+                else if (tab.balance > 0.0) tab.balance.round(2).commatize()
+                    .also {
+                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.colorTeal))
+                    }
                 else "0.00"
         }
 
@@ -72,7 +77,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
-                if (tab.isGroup) GroupTabActivity::class.java else TabActivity::class.java
+                if (tab.isGroup) GroupTabActivity::class.java else IndividualTabActivity::class.java
             )
             intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)
@@ -85,15 +90,20 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
             dialog.setPositiveButton("OK") { dialog, which ->
 
                 // Local
-                thread {
-                    Looper.prepare()
+                CoroutineScope(IO).launch {
                     db.tabDao().deleteTabById(tabId!!)
-                    Toast.makeText(it.context, "$tabName deleted", Toast.LENGTH_LONG).show()
-//                    val intent = Intent(it.context, TabsActivity::class.java)
-//                    startActivity(it.context, intent,null)
 
-//                    val activity = it.context as Activity
-//                    activity.finish()
+                    CoroutineScope(Main).launch {
+                        val intent = Intent(it.context, MainActivity::class.java).apply {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // finish all activities on top of main activity (and below current activity)
+//                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // opens existing activity instead of recreating
+                        }
+
+                        startActivity(it.context, intent,null)
+                        Toast.makeText(it.context, "$tabName deleted", Toast.LENGTH_LONG).show()
+//                        val activity = it.context as Activity
+//                        activity.finish()
+                    }
                 }
             }
 
@@ -106,22 +116,22 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         /**
          * Tab Balance
          */
-        CoroutineScope(IO).launch {
-            var tabBal = 0.0
-            val ledger = Ledger.getLedger(tab.id!!)
-
-            // Calculate tab balance
-            ledger.forEach { memberBalance ->
-                memberBalance.value.let {
-                    if (it > 0.0) tabBal += it
-                }
-            }
-
-            // Set tab balance view
-            withContext(Main) {
-                tabBalanceView.text = tabBal.round(2).toString()
-            }
-        }
+//        CoroutineScope(IO).launch {
+//            var tabBal = 0.0
+//            val ledger = Ledger.getLedger(tab.id!!)
+//
+//            // Calculate tab balance
+//            ledger.forEach { memberBalance ->
+//                memberBalance.value.let {
+//                    if (it > 0.0) tabBal += it
+//                }
+//            }
+//
+//            // Set tab balance view
+//            withContext(Main) {
+//                tabBalanceView.text = tabBal.round(2).toString()
+//            }
+//        }
     }
 
     class TabViewHolder(val view: View): RecyclerView.ViewHolder(view)

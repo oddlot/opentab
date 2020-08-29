@@ -6,7 +6,7 @@ import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.data.Transaction
 
 
-class ItemsViewModel : ViewModel() {
+class TransactionsViewModel : ViewModel() {
     private var items: LiveData<List<Transaction>>? = null
 
     // Create a LiveData with list of tabs

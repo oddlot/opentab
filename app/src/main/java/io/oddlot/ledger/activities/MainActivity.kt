@@ -1,39 +1,54 @@
 package io.oddlot.ledger.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.SharedPreferences
+import android.database.sqlite.SQLiteConstraintException
+import android.os.PersistableBundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.fragments.MainFragment
-import io.oddlot.ledger.fragments.MainViewPagerFragment
+import io.oddlot.ledger.fragments.MainViewPager
 import io.oddlot.ledger.fragments.SettingsFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.*
 import kotlin.concurrent.thread
 
-private val TAG = "MAIN_ACTIVITY"
 lateinit var db: AppDatabase
 lateinit var prefs: SharedPreferences
 
 class MainActivity : AppCompatActivity() {
+    private val TAG = "MAIN_ACTIVITY"
+
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var fragmentManager: FragmentManager
     private lateinit var drawerNav: NavigationView
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var mainFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item_tabs -> {
                     fragmentManager
                         .beginTransaction()
-                        .replace(R.id.main_container, MainFragment())
+                        .replace(R.id.container, MainViewPager())
                         .commit()
                     it.isChecked = true
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -81,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item_settings -> {
                     fragmentManager
                         .beginTransaction()
-                        .replace(R.id.main_container, SettingsFragment())
+                        .replace(R.id.container, SettingsFragment())
                         .commit()
                     it.isChecked = true
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -95,10 +110,197 @@ class MainActivity : AppCompatActivity() {
         /*
         Set main fragment (ViewPager)
          */
+        val mvp = MainViewPager()
+
         fragmentManager = supportFragmentManager.also {
             it.beginTransaction()
-                .add(R.id.container, MainViewPagerFragment())
+                .add(R.id.container, mvp)
                 .commit()
+        }
+
+        /*
+        Create Tab Fab
+         */
+        findViewById<FloatingActionButton>(R.id.fab).apply {
+            setOnClickListener {
+                // Individual Tab
+                val builder = AlertDialog.Builder(context!!).apply {
+                    setTitle("Create New Tab")
+
+                    val tabNameInput = basicEditText(context).also {
+                        it.requestFocus()
+                        it.typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
+                    }
+                    val container = FrameLayout(context).apply {
+                        addView(tabNameInput)
+                    }
+
+                    setView(container)
+
+                    setPositiveButton("OK") { dialog, which ->
+                        try {
+                            // Throw exception if no name is entered
+                            var inputText = tabNameInput.text
+                            if (tabNameInput.text.isBlank() or (inputText.length > 18))
+                                throw IllegalArgumentException("Exception")
+                            else {
+                                // Local
+                                thread {
+                                    val newTab = Tab(null, tabNameInput.text.toString(), 0.0)
+                                    db.tabDao().insert(newTab)
+
+                                    runOnUiThread {
+                                        fragmentManager
+                                            .beginTransaction()
+                                            .replace(R.id.container, MainViewPager())
+                                            .commit()
+                                    }
+                                }
+                            }
+
+                        } catch (e: Exception) {
+                            when(e) {
+                                is IllegalArgumentException -> {
+                                    if (tabNameInput.text.isBlank())
+                                        Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
+                                    else
+                                        Toast.makeText(
+                                            context,
+                                            "Tab name must be 18 characters or less",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                }
+                                is SQLiteConstraintException -> {
+                                    Log.d(TAG, "SQLiteConstraintException")
+
+                                    Toast.makeText(
+                                        context,
+                                        "A tab with that name already exists",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                                else -> throw e
+                            }
+                        }
+                    }
+                    setNegativeButton("Cancel") { dialog, which ->
+                        /**
+                         * Hide soft input by adding below to Activity in Manifest
+                         * android:windowSoftInputMode="stateAlwaysHidden"
+                         */
+                    }
+                }
+                builder.show()
+
+//                var groupTabDialog = AlertDialog.Builder(context!!).apply {
+//                    val tabNameInput = basicEditText(
+//                        context
+//                    ).also { it.requestFocus() }
+//                    val container = FrameLayout(context).apply {
+//                        addView(tabNameInput)
+//                    }
+//                    setView(container)
+//                    setTitle("Create a Group Tab")
+//                    setPositiveButton("OK") { dialog, which ->
+//                        try {
+//                            // Throw exception if no name is entered
+//                            val inputText = tabNameInput.text
+//                            if (tabNameInput.text.isBlank() or (inputText.length > 32))
+//                                throw IllegalArgumentException("Exception")
+//                            else {
+//                                val tabName = tabNameInput.text.toString()
+//
+//                                CoroutineScope(IO).launch {
+//                                    val groupTabId = db.tabDao().insert(
+//                                        Tab(null, tabName, isGroup=true)
+//                                    )
+//
+//                                    val newMS = Membership(null, groupTabId.toInt(), 1)
+//                                    db.membershipDao().insert(newMS)
+//                                }
+//                            }
+//
+//                        } catch (e: IllegalArgumentException) {
+//                            if (tabNameInput.text.isBlank())
+//                                Toast.makeText(
+//                                    context,
+//                                    "Name is required",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                            else
+//                                Toast.makeText(
+//                                    context,
+//                                    "Name cannot be greater than 32 characters",
+//                                    Toast.LENGTH_LONG
+//                                ).show()
+//                        }
+//                    }
+//                    setNegativeButton("Cancel") { dialog, which ->
+//                        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                        imm.hideSoftInputFromWindow(tabNameInput.windowToken, 0)
+//                        dialog.cancel()
+//                    }
+//                }
+//                groupTabDialog.show()
+
+                // Show soft keyboard
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+            }
+
+            setOnLongClickListener {
+                var groupTabDialog = AlertDialog.Builder(context!!).apply {
+                    val tabNameInput =
+                        basicEditText(context)
+                    val container = FrameLayout(context).apply {
+                        addView(tabNameInput)
+                    }
+                    setView(container)
+                    setTitle("Create a Group Tab")
+                    setPositiveButton("OK") { dialog, which ->
+                        try {
+                            // Throw exception if no name is entered
+                            val inputText = tabNameInput.text
+                            if (tabNameInput.text.isBlank() or (inputText.length > 15))
+                                throw IllegalArgumentException("Exception")
+                            else {
+                                val tabName = tabNameInput.text.toString()
+
+                                CoroutineScope(Dispatchers.IO).launch {
+                                    val groupTabId = db.tabDao().insert(
+                                        Tab(null, tabName, isGroup=true)
+                                    )
+
+                                    val newMS = Membership(null, groupTabId.toInt(), 1)
+                                    db.membershipDao().insert(newMS)
+                                }
+                            }
+
+                        } catch (e: IllegalArgumentException) {
+                            if (tabNameInput.text.isBlank())
+                                Toast.makeText(
+                                    context,
+                                    "Name is required",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            else
+                                Toast.makeText(
+                                    context,
+                                    "Tab name must be 15 characters or less",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                        }
+                    }
+                    setNegativeButton("Cancel") { dialog, which ->
+                        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(tabNameInput.windowToken, 0)
+                        dialog.cancel()
+                    }
+                }
+                groupTabDialog.show()
+
+                true
+            }
         }
 
         checkIfFirstLaunch()
@@ -109,6 +311,30 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_overflow_menu, menu)
 
         return true
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        outState.putInt("PAGER_POSITION", 1)
+    }
+
+    override fun onResume() {
+        Log.d(TAG, "RESUMING")
+        super.onResume()
+    }
+
+    override fun onRestart() {
+        Log.d(TAG, "RESTARTING")
+        Log.d(TAG, intent.extras?.getBoolean("RESTART_ACTIVITY").toString())
+        super.onRestart()
+
+        intent.extras?.getBoolean("RESTART_ACTIVITY")?.let {
+            // Refresh main fragment
+            fragmentManager.beginTransaction()
+                .replace(R.id.container, MainViewPager())
+                .commitAllowingStateLoss()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

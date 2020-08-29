@@ -1,14 +1,16 @@
 package io.oddlot.ledger.adapters
 
-import android.view.View
-import androidx.viewpager.widget.PagerAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MainAdapter: PagerAdapter() {
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        TODO("Not yet implemented")
-    }
-
-    override fun getCount(): Int {
+class MainViewPagerAdapter(activity: AppCompatActivity, val fragments: List<Fragment>): FragmentStateAdapter(activity) {
+    override fun getItemCount(): Int {
         return 2
     }
-}   
+
+    override fun createFragment(position: Int): Fragment {
+        return fragments[position]
+    }
+
+}

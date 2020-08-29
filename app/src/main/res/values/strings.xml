@@ -2,6 +2,7 @@
     <string name="app_name">Taboo</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="paid_by">Paid By</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -30,10 +31,11 @@
     <string name="actionbar_overflow_edit_members">Edit Members</string>
     <string name="actionbar_overflow_remove_member">Remove Member</string>
     <string name="actionbar_overflow_backup_restore">Backup / Restore</string>
-    <string name="actionbar_overflow_set_currency">Set Currency</string>
-    <string name="actionbar_overflow_export">Save as CSV</string>
-    <string name="actionbar_overflow_restore">Restore from CSV</string>
+    <string name="actionbar_overflow_edit_currency">Edit Currency</string>
+    <string name="actionbar_overflow_export">Export to CSV</string>
+    <string name="actionbar_overflow_import">Import from CSV</string>
     <string name="actionbar_overflow_help">Help</string>
+    <string name="actionbar_overflow_delete_tab">Delete Tab</string>
     <string name="actionbar_overflow_close_tab">Close Tab</string>
     <string name="actionbar_overflow_rename_tab">Rename Tab</string>
     <string name="actionbar_overflow_settings">Settings</string>
@@ -46,6 +48,10 @@
     <string name="welcome_message_morning">Good morning, </string>
     <string name="welcome_message_afternoon">Good afternoon, </string>
     <string name="welcome_message_evening">Good evening, </string>
+
+    <!-- View Messages -->
+    <string name="flat_balance_primary">You\'re all square!</string>
+    <string name="flat_balance_secondary"></string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

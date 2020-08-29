@@ -103,7 +103,7 @@
             android:id="@+id/transactionsHeader"
             android:text="Transactions"
             android:layout_below="@id/subHeader"
-            android:textColor="@color/colorSecondaryDark"
+            android:textColor="@color/colorSecondary"
             android:textSize="18sp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
@@ -111,7 +111,7 @@
             android:paddingStart="18dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/groupItemRecyclerView"
+            android:id="@+id/groupTransactionsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"
@@ -120,7 +120,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newGroupExpense"
+            android:id="@+id/newTransactionFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

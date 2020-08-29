@@ -1,108 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.TransactionActivity">
+        tools:context=".activities.IndividualTransactionActivity">
 
+<!--    Toolbar-->
     <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_home" />
+            layout="@layout/toolbar_transparent"/>
 
-    <Spinner
-            android:id="@+id/paidBySpinner"
-            android:layout_height="47dp"
-            android:layout_width="183dp"
+<!--    Container-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/container1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="78dp"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:layout_marginStart="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+<!--        Column 1-->
+        <RelativeLayout
+                android:id="@+id/col_1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="150dp">
+
+<!--            Date-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/dateWrapper"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin_plus"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content">
+                <TextView
+                        android:id="@+id/dateLabel"
+                        style="@style/TextLabelStyle"
+                        android:text="Date" />
+                <TextView
+                        android:id="@+id/datePicker"
+                        style="@style/ClickableStyle"
+                        android:layout_height="47dp"
+                        android:clickable="true"
+                        android:ems="10"
+                        android:focusable="true"
+                        android:inputType="date"
+                        tools:text="2020/01/08"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:paddingLeft="4dp"
+                        android:textColor="?android:attr/textColorPrimary" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--            Amount-->
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/amountWrapper"
+                    android:orientation="vertical"
+                    android:layout_below="@id/dateWrapper"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent">
+                <TextView
+                        android:id="@+id/amountLabel"
+                        style="@style/TextLabelStyle"
+                        android:text="Amount" />
+
+                <EditText
+                        android:id="@+id/amountPaid"
+                        style="@style/ClickableStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
+                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:ems="10"
+                        android:gravity="left"
+                        android:inputType="numberDecimal" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
+
+<!--        Column 2-->
+        <RelativeLayout
+                android:id="@+id/col_2"
+                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/tabWrapper"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin_plus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                <TextView
+                        android:id="@+id/tabTitleLabel"
+                        style="@style/TextLabelStyle"
+                        android:text="Tab"
+                        app:layout_constraintVertical_bias="0.0" />
+                <Spinner
+                        android:id="@+id/tabSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="47dp"
+                        android:layout_marginTop="@dimen/activity_view_padding"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintVertical_bias="0.0" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/paidByWrapper"
+                    android:orientation="vertical"
+                    android:layout_below="@id/tabWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/paidByLabel"
+                        style="@style/TextLabelStyle"
+                        android:text="@string/paid_by"
+                        app:layout_constraintVertical_bias="0.0" />
+                <Spinner
+                        android:id="@+id/paidBySpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
+                        android:layout_below="@id/paidByLabel"
+                        android:layout_marginTop="@dimen/activity_view_padding"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintVertical_bias="0.0" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+<!--    Container 2-->
+    <RelativeLayout
+            android:id="@+id/container2"
+            app:layout_constraintTop_toBottomOf="@id/container1"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintStart_toEndOf="@+id/amountPaid"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@+id/amountPaid"
-            app:layout_constraintTop_toTopOf="@+id/amountPaid"
-            app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-            android:id="@+id/itemDateLabel"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
-            android:text="Date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-            android:id="@+id/datePicker"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_width="0dp"
-            android:layout_height="47dp"
-            android:inputType="date"
-            android:ems="10"
-            android:layout_marginTop="12dp"
-            android:paddingLeft="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/itemDateLabel"
-            android:layout_marginStart="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@android:color/black" />
-
-    <TextView
-            android:id="@+id/amountLabel"
-            android:text="Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp" />
-
-    <EditText
-            android:id="@+id/amountPaid"
-            android:layout_width="170dp"
-            android:layout_height="47dp"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/amountLabel"
-            android:layout_marginTop="12dp" />
-
-    <TextView
-            android:id="@+id/labelDescription"
-            android:text="Description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/amountPaid"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp" />
-
-    <EditText
-            android:id="@+id/editDescription"
-            android:hint="@string/item_description_hint"
-            android:inputType="textCapSentences"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintHorizontal_bias="0.0" />
-
-    <TextView
-            android:layout_width="186dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="12dp"
-            android:text="Who Is Owed"
-            app:layout_constraintBottom_toTopOf="@+id/paidBySpinner"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker"
-            app:layout_constraintVertical_bias="0.0" />
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
+        <TextView
+                android:id="@+id/descriptionLabel"
+                style="@style/TextLabelStyle"
+                android:text="Description" />
+        <EditText
+                android:id="@+id/editDescription"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/descriptionLabel"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:hint="@string/item_description_hint"
+                android:inputType="textCapSentences"
+                app:layout_constraintHorizontal_bias="0.0" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

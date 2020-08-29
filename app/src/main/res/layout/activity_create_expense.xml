@@ -5,14 +5,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.EditItemActivity">
+        tools:context=".activities.EditTransactionActivity">
 
     <TextView
             android:id="@+id/txnTypeLabel"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="192dp"
             android:text="Type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -21,21 +21,37 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_home" />
 
-    <Spinner
-            android:id="@+id/paidBySpinner"
-            android:layout_height="47dp"
-            android:layout_width="183dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintStart_toEndOf="@+id/amountPaid"
-            android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@+id/amountPaid"
-            app:layout_constraintTop_toTopOf="@+id/amountPaid"
-            app:layout_constraintVertical_bias="0.0" />
+<!--    <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintVertical_bias="0.0"-->
+<!--            app:layout_constraintLeft_toRightOf="@id/amountPaid"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/datePicker">-->
+<!--        -->
+<!--        <TextView-->
+<!--                android:id="@+id/paidBy"-->
+<!--                android:text="Paid By"-->
+<!--                android:layout_width="186dp"-->
+<!--                android:layout_height="19dp"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:layout_marginBottom="12dp" />-->
+
+<!--        <Spinner-->
+<!--                android:id="@+id/paidBySpinner"-->
+<!--                android:layout_height="47dp"-->
+<!--                android:layout_width="183dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_marginEnd="24dp"-->
+<!--                android:layout_marginStart="8dp" />-->
+<!--        -->
+<!--    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+
 
     <TextView
-            android:id="@+id/itemDateLabel"
+            android:id="@+id/dateLabel"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -54,57 +70,48 @@
             android:ems="10"
             android:layout_marginTop="12dp"
             android:paddingLeft="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/itemDateLabel"
+            app:layout_constraintTop_toBottomOf="@+id/dateLabel"
             android:layout_marginStart="24dp"
             app:layout_constraintStart_toStartOf="parent"
             android:textColor="@android:color/black" />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/txnTypeSwitch"
-            app:layout_constraintTop_toTopOf="@id/txnTypeSwitch"
-            android:paddingTop="4dp"
-            android:text="Paid"/>
 
     <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/txnTypeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/itemDateLabel"
-            app:layout_constraintTop_toTopOf="@id/datePicker" />
-
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/txnTypeSwitch"
-            app:layout_constraintTop_toTopOf="@id/txnTypeSwitch"
-            android:paddingTop="4dp"
-            android:text="Owes"/>
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="56dp"
+            android:checked="true"
+            app:layout_constraintEnd_toStartOf="@+id/amountPaid"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/datePicker"
+            app:thumbTint="@color/appTheme" />
 
     <TextView
             android:id="@+id/amountLabel"
-            android:text="Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="20dp"
+            android:text="Amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/amountPaid"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
     <EditText
             android:id="@+id/amountPaid"
             android:layout_width="170dp"
             android:layout_height="47dp"
-            android:inputType="numberDecimal"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="28dp"
             android:ems="10"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            app:layout_constraintTop_toBottomOf="@+id/amountLabel"
-            android:layout_marginTop="12dp" />
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/amountLabel" />
 
     <TextView
-            android:id="@+id/labelDescription"
+            android:id="@+id/descriptionLabel"
             android:text="Description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,25 +127,12 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/labelDescription"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionLabel"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             app:layout_constraintHorizontal_bias="0.0" />
-
-    <TextView
-            android:id="@+id/paidBy"
-            android:text="Paid By"
-            android:layout_width="186dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="12dp"
-            app:layout_constraintBottom_toTopOf="@+id/paidBySpinner"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
 
     <Button
             android:id="@+id/itemSubmitBtn"

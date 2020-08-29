@@ -10,6 +10,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,52 +19,35 @@ import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.TabsAdapter
 import io.oddlot.ledger.view_models.TabsViewModel
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.activities.prefs
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.concurrent.thread
 
-val TAG = "MAIN_FRAGMENT"
-
 class MainFragment : Fragment() {
-    private lateinit var mTabsViewModel: TabsViewModel
+    val TAG = "MAIN_FRAGMENT"
 
-    companion object {
-        fun newInstance(): MainFragment {
-            return MainFragment()
-        }
-    }
+    private lateinit var mTabsViewModel: TabsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_tabs, container, false)
-        val tabsHeader = view.findViewById<TextView>(R.id.tabsHeader).apply {
-            val c = Calendar.getInstance()
-            val name = prefs.getString("USERNAME", "Guest")
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
 
-            when (c.get(Calendar.HOUR_OF_DAY)) {
-                in 0 until 12 -> text = "Good morning, $name"
-                in 12 until 18 -> text = "Good afternoon, $name"
-                else -> text = "Good evening, $name"
-            }
-        }
+//        val tabsRecyclerView = tabsRecyclerView.apply {
         val tabsRecyclerView = view.findViewById<RecyclerView>(R.id.tabsRecyclerView).apply {
-            //        val tabsRecyclerView = view.findViewById<RecyclerView>(R.id.tabsRecyclerViewFragment).apply {
             layoutManager = LinearLayoutManager(activity)
         }
         // Load ViewModel and LiveData objects
-        mTabsViewModel = ViewModelProviders.of(this).get(TabsViewModel::class.java)
-        mTabsViewModel.getAll().observe(this, Observer {
+        mTabsViewModel = ViewModelProvider(this).get(TabsViewModel::class.java)
+        mTabsViewModel.getAll().observe(viewLifecycleOwner, Observer {
             tabsRecyclerView.adapter = TabsAdapter(it).apply {
                 notifyDataSetChanged()
             }
         })
-
 
         /*
         Create Tab Fab
@@ -227,6 +211,7 @@ class MainFragment : Fragment() {
                 true
             }
         }
+
         return view
     }
 }

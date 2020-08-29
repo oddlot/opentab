@@ -2,12 +2,15 @@ package io.oddlot.ledger.utils
 
 import android.app.Activity
 import android.content.Context
+import android.text.InputFilter
 import android.text.InputType
+import android.text.Spanned
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Filter
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import io.oddlot.ledger.R
