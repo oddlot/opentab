@@ -20,7 +20,6 @@ import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.fragments.MainFragment
-import io.oddlot.ledger.fragments.MainViewPagerFragment
 import io.oddlot.ledger.fragments.SettingsFragment
 import java.util.*
 import kotlin.concurrent.thread
@@ -93,12 +92,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         /*
-        Set main fragment (ViewPager)
+        Configure fragment for displaying tabs
          */
         fragmentManager = supportFragmentManager.also {
             it.beginTransaction()
-                .add(R.id.container, MainViewPagerFragment())
+                .add(R.id.main_container, MainFragment())
                 .commit()
+
         }
 
         checkIfFirstLaunch()
