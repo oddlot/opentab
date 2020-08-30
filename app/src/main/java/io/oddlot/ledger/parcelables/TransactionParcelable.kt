@@ -6,7 +6,7 @@ import android.os.Parcelable
 
 class TransactionParcelable(
     val tabId: Int,
-    val itemId: Int,
+    val id: Int,
     var amount: Double,
     var description: String,
     var date: Long) : Parcelable {
@@ -25,7 +25,7 @@ class TransactionParcelable(
 
     private constructor(parcel: Parcel) : this(
         tabId = parcel.readInt(),
-        itemId = parcel.readInt(),
+        id = parcel.readInt(),
         amount = parcel.readDouble(),
         description = parcel.readString()!!,
         date = parcel.readLong()
@@ -34,7 +34,7 @@ class TransactionParcelable(
     // Invoked when calling Intent.putExtra()
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(tabId)
-        parcel.writeInt(itemId)
+        parcel.writeInt(id)
         parcel.writeDouble(amount)
         parcel.writeString(description)
         parcel.writeLong(date)

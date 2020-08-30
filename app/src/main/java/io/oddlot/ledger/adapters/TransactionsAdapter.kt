@@ -2,26 +2,21 @@ package io.oddlot.ledger.adapters
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.robinhood.ticker.TickerUtils
-import com.robinhood.ticker.TickerView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.IndividualTabActivity
-import io.oddlot.ledger.activities.IndividualTransactionActivity
+import io.oddlot.ledger.activities.SoloTabActivity
+import io.oddlot.ledger.activities.SoloTransactionActivity
 import io.oddlot.ledger.parcelables.TransactionParcelable
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.utils.Utils
@@ -36,12 +31,11 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
-import kotlin.reflect.typeOf
 
 
 class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalance: Double = 0.0) : RecyclerView.Adapter<TransactionsAdapter.TransactionViewHolder>() {
 //class ItemsAdapter(var items: JSONArray) : RecyclerView.Adapter<ItemsAdapter.ItemViewHolder>() {
-    private val TAG = "ITEMS_ADAPTER"
+    private val TAG = "TRANSACTIONS_ADAPTER"
     private lateinit var tabParcelable: TabParcelable
     private var mLastAmount = 0.0
     private var mComputedBalance = startingTabBalance
@@ -51,7 +45,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.layout_individual_transaction_row, parent, false)
+        val view = inflater.inflate(R.layout.layout_solo_transaction_row, parent, false)
 
         return TransactionViewHolder(view)
     }
@@ -66,7 +60,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
 
         // View variables
         val txnDateView = holder.view.findViewById<TextView>(R.id.txnDateView)
-        val txnDescriptionView = holder.view.findViewById<TextView>(R.id.editDescription)
+        val txnDescriptionView = holder.view.findViewById<TextView>(R.id.etDescription)
         val txnAmountView = holder.view.findViewById<TextView>(R.id.amountPaid)
 //        val txnAmountView = holder.view.findViewById<TickerView>(R.id.amountPaid)
         val txnBalanceView = holder.view.findViewById<TextView>(R.id.dynamicTabBalance)
@@ -134,7 +128,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                 val tab = db.tabDao().get(txn.tabId)
                 tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
 
-                val intent = Intent(it.context, IndividualTransactionActivity::class.java)
+                val intent = Intent(it.context, SoloTransactionActivity::class.java)
                 intent.putExtra("TXN_PARCELABLE", txnParcelable)
                 intent.putExtra("TAB_PARCELABLE", tabParcelable)
 
@@ -152,13 +146,14 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                     Looper.prepare()
                     val tab = db.tabDao().get(txn.tabId)
                     tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
-                    db.itemDao().deleteItemById(txnId!!)
+                    db.transactionDao().deleteItemById(txnId!!)
                     Toast.makeText(it.context, "Transaction deleted", Toast.LENGTH_LONG).show()
 
-                    val intent = Intent(it.context, IndividualTabActivity::class.java)
+                    val intent = Intent(it.context, SoloTabActivity::class.java)
                     intent.putExtra("TAB_PARCELABLE", tabParcelable)
                     intent.putExtra("RESTART_ACTIVITY", true)
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.putExtra("NEW_TASK_ON_BACK", true)
+
                     startActivity(it.context, intent,null)
 
                     val activity = it.context as Activity

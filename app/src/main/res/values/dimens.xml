@@ -8,5 +8,6 @@
     <dimen name="DIALOG_INPUT_LEFT_MARGIN">24dp</dimen>
     <dimen name="DIALOG_INPUT_RIGHT_MARGIN">24dp</dimen>
     <dimen name="VIEW_INPUT_HEIGHT">48dp</dimen>
+    <dimen name="amount_input_width">144dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 </resources>

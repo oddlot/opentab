@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -28,7 +27,6 @@ import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
-import io.oddlot.ledger.fragments.MainFragment
 import io.oddlot.ledger.fragments.MainViewPager
 import io.oddlot.ledger.fragments.SettingsFragment
 import kotlinx.coroutines.CoroutineScope
@@ -48,20 +46,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var drawerNav: NavigationView
     private lateinit var drawerLayout: DrawerLayout
-    private lateinit var mainFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d(TAG, "Creating activity")
 
+        // Set app to follow system theme
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
 
-        /**
-         *  Singletons
-         */
+        // Declare singletons
         db = App.getDatabase(applicationContext)
         prefs = App.getPrefs(applicationContext)
 
+        // Configure toolbar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolbar.background = null
         setSupportActionBar(toolbar)
@@ -69,9 +67,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        /*
-        Drawer configuration
-         */
+        // Configure drawer
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close).apply {
             isDrawerSlideAnimationEnabled = false
@@ -79,12 +75,12 @@ class MainActivity : AppCompatActivity() {
         }
         drawerLayout.addDrawerListener(drawerToggle)
 
-        drawerNav = findViewById(R.id.nav_drawer_menu)
-        drawerNav.setCheckedItem(R.id.nav_item_tabs)
+        drawerNav = findViewById(R.id.nav_drawer)
+        drawerNav.setCheckedItem(R.id.nav_item_home)
         drawerNav.bringToFront()
         drawerNav.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_item_tabs -> {
+                R.id.nav_item_home -> {
                     fragmentManager
                         .beginTransaction()
                         .replace(R.id.container, MainViewPager())
@@ -96,7 +92,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_item_settings -> {
                     fragmentManager
                         .beginTransaction()
-                        .replace(R.id.container, SettingsFragment())
+                        .replace(R.id.container, SettingsFragment(), "SETTINGS")
+                        .addToBackStack("mainViewPager")
                         .commit()
                     it.isChecked = true
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -107,14 +104,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*
-        Set main fragment (ViewPager)
-         */
+        // Main fragment (viewpager)
         val mvp = MainViewPager()
 
         fragmentManager = supportFragmentManager.also {
             it.beginTransaction()
-                .add(R.id.container, mvp)
+                .replace(R.id.container, mvp)
                 .commit()
         }
 
@@ -320,19 +315,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        Log.d(TAG, "RESUMING")
+        Log.d(TAG, "Resuming activity")
         super.onResume()
     }
 
     override fun onRestart() {
-        Log.d(TAG, "RESTARTING")
+        Log.d(TAG, "Restarting activity")
         Log.d(TAG, intent.extras?.getBoolean("RESTART_ACTIVITY").toString())
         super.onRestart()
 
         intent.extras?.getBoolean("RESTART_ACTIVITY")?.let {
             // Refresh main fragment
             fragmentManager.beginTransaction()
-                .replace(R.id.container, MainViewPager())
+                .replace(R.id.container, MainViewPager(), "MAIN")
                 .commitAllowingStateLoss()
         }
     }
@@ -343,18 +338,26 @@ class MainActivity : AppCompatActivity() {
             return true
         }
 
-        // Overflow menu
-//        return when (item.itemId) {
-//            R.id.menu_help -> {
+        return when (item.itemId) {
+            R.id.menu_help -> {
 //                startActivity(Intent(this, HelpActivity::class.java))
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
         return true
     }
 
     override fun onBackPressed() {
+        val nav = findViewById<NavigationView>(R.id.nav_drawer)
+        val settingsFragment = fragmentManager.findFragmentByTag("SETTINGS")
+
+        // Re-check 'Home' menu item if going back from Settings fragment
+        if (settingsFragment?.isVisible ?: false) {
+            val homeMenuItem = nav.menu.getItem(0)
+            nav.setCheckedItem(homeMenuItem)
+        }
+
         when {
             // Close left navigation menu
             drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)

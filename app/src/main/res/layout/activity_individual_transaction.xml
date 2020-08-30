@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.IndividualTransactionActivity">
+        tools:context=".activities.SoloTransactionActivity">
 
 <!--    Toolbar-->
     <include
@@ -28,7 +28,7 @@
                 android:id="@+id/col_1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="150dp">
+                android:layout_height="wrap_content">
 
 <!--            Date-->
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -71,10 +71,9 @@
                 <EditText
                         android:id="@+id/amountPaid"
                         style="@style/ClickableStyle"
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/amount_input_width"
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                         android:layout_marginTop="@dimen/activity_view_padding"
-                        android:ems="10"
                         android:gravity="left"
                         android:inputType="numberDecimal" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -144,7 +143,7 @@
                 style="@style/TextLabelStyle"
                 android:text="Description" />
         <EditText
-                android:id="@+id/editDescription"
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/descriptionLabel"

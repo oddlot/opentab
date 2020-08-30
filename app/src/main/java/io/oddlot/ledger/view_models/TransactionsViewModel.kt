@@ -19,6 +19,6 @@ class TransactionsViewModel : ViewModel() {
 //    }
 
     fun getItems(): LiveData<List<Transaction>> {
-        return db.itemDao().getAllAsLiveData()
+        return db.transactionDao().getAllAsLiveData()
     }
 }

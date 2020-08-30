@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.IndividualTransactionActivity">
+        tools:context=".activities.SoloTransactionActivity">
 
     <include
             android:id="@+id/toolbar"
@@ -79,7 +79,7 @@
             android:layout_marginStart="24dp" />
 
     <EditText
-            android:id="@+id/editDescription"
+            android:id="@+id/etDescription"
             android:backgroundTint="@color/defaultWhite"
             android:hint="@string/item_description_hint"
             android:inputType="textCapSentences"

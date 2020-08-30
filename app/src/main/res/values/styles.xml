@@ -6,7 +6,7 @@
         <item name="android:statusBarColor">@color/appTheme</item>
         <item name="colorAccent">@color/appTheme</item>
         <item name="android:actionMenuTextColor">@color/defaultWhite</item>
-        <item name="android:fontFamily">@font/abel</item>
+        <item name="android:fontFamily">@font/rajdhani</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
@@ -28,7 +28,7 @@
     </style>
 
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@color/appTheme</item>
+        <item name="tabBackground">@drawable/tab_layout_background</item>
         <item name="tabMode">fixed</item>
         <item name="tabSelectedTextColor">@color/defaultWhite</item>
         <item name="tabIndicatorColor">@color/defaultWhite</item>
@@ -65,7 +65,7 @@
         <item name="android:tint">@color/defaultWhite</item>
     </style>
 
-    <style name="NavDrawerMenuTheme">
+    <style name="NavDrawerTheme">
         <item name="itemIconTint">@android:color/darker_gray</item>
         <item name="itemTextColor">?android:attr/textColorPrimary</item>
         <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>

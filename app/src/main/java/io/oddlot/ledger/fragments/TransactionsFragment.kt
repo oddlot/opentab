@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.adapters.TransactionsAdapter
-import kotlinx.android.synthetic.main.fragment_transactions.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -30,7 +29,7 @@ class TransactionsFragment: Fragment() {
             layoutManager = LinearLayoutManager(activity)
 
             CoroutineScope(IO).launch {
-                val transactions = db.itemDao().getAll()
+                val transactions = db.transactionDao().getAll()
                 CoroutineScope(Main).launch {
                     adapter = TransactionsAdapter(transactions.sortedDescending())
                 }

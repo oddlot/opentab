@@ -1,8 +1,6 @@
 package io.oddlot.ledger.adapters
 
-import android.app.Activity
 import android.content.Intent
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,9 +21,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import java.text.NumberFormat
-import java.util.*
-import kotlin.concurrent.thread
 
 class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabViewHolder>() {
     val TAG = "TABS_ADAPTER"
@@ -38,7 +33,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 //        val view = inflater.inflate(R.layout.layout_tab_row_dark, parent, false) // Dark layout (to be deprecated)
-        val view = inflater.inflate(R.layout.layout_individual_tab_row, parent, false)
+        val view = inflater.inflate(R.layout.layout_solo_tab_row, parent, false)
 
         return TabViewHolder(view)
     }
@@ -77,7 +72,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
-                if (tab.isGroup) GroupTabActivity::class.java else IndividualTabActivity::class.java
+                if (tab.isGroup) GroupTabActivity::class.java else SoloTabActivity::class.java
             )
             intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)

@@ -7,7 +7,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.IndividualTabActivity">
+        tools:context=".activities.SoloTabActivity">
 
     <include
             android:id="@+id/toolbar"
@@ -43,7 +43,8 @@
                         android:layout_width="wrap_content"
                         android:singleLine="true"
                         android:text="You owe"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textStyle="normal"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="wrap_content"

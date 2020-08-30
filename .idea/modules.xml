@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ledger/app" />
-      <module fileurl="file://$PROJECT_DIR$/ledger.iml" filepath="$PROJECT_DIR$/ledger.iml" group="ledger" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aLedger.iml" filepath="$PROJECT_DIR$/.idea/modules/aLedger.iml" group="aLedger" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="aLedger/app" />
     </modules>
   </component>
 </project>

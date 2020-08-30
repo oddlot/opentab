@@ -1,7 +1,6 @@
 package io.oddlot.ledger.adapters
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.GroupExpenseActivity
+import io.oddlot.ledger.activities.GroupTransactionActivity
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.deserialize
@@ -92,7 +91,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
 
         // Click
         holder.view.setOnClickListener {
-            val intent = Intent(it.context, GroupExpenseActivity::class.java)
+            val intent = Intent(it.context, GroupTransactionActivity::class.java)
 
             intent.putExtra("GROUP_EXPENSE_ID", groupExpense.id)
             intent.putExtra("GROUP_TAB_ID", groupExpense.tabId)

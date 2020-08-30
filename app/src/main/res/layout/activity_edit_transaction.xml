@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.IndividualTransactionActivity">
+        tools:context=".activities.SoloTransactionActivity">
 
     <!--    Toolbar-->
     <include
@@ -144,7 +144,7 @@
                 style="@style/TextLabelStyle"
                 android:text="Description" />
         <EditText
-                android:id="@+id/editDescription"
+                android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/descriptionLabel"

@@ -154,7 +154,7 @@ class GroupTabActivity: AppCompatActivity() {
 
         // Add New Group Expense
         newTransactionFab.setOnClickListener {
-            val intent = Intent(this, GroupExpenseActivity::class.java)
+            val intent = Intent(this, GroupTransactionActivity::class.java)
 
             var extras = Bundle().apply {
                 putParcelable("GROUP_TAB_PARCELABLE", groupTabParcelable)

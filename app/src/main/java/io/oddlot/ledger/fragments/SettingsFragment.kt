@@ -1,11 +1,8 @@
 package io.oddlot.ledger.fragments
 
-import android.graphics.Typeface
+import android.app.ActionBar
 import android.os.Bundle
-import android.text.InputFilter
 import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +15,10 @@ import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.activities.prefs
 import io.oddlot.ledger.utils.UsernameFilter
-import io.oddlot.ledger.utils.Utils
 import io.oddlot.ledger.utils.basicEditText
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.lang.reflect.Type
 import java.util.*
 
 class SettingsFragment : Fragment() {
@@ -36,12 +30,12 @@ class SettingsFragment : Fragment() {
             nv.text = prefs.getString("USERNAME", "null")
         }
 
-        val iv = view.findViewById<ImageView>(R.id.editNameIcon)
+        val editIcon = view.findViewById<ImageView>(R.id.editNameIcon)
 
-        iv.setOnClickListener {
+        editIcon.setOnClickListener {
             val input = basicEditText(context!!).apply {
                 text = SpannableStringBuilder(prefs.getString("USERNAME", ""))
-                typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
+                typeface = ResourcesCompat.getFont(context, R.font.app_font)
                 setSelection(text.length)
                 filters = arrayOf(UsernameFilter())
             }
@@ -68,6 +62,14 @@ class SettingsFragment : Fragment() {
                 setView(
                     FrameLayout(context).apply {
                         addView(input)
+//                        val lp = FrameLayout.LayoutParams(
+//                            ViewGroup.LayoutParams.WRAP_CONTENT,
+//                            ViewGroup.LayoutParams.WRAP_CONTENT
+//                        ).apply {
+//                            setMargins(0, 0, 0, 20)
+//                        }
+//
+//                        layoutParams = lp
                     }
                 )
 
@@ -88,7 +90,7 @@ class SettingsFragment : Fragment() {
                     nameView.text = newName
 
                     // Update name in nav drawer
-                    activity!!.findViewById<NavigationView>(R.id.nav_drawer_menu)
+                    activity!!.findViewById<NavigationView>(R.id.nav_drawer)
                         .getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary).apply {
                             val c = Calendar.getInstance()
 
@@ -110,4 +112,5 @@ class SettingsFragment : Fragment() {
         }
         return view
     }
+
 }

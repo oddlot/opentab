@@ -39,8 +39,8 @@ interface TransactionDao {
     @Query("SELECT * FROM item")
     fun getAllAsLiveData(): LiveData<List<Transaction>>
 
-    @Query("SELECT * FROM item WHERE id = :itemId")
-    fun get(itemId: Int): Transaction
+    @Query("SELECT * FROM item WHERE id = :txnId")
+    fun get(txnId: Int): Transaction
 
 //    @Query("SELECT * FROM item WHERE groupId = :groupId")
 //    fun getItemsByGroupId(groupId: Int): List<Item>
