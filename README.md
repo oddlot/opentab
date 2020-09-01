@@ -1,7 +1,7 @@
 # Ledger
 
-Android application for managing shared debts and expenses
+*Android application for tracking shared debts and expenses*
 
 1. Clone repository
-2. Open in Android Studio
-3. Go to "Build" > "Generate Signed Bundle / APK..."
+2. Open project in Android Studio
+3. Go to Build > Generate Signed Bundle / APK...
