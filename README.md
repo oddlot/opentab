@@ -1,6 +1,6 @@
 # Ledger
 
-Android application for managing shared debts and expenses
+aAndroid application for managing shared debts and expenses
 
 1. Clone repository
 2. Open in Android Studio
