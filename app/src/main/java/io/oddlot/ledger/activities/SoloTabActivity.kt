@@ -39,9 +39,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.concurrent.thread
 
-
 class SoloTabActivity : AppCompatActivity() {
-    private val TAG = "INDIVIDUAL_TAB_ACTIVITY"
+    private val TAG = this::class.java.name
+
     private var mTabBalance = 0.0
     private var transactions: MutableList<Transaction> = mutableListOf()
     private lateinit var pTab: TabParcelable
@@ -390,8 +390,8 @@ class SoloTabActivity : AppCompatActivity() {
     private fun writeExportFile(data: Intent?) {
         // Export to CSV
         contentResolver.openOutputStream(data!!.data!!, "w").use {
-            it!!.write("${ pTab.name }\n".toByteArray())
-            it.write("Date,Description,Amount\n".toByteArray())
+//            it!!.write("${ pTab.name }\n".toByteArray()) // Tab Name
+            it!!.write("Date,Tab,Amount,Description\n".toByteArray()) // Headers
             val transactionsSorted = transactions.toMutableList().apply { sort() }
 
             for (i in 0 until transactionsSorted.size) {
@@ -402,7 +402,7 @@ class SoloTabActivity : AppCompatActivity() {
                     mItemDescription = '"' + this + '"'
                 }
                 val mItemAmount = item.amount.toString()
-                it.write("$mItemDateString,$mItemDescription,$mItemAmount\n".toByteArray())
+                it.write("$mItemDateString,${pTab.name},$mItemAmount,$mItemDescription\n".toByteArray()) // Data
             }
             it.close()
         }

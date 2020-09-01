@@ -39,19 +39,19 @@ import java.util.*
  */
 
 class SoloTransactionActivity : AppCompatActivity() {
-    val TAG = "SOLO_TRANSACTION_ACTIVITY"
+    private val TAG = this::class.java.name
 
-    lateinit var payerName: String
-    lateinit var itemDate: Date
-    lateinit var tabs: List<Tab>
+    private var txnParcelable: TransactionParcelable? = null
+    private var txnAmount: Double? = null
+    private var txnDescription: String? = null
+    private lateinit var payerName: String
+    private lateinit var itemDate: Date
+    private lateinit var tabs: List<Tab>
     private lateinit var selectedTab: Tab
     private lateinit var selectedPayee: Member
     private lateinit var tabParcelable: TabParcelable
     private lateinit var username: String
 
-    private var txnParcelable: TransactionParcelable? = null
-    private var txnAmount: Double? = null
-    private var txnDescription: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

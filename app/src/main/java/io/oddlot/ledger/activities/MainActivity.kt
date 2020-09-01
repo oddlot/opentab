@@ -50,9 +50,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         Log.d(TAG, "Creating activity")
 
-        // Set app to follow system theme
+        // Configure app to follow system theme
         AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
 
         // Declare singletons

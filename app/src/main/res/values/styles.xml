@@ -9,6 +9,7 @@
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="tabStyle">@style/TabLayoutStyle</item>
     </style>
 
     <style name="dialog_view_style" parent="">
@@ -28,7 +29,7 @@
     </style>
 
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@drawable/tab_layout_background</item>
+        <item name="tabBackground">@color/appTheme</item>
         <item name="tabMode">fixed</item>
         <item name="tabSelectedTextColor">@color/defaultWhite</item>
         <item name="tabIndicatorColor">@color/defaultWhite</item>
@@ -70,7 +71,6 @@
         <item name="itemTextColor">?android:attr/textColorPrimary</item>
         <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
         <item name="drawerArrowStyle">@style/ButtonBarButtonStyle</item>
-
     </style>
 
     <style name="DrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">

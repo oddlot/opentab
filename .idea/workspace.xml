@@ -13,9 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc087d52-0350-4a85-bf0a-1d1217226b64" name="Default Changelist" comment="&quot;Testing text color&quot;">
-      <change afterPath="$PROJECT_DIR$/.idea/modules/aLedger.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tab_layout_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/font/app_font.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/AboutFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-night/tab_layout_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-night/fragment_main_viewpager.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -26,51 +26,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ledger.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/AddGroupExpenseActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditGroupExpenseActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/EditTransactionActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupExpenseActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTransactionActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/GroupTabActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/IndividualTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTabActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/IndividualTransactionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTransactionActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/assets/fonts/AbelRegular.ttf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/MainActivity_orig.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/TabsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/GroupExpensesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/GroupExpensesAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TabsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TransactionsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/adapters/TransactionsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/data/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/data/AppDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/data/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/data/Transaction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTabActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTransactionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/activities/SoloTransactionActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainViewPager.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/MainViewPager.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/SettingsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/TransactionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/fragments/TransactionsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/parcelables/TransactionParcelable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/parcelables/TransactionParcelable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/TransactionsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models/TransactionsViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_expense.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_create_expense.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_transaction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_transaction.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_expense.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_expense.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_tab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_group_tab.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_individual_tab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_individual_tab.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_individual_transaction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_individual_transaction.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_inprogress.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main_inprogress.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction_dark.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction_dark.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_individual_tab_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_solo_tab_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_individual_transaction_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_solo_transaction_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_item_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/nav_drawer_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/nav_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_viewpager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_viewpager.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -146,7 +109,7 @@
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="device.picker.selection" value="Pixel_3_XL_API_27" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/values-night" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/font" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/layout-night" />
     <property name="not.eligible.for.single.variant.sync" value="true" />
     <property name="recommended.upgrade.last.time.stamp" value="1595084215232" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -154,13 +117,6 @@
     <property name="sync.plugin.last.upgrade.timestamp" value="1571745531225" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\assets\fonts" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/utils" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/classes" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models" />
-    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="io.oddlot.ledger" />
       <recent name="io.oddlot.ledger.classes" />
@@ -168,20 +124,30 @@
       <recent name="io.oddlot.ledger.util" />
       <recent name="io.oddlot.ledger.activity" />
     </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="io.oddlot.ledger.fragments" />
+    </key>
     <key name="android.template.packageName">
       <recent name="io.oddlot.ledger.activities" />
       <recent name="io.oddlot.ledger" />
     </key>
-    <key name="android.template.parentActivityClass">
-      <recent name="io.oddlot.ledger.activities.TabsActivity" />
-      <recent name="" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\assets\fonts" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/utils" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/classes" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger/view_models" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\layout-night" />
+      <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\drawable-night" />
       <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\font" />
       <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\assets\fonts" />
       <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\main\java\io\oddlot\ledger\utils" />
-      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\main\res\font" />
-      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\main\res\layout" />
+    </key>
+    <key name="android.template.parentActivityClass">
+      <recent name="io.oddlot.ledger.activities.TabsActivity" />
+      <recent name="" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">
@@ -401,10 +367,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="627" y="208" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597558042604" />
-    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog" timestamp="1597560704754">
+    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog" timestamp="1598934026133">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597560704754" />
+    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1598934026133" />
     <state x="540" y="268" key="AndroidCreateResourceFileDialog" timestamp="1598711782448">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -413,22 +379,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="801" y="312" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597764353152" />
-    <state width="1863" height="255" key="GridCell.Tab.0.bottom" timestamp="1598794252343">
+    <state width="1863" height="255" key="GridCell.Tab.0.bottom" timestamp="1598933839512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="255" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598794252343" />
-    <state width="1863" height="255" key="GridCell.Tab.0.center" timestamp="1598794252343">
+    <state width="1863" height="255" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1598933839512" />
+    <state width="1863" height="255" key="GridCell.Tab.0.center" timestamp="1598933839512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="255" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598794252343" />
-    <state width="1863" height="255" key="GridCell.Tab.0.left" timestamp="1598794252343">
+    <state width="1863" height="255" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1598933839512" />
+    <state width="1863" height="255" key="GridCell.Tab.0.left" timestamp="1598933839512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="255" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598794252343" />
-    <state width="1863" height="255" key="GridCell.Tab.0.right" timestamp="1598794252343">
+    <state width="1863" height="255" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1598933839512" />
+    <state width="1863" height="255" key="GridCell.Tab.0.right" timestamp="1598933839512">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="255" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598794252343" />
+    <state width="1863" height="255" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1598933839512" />
     <state x="705" y="108" key="SettingsEditor" timestamp="1598775498329">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -449,10 +415,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="738" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1596977362496" />
-    <state x="532" y="236" key="run.anything.popup" timestamp="1598089810133">
+    <state x="532" y="236" key="run.anything.popup" timestamp="1598888897115">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="532" y="236" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598089810133" />
+    <state x="532" y="236" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1598888897115" />
     <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1598712365216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

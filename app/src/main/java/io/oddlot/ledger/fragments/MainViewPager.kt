@@ -38,11 +38,11 @@ class MainViewPager : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         TabLayoutMediator(tabLayout, pager) { tab, position ->
-            tab.text = arrayOf("Tabs", "Transactions", "Placeholder")[position]
+//            tab.text = arrayOf("Tabs", "Transactions", "Placeholder")[position]
 
             if (position == pager.currentItem) {
-                val ttv = tab.view.getChildAt(1) as TextView
-                ttv.setTypeface(ResourcesCompat.getFont(ttv.context, R.font.rajdhani), Typeface.BOLD)
+//                val ttv = tab.view.getChildAt(1) as TextView
+//                ttv.setTypeface(ResourcesCompat.getFont(ttv.context, R.font.rajdhani), Typeface.BOLD)
             }
 
             tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

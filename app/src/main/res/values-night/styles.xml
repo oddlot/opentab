@@ -9,6 +9,7 @@
         <item name="android:textColor">@color/defaultWhite</item>
         <item name="android:actionMenuTextColor">@color/defaultWhite</item>
         <item name="android:fontFamily">@font/rajdhani</item>
+        <item name="tabStyle">@style/TabLayoutStyle</item>
     </style>r
 
     <style name="dialog_view_style" parent="">
@@ -16,7 +17,7 @@
     </style>
 
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@drawable/tab_layout_background</item>
+        <item name="tabBackground">@color/appTheme</item>
         <item name="tabMode">fixed</item>
         <item name="tabSelectedTextColor">@color/defaultWhite</item>
         <item name="tabIndicatorColor">@color/defaultWhite</item>
@@ -36,14 +37,9 @@
     <style name="MenuTextStyle" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
         <item name="android:textSize">28sp</item>
         <item name="android:layout_marginTop">20dp</item>
-<!--        <item name="android:fontFamily">@font/varela_round</item>-->
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light">
-
-    </style>
-
-    <style name="toolbar_theme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="toolbar_theme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
         <item name="android:actionMenuTextColor">@color/defaultWhite</item>
         <item name="android:textColor">@color/defaultWhite</item>
         <item name="android:background">@color/appTheme</item>
