@@ -27,7 +27,7 @@ import io.oddlot.ledger.App
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
-import io.oddlot.ledger.fragments.MainViewPager
+import io.oddlot.ledger.fragments.MainFragment
 import io.oddlot.ledger.fragments.SettingsFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragmentManager: FragmentManager
     private lateinit var drawerNav: NavigationView
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var mainFragment: MainFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +69,15 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Main fragment (viewpager)
+        mainFragment = MainFragment()
+
+        fragmentManager = supportFragmentManager.also {
+            it.beginTransaction()
+                .replace(R.id.container, mainFragment, "HOME")
+                .commit()
+        }
+
         // Configure drawer
         drawerLayout = findViewById(R.id.drawer_layout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close).apply {
@@ -75,43 +85,45 @@ class MainActivity : AppCompatActivity() {
             syncState()
         }
         drawerLayout.addDrawerListener(drawerToggle)
-
         drawerNav = findViewById(R.id.nav_drawer)
         drawerNav.setCheckedItem(R.id.nav_item_home)
         drawerNav.bringToFront()
         drawerNav.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_item_home -> {
-                    fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, MainViewPager())
-                        .commit()
+                    // Clear back stack on Home (Main) fragment
+                    val stackCount = fragmentManager.backStackEntryCount
+                    if (stackCount > 0) {
+                        for (i in 1..stackCount) fragmentManager.popBackStack()
+                    }
+
+                    // Replace Home fragment if not visible
+                    if (!mainFragment.isVisible) {
+                        fragmentManager
+                            .beginTransaction()
+                            .replace(R.id.container, mainFragment)
+                            .commit()
+                    }
+
                     it.isChecked = true
                     drawerLayout.closeDrawer(GravityCompat.START)
+
                     true
                 }
                 R.id.nav_item_settings -> {
                     fragmentManager
                         .beginTransaction()
                         .replace(R.id.container, SettingsFragment(), "SETTINGS")
-                        .addToBackStack("mainViewPager")
+                        .addToBackStack(null)
                         .commit()
                     it.isChecked = true
                     drawerLayout.closeDrawer(GravityCompat.START)
                     supportActionBar?.setBackgroundDrawable(null)
+
                     true
                 }
                 else -> false
             }
-        }
-
-        // Main fragment (viewpager)
-        val mvp = MainViewPager()
-
-        fragmentManager = supportFragmentManager.also {
-            it.beginTransaction()
-                .replace(R.id.container, mvp)
-                .commit()
         }
 
         /*
@@ -148,7 +160,7 @@ class MainActivity : AppCompatActivity() {
                                     runOnUiThread {
                                         fragmentManager
                                             .beginTransaction()
-                                            .replace(R.id.container, MainViewPager())
+                                            .replace(R.id.container, MainFragment())
                                             .commit()
                                     }
                                 }
@@ -264,7 +276,7 @@ class MainActivity : AppCompatActivity() {
 
                                 CoroutineScope(Dispatchers.IO).launch {
                                     val groupTabId = db.tabDao().insert(
-                                        Tab(null, tabName, isGroup=true)
+                                        Tab(null, tabName)
                                     )
 
                                     val newMS = Membership(null, groupTabId.toInt(), 1)
@@ -328,7 +340,8 @@ class MainActivity : AppCompatActivity() {
         intent.extras?.getBoolean("RESTART_ACTIVITY")?.let {
             // Refresh main fragment
             fragmentManager.beginTransaction()
-                .replace(R.id.container, MainViewPager(), "MAIN")
+                .remove(mainFragment)
+                .replace(R.id.container, MainFragment(), "HOME")
                 .commitAllowingStateLoss()
         }
     }
@@ -346,7 +359,6 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     override fun onBackPressed() {
@@ -354,7 +366,7 @@ class MainActivity : AppCompatActivity() {
         val settingsFragment = fragmentManager.findFragmentByTag("SETTINGS")
 
         // Re-check 'Home' menu item if going back from Settings fragment
-        if (settingsFragment?.isVisible ?: false) {
+        if (settingsFragment?.isVisible == true) {
             val homeMenuItem = nav.menu.getItem(0)
             nav.setCheckedItem(homeMenuItem)
         }
@@ -364,7 +376,9 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
             // Close right navigation menu
             drawerLayout.isDrawerOpen(GravityCompat.END) -> drawerLayout.closeDrawer(GravityCompat.END)
-            else -> super.onBackPressed()
+            else -> {
+                super.onBackPressed()
+            }
         }
     }
 

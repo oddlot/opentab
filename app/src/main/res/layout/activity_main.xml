@@ -27,7 +27,8 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@android:drawable/ic_input_add"
-                android:tint="#FFFFFF"
+                android:backgroundTint="@color/appTheme"
+                app:tint="#FFFFFF"
                 android:layout_height="wrap_content"/>
 
     </FrameLayout>
@@ -37,6 +38,9 @@
             android:theme="@style/NavDrawerTheme"
             app:headerLayout="@layout/nav_header"
             app:menu="@menu/nav_drawer"
+            app:itemBackground="@drawable/nav_menu_item"
+            app:itemIconTint="@color/nav_menu_item"
+            app:itemTextColor="@color/nav_menu_item"
             android:layout_gravity="start"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">

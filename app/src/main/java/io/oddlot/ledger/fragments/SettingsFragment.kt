@@ -1,6 +1,5 @@
 package io.oddlot.ledger.fragments
 
-import android.app.ActionBar
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
@@ -39,24 +38,6 @@ class SettingsFragment : Fragment() {
                 setSelection(text.length)
                 filters = arrayOf(UsernameFilter())
             }
-//            val input = EditText(context).apply {
-////                background = null
-//                inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
-//                showSoftInputOnFocus = true
-//                gravity = Gravity.CENTER
-//                text = SpannableStringBuilder(prefs.getString("USERNAME", ""))
-//                setSelection(text.length)
-//
-//                val lp = FrameLayout.LayoutParams(
-//                    ViewGroup.LayoutParams.WRAP_CONTENT,
-//                    ViewGroup.LayoutParams.WRAP_CONTENT
-//                )
-//
-//                lp.setMargins(60, 50, 60, 0)
-//
-//                layoutParams = lp
-//            }
-
             val builder = AlertDialog.Builder(context!!).apply {
                 setTitle("Change Name")
                 setView(
@@ -95,9 +76,9 @@ class SettingsFragment : Fragment() {
                             val c = Calendar.getInstance()
 
                             when (c.get(Calendar.HOUR_OF_DAY)) {
-                                in 0 until 12 -> text = "Good morning, $$newName"
-                                in 12 until 18 -> text = "Good afternoon, $$newName"
-                                else -> text = "Good evening, $$newName"
+                                in 0 until 12 -> text = "Good morning, $newName"
+                                in 12 until 18 -> text = "Good afternoon, $newName"
+                                else -> text = "Good evening, $newName"
                             }
                         }
 
@@ -110,6 +91,7 @@ class SettingsFragment : Fragment() {
             }
             builder.show()
         }
+
         return view
     }
 

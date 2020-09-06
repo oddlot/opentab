@@ -1,6 +1,6 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- Base application NIGHT theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:actionOverflowMenuStyle">@style/MenuTextStyle</item>
         <item name="colorPrimary">@color/appTheme</item>
         <item name="android:statusBarColor">@color/appTheme</item>
@@ -9,23 +9,31 @@
         <item name="android:textColor">@color/defaultWhite</item>
         <item name="android:actionMenuTextColor">@color/defaultWhite</item>
         <item name="android:fontFamily">@font/rajdhani</item>
-        <item name="tabStyle">@style/TabLayoutStyle</item>
+        <item name="tabStyle">@style/TabLayoutStyle</item> // Doesn't work in night mode
     </style>r
 
     <style name="dialog_view_style" parent="">
         <item name="android:paddingStart">50dp</item>
     </style>
 
-    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@color/appTheme</item>
+    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/defaultWhite</item>
-        <item name="tabIndicatorColor">@color/defaultWhite</item>
-        <item name="tabIndicatorHeight">4dp</item>
+        <item name="tabBackground">@color/appTheme</item> // Does not work in night mode
+        <item name="colorSurface">@color/appTheme</item> // ...must use Color Surface instead
+        <item name="tabSelectedTextColor">?android:attr/textColorPrimary</item>
+        <item name="tabIndicatorColor">?android:attr/textColorPrimary</item>
+        <item name="tabIndicatorHeight">4dp</item> // Does not work in night mode
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item>
         <item name="tabGravity">fill</item>
+        <item name="tabTextColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item> // not working in night mode
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="TextLabelStyle">
@@ -39,12 +47,10 @@
         <item name="android:layout_marginTop">20dp</item>
     </style>
 
-    <style name="toolbar_theme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
-        <item name="android:actionMenuTextColor">@color/defaultWhite</item>
-        <item name="android:textColor">@color/defaultWhite</item>
-        <item name="android:background">@color/appTheme</item>
+    <style name="toolbar_theme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="android:actionMenuTextColor">?android:attr/textColorPrimary</item>
+        <item name="android:actionBarItemBackground">@color/appTheme</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
-
-    <style name="NavDrawerTheme"></style>
 
 </resources>

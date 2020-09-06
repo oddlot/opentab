@@ -34,9 +34,6 @@ interface GroupExpenseDao {
     @Query("SELECT * FROM GroupExpense WHERE tabId = :tabId ORDER BY date DESC, id DESC")
     fun getLiveGroupItemsByTabId(tabId: Int): LiveData<List<GroupExpense>>
 
-//    @Query("SELECT SUM(item.amount) FROM Item WHERE groupId = :groupId")
-//    fun getTotal(groupId: Int): Double
-
     @Query("DELETE FROM GroupExpense WHERE id = :groupId")
     fun deleteGroupItemById(groupId: Int): Int
 

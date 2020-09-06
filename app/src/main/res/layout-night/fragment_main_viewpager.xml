@@ -11,24 +11,25 @@
             android:id="@+id/spacer"
             android:background="@color/appTheme"
             android:layout_width="match_parent"
-            android:layout_height="104dp"/>
+            android:layout_height="86dp"/>
 
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            android:layout_below="@id/spacer"
+            app:theme="@style/TabLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            style="@style/TabLayoutStyle"
-            app:tabMode="fixed"
-            android:textAlignment="viewStart">
-        <com.google.android.material.tabs.TabItem
-                android:text="Tabs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <com.google.android.material.tabs.TabItem
-                android:text="Transactions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:layout_height="62dp"
+            android:layout_below="@id/spacer"
+            android:textAlignment="viewStart"
+            app:tabIndicatorGravity="top"
+            app:tabMode="fixed">
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--                android:text="Tabs"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"/>-->
+        <!--        <com.google.android.material.tabs.TabItem-->
+        <!--                android:text="Transactions"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"/>-->
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2

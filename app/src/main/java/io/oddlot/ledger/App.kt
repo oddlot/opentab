@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import io.oddlot.ledger.data.AppDatabase
@@ -29,20 +31,14 @@ class ReqCodes {
 class App {
     companion object {
         @Volatile
-        private var instance: App? = null
         private var database:  AppDatabase? = null
         private var queue: RequestQueue? = null
         private var prefs: SharedPreferences? = null
 
-        fun getInstance(context: Context): App {
-            return instance
-                ?: App().also {
-                instance = it
-            }
-        }
-
         fun getDatabase(context: Context): AppDatabase {
             return database ?: Room.databaseBuilder(context, AppDatabase::class.java, "AppDatabase")
+//                .addMigrations(AppDatabase.MIGRATION_1_2)
+//                .fallbackToDestructiveMigration()
                 .build()
                 .also {
                     database = it
