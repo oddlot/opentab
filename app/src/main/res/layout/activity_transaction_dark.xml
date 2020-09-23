@@ -13,7 +13,7 @@
 
     <Spinner
             android:id="@+id/paidBySpinner"
-            android:backgroundTint="@color/defaultWhite"
+            android:backgroundTint="@color/DefaultWhite"
             android:layout_height="47dp"
             android:layout_width="183dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +59,7 @@
 
     <EditText
             android:id="@+id/amountPaid"
-            android:backgroundTint="@color/defaultWhite"
+            android:backgroundTint="@color/DefaultWhite"
             android:layout_width="170dp"
             android:layout_height="47dp"
             android:inputType="numberDecimal"
@@ -80,7 +80,7 @@
 
     <EditText
             android:id="@+id/etDescription"
-            android:backgroundTint="@color/defaultWhite"
+            android:backgroundTint="@color/DefaultWhite"
             android:hint="@string/item_description_hint"
             android:inputType="textCapSentences"
             android:layout_width="0dp"

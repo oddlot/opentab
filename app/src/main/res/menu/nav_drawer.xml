@@ -7,7 +7,7 @@
 
         <item
                 android:id="@+id/nav_item_home"
-                android:icon="@drawable/ic_label_24px"
+                android:icon="@drawable/ic_home_black_24dp"
                 android:title="Home" />
 
         <item
@@ -16,9 +16,9 @@
                 android:title="@string/actionbar_overflow_settings" />
 
         <item
-                android:id="@+id/nav_item_about"
-                android:icon="@android:drawable/ic_dialog_info"
-                android:title="About" />
+                android:id="@+id/nav_item_help"
+                android:icon="@drawable/ic_help_24px"
+                android:title="Help" />
 
     </group>
 </menu>

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.GroupTransactionActivity
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.commatize
 import io.oddlot.ledger.data.GroupExpense
@@ -32,7 +32,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.group_item_row_dark, parent, false)
+        val view = inflater.inflate(R.layout.layout_group_item_row, parent, false)
 
         return GroupItemViewHolder(view)
     }
@@ -44,7 +44,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
 
         // UI
         holder.view.findViewById<TextView>(R.id.itemDate).apply {
-            text = Utils.dateStringFromMillis(groupExpense.date, "MM/dd")
+            text = StringUtils.dateStringFromMillis(groupExpense.date, "MM/dd")
         }
 
         holder.view.findViewById<TextView>(R.id.paidBy).apply {
@@ -84,7 +84,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
             setTextColor(
                 ContextCompat.getColor(
                     context,
-                    if (groupExpense.amount > 0.0) R.color.watermelon else R.color.appTheme
+                    if (groupExpense.amount > 0.0) R.color.Watermelon else R.color.AppTheme
                 )
             )
         }

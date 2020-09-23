@@ -49,7 +49,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         val tabTypeIcon = holder.view.findViewById<ImageView>(R.id.tabType).apply {
             if (tab.isGroup) setImageResource(R.drawable.ic_people_outline_black_24dp)
         }
-        val tabCurrencyView = holder.view.findViewById<TextView>(R.id.tabCurrency).apply {
+        val tabCurrencyView = holder.view.findViewById<TextView>(R.id.tvTabCurrency).apply {
             text = tab.currency
         }
 
@@ -58,12 +58,12 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
             text =
                 if (tab.balance < 0.0) { (tab.balance * -1.0).round(2).commatize()
                     .also {
-                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.watermelon))
+                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.Watermelon))
                     }
                 }
                 else if (tab.balance > 0.0) tab.balance.round(2).commatize()
                     .also {
-                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.colorTeal))
+                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.BrightTeal))
                     }
                 else "0.00"
         }
@@ -72,7 +72,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
-                if (tab.isGroup) GroupTabActivity::class.java else SoloTabActivity::class.java
+                if (tab.isGroup) GroupTabActivity::class.java else TabActivity::class.java
             )
             intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)

@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/ic_baseline_person_outline_24px" />
 
     <TextView
-            android:id="@+id/tabCurrency"
+            android:id="@+id/tvTabCurrency"
             android:layout_alignTop="@id/tabBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

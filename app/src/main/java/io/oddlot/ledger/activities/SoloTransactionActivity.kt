@@ -12,10 +12,11 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
+import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.data.Tab
-import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.data.Transaction
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.parcelables.TransactionParcelable
@@ -50,7 +51,7 @@ class SoloTransactionActivity : AppCompatActivity() {
     private lateinit var selectedTab: Tab
     private lateinit var selectedPayee: Member
     private lateinit var tabParcelable: TabParcelable
-    private lateinit var username: String
+    private lateinit var userName: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,13 +62,13 @@ class SoloTransactionActivity : AppCompatActivity() {
          Member variables
          */
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
-        username = prefs.getString("USERNAME", "null")!!
+        userName = prefs.getString(PreferenceKeys.USER_NAME, "null")!!
 
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
             txnParcelable = it
             txnAmount = it.amount
             txnDescription = it.description
-            payerName = if (txnAmount!! > 0.0) username else tabParcelable.name
+            payerName = if (txnAmount!! > 0.0) userName else tabParcelable.name
         }
 
         /*
@@ -102,14 +103,14 @@ class SoloTransactionActivity : AppCompatActivity() {
                     ) {
                         CoroutineScope(IO).launch {
                             selectedTab = tabs[position]
-                            selectedPayee = db.memberDao().getMemberByName(username)!!
+                            selectedPayee = db.memberDao().getMemberByName(userName)!!
 
                             withContext(Main) {
                                 paidBySpinner.adapter = ArrayAdapter<String>(
-                                    this@SoloTransactionActivity,  android.R.layout.simple_spinner_dropdown_item, listOf(username, selectedTab.name)
+                                    this@SoloTransactionActivity,  android.R.layout.simple_spinner_dropdown_item, listOf(userName, selectedTab.name)
                                 )
                                 txnParcelable?.let {
-                                    paidBySpinner.setSelection(listOf(username, selectedTab.name).indexOf(payerName))
+                                    paidBySpinner.setSelection(listOf(userName, selectedTab.name).indexOf(payerName))
                                 }
                             }
                         }
@@ -133,7 +134,7 @@ class SoloTransactionActivity : AppCompatActivity() {
                 paidBySpinner.adapter = ArrayAdapter<String>(
                     this@SoloTransactionActivity,
                     android.R.layout.simple_spinner_dropdown_item,
-                    listOf(username, tabParcelable.name)
+                    listOf(userName, tabParcelable.name)
                 )
 
                 txnDescription?.let { etDescription.text = SpannableStringBuilder(it) }
@@ -212,14 +213,14 @@ class SoloTransactionActivity : AppCompatActivity() {
                             var txnAmount = amountPaid.text.toString().toDouble()
 
                             /* Convert to negative if not paid by owner */
-                            if (payerName != username && txnAmount > 0.0 ) {
+                            if (payerName != userName && txnAmount > 0.0 ) {
                                 txnAmount *= -1.0
                             }
 
                             txnDescription = etDescription.text.toString()
 
                             val txn = Transaction(txnParcelable?.id, selectedTab.id ?: tabParcelable.id, txnAmount, txnDescription,
-                                Utils.millisFromDateString(
+                                StringUtils.millisFromDateString(
                                     datePicker.text.toString(), "yyyy/MM/dd"
                                 )
                             )
@@ -233,7 +234,7 @@ class SoloTransactionActivity : AppCompatActivity() {
 
                         withContext(Main) {
                             // Redirect to Tab Activity
-                            Intent(this@SoloTransactionActivity, SoloTabActivity::class.java).apply {
+                            Intent(this@SoloTransactionActivity, TabActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 putExtra("NEW_TASK_ON_BACK", true)
                                 putExtra("TAB_PARCELABLE", tabParcelable)

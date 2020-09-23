@@ -1,0 +1,35 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/general_header">
+        <Preference
+                app:iconSpaceReserved="false"
+                app:key="userName"
+                app:title="Username"
+                app:summary="Thomas"/>
+        <ListPreference
+                app:defaultValue="USD"
+                app:entries="@array/currencyEntries"
+                app:entryValues="@array/currencyValues"
+                app:iconSpaceReserved="false"
+                app:key="@string/baseCurrencyKey"
+                app:title="@string/baseCurrency"
+                app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+            app:iconSpaceReserved="false"
+            app:title="@string/appearance_header">
+<!--        <SwitchPreferenceCompat-->
+<!--                app:iconSpaceReserved="false"-->
+<!--                app:key="darkTheme"-->
+<!--                app:title="Dark theme" />-->
+        <ListPreference
+                app:defaultValue="@string/followSystemKey"
+                app:entries="@array/themeEntries"
+                app:entryValues="@array/themeValues"
+                app:iconSpaceReserved="false"
+                app:key="@string/themeKey"
+                app:title="@string/themeTitle"
+                app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

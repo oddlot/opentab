@@ -18,7 +18,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
             android:layout_marginTop="78dp"
-            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
             android:layout_marginStart="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -34,7 +34,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/dateWrapper"
                     android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin_plus"
+                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content">
                 <TextView
@@ -51,7 +51,7 @@
                         android:inputType="date"
                         tools:text="2020/01/08"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         android:paddingLeft="4dp"
                         android:textColor="?android:attr/textColorPrimary" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -71,9 +71,9 @@
                 <EditText
                         android:id="@+id/amountPaid"
                         style="@style/ClickableStyle"
-                        android:layout_width="@dimen/amount_input_width"
+                        android:layout_width="@dimen/AMOUNT_INPUT_WIDTH"
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
-                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         android:gravity="left"
                         android:inputType="numberDecimal" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -82,14 +82,14 @@
 <!--        Column 2-->
         <RelativeLayout
                 android:id="@+id/col_2"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
+                android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/tabWrapper"
                     android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin_plus"
+                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                 <TextView
@@ -101,7 +101,7 @@
                         android:id="@+id/tabSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="47dp"
-                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintVertical_bias="0.0" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -121,7 +121,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                         android:layout_below="@id/paidByLabel"
-                        android:layout_marginTop="@dimen/activity_view_padding"
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintVertical_bias="0.0" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -136,8 +136,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingEnd="@dimen/activity_horizontal_margin">
+            android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+            android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
         <TextView
                 android:id="@+id/descriptionLabel"
                 style="@style/TextLabelStyle"
@@ -147,7 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/descriptionLabel"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/ACTIVITY_VERTICAL_MARGIN"
                 android:hint="@string/item_description_hint"
                 android:inputType="textCapSentences"
                 app:layout_constraintHorizontal_bias="0.0" />

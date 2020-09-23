@@ -22,16 +22,17 @@ import kotlinx.android.synthetic.main.fragment_main_viewpager.*
 
 class MainFragment : Fragment() {
     val TAG = "MAIN_FRAGMENT"
+    var mainActivity: AppCompatActivity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        Log.d(TAG, "creating view")
         val view = inflater.inflate(R.layout.fragment_main_viewpager, container, false)
         val pager = view.findViewById<ViewPager2>(R.id.pager)
         val fragments = listOf(TabsFragment(), TransactionsFragment())
 
-        pager.adapter = MainViewPagerAdapter(activity as AppCompatActivity, fragments)
+        mainActivity = activity as AppCompatActivity
+        pager.adapter = MainViewPagerAdapter(mainActivity!!, fragments)
 
         return view
     }
@@ -62,9 +63,6 @@ class MainFragment : Fragment() {
                 }
             })
         }.attach() // Link tab layout and viewpager together
-
-//        val t = tabLayout.getTabAt(1)!!.view.getChildAt(1) as TextView
-//        t.setTypeface(ResourcesCompat.getFont(t.context, R.font.rajdhani), Typeface.BOLD)
     }
 
     override fun onResume() {
@@ -72,5 +70,17 @@ class MainFragment : Fragment() {
         Log.d(TAG, "resuming")
 
         this.pager.currentItem
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mainActivity = null
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        mainActivity = null
     }
 }

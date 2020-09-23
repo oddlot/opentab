@@ -1,6 +1,7 @@
 package io.oddlot.ledger.activities
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.SharedPreferences
@@ -15,8 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,11 +24,11 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.App
+import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
-import io.oddlot.ledger.fragments.MainFragment
-import io.oddlot.ledger.fragments.SettingsFragment
+import io.oddlot.ledger.fragments.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -52,11 +52,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d(TAG, "Creating activity")
-
-        // Configure app to follow system theme
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
-
         // Declare singletons
         db = App.getDatabase(applicationContext)
         prefs = App.getPrefs(applicationContext)
@@ -69,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Main fragment (viewpager)
+        // Main Viewpager
         mainFragment = MainFragment()
 
         fragmentManager = supportFragmentManager.also {
@@ -78,8 +73,8 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        // Configure drawer
-        drawerLayout = findViewById(R.id.drawer_layout)
+        // Nav drawer
+        drawerLayout = findViewById(R.id.drawerLayout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close).apply {
             isDrawerSlideAnimationEnabled = false
             syncState()
@@ -111,9 +106,27 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_item_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent, null)
+
+                    drawerNav.menu.getItem(0).isChecked = true
+//                    R.id.nav_item_home
+//                    fragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.container, PreferenceSettingsFragment(), "SETTINGS")
+////                        .replace(R.id.container, SettingsFragment(), "SETTINGS")
+//                        .addToBackStack(null)
+//                        .commit()
+//                    it.isChecked = true
+//                    drawerLayout.closeDrawer(GravityCompat.START)
+//                    supportActionBar?.setBackgroundDrawable(null)
+
+                    true
+                }
+                R.id.nav_item_help -> {
                     fragmentManager
                         .beginTransaction()
-                        .replace(R.id.container, SettingsFragment(), "SETTINGS")
+                        .replace(R.id.container, HelpFragment(), "HELP")
                         .addToBackStack(null)
                         .commit()
                     it.isChecked = true
@@ -148,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                     setPositiveButton("OK") { dialog, which ->
                         try {
                             // Throw exception if no name is entered
-                            var inputText = tabNameInput.text
+                            val inputText = tabNameInput.text
                             if (tabNameInput.text.isBlank() or (inputText.length > 18))
                                 throw IllegalArgumentException("Exception")
                             else {
@@ -252,7 +265,8 @@ class MainActivity : AppCompatActivity() {
 //                groupTabDialog.show()
 
                 // Show soft keyboard
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
             }
 
@@ -319,6 +333,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_overflow_menu, menu)
 
         return true
+
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -333,8 +348,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onRestart() {
-        Log.d(TAG, "Restarting activity")
-        Log.d(TAG, intent.extras?.getBoolean("RESTART_ACTIVITY").toString())
         super.onRestart()
 
         intent.extras?.getBoolean("RESTART_ACTIVITY")?.let {
@@ -353,8 +366,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         return when (item.itemId) {
-            R.id.menu_help -> {
-//                startActivity(Intent(this, HelpActivity::class.java))
+            R.id.menu_about -> {
+                startActivity(Intent(this, HelpActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -382,11 +395,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Private functions
-     */
     private fun checkIfFirstLaunch() {
-        val username = prefs.getString("USERNAME", null)
+        val username = prefs.getString(PreferenceKeys.USER_NAME, null)
         if (username == null) {
             val usernameInput = basicEditText(this)
 //                .apply { background = null }
@@ -420,7 +430,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     else {
                         val firstMember = Member(null, usernameInput.text.toString())
-                        prefs.edit().putString("USERNAME", firstMember.name).apply()
+                        prefs.edit().putString(PreferenceKeys.USER_NAME, firstMember.name).apply()
                         setGreeting()
 
                         thread {
@@ -438,7 +448,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setGreeting() {
         val hv = drawerNav.getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary)
-        val name = prefs.getString("USERNAME", "Guest")
+        val name = prefs.getString(PreferenceKeys.USER_NAME, "Guest")
         val c = Calendar.getInstance()
 
         hv.text = "$name"

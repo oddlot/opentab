@@ -15,11 +15,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.SoloTabActivity
+import io.oddlot.ledger.activities.TabActivity
 import io.oddlot.ledger.activities.SoloTransactionActivity
 import io.oddlot.ledger.parcelables.TransactionParcelable
 import io.oddlot.ledger.activities.db
-import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Transaction
 import io.oddlot.ledger.parcelables.TabParcelable
@@ -100,18 +100,18 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
             if (amount < 0.0) {
                 text = NumberFormat.getNumberInstance(Locale.getDefault()).format(amount * -1.0)
                 paidBy.text = "You were paid"
-                setTextColor(ContextCompat.getColor(this.context, R.color.watermelon))
+                setTextColor(ContextCompat.getColor(this.context, R.color.Watermelon))
 
                 CoroutineScope(IO).launch { paidBy.text = "${db.tabDao().get(txnTabId).name} paid" }
             }
             else {
                 text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(amount)
                 paidBy.text = "You paid"
-                setTextColor(ContextCompat.getColor(this.context, R.color.colorTeal))
+                setTextColor(ContextCompat.getColor(this.context, R.color.BrightTeal))
             }
         }
 
-        txnDateView.text = Utils.dateStringFromMillis(txnDateInMillis, "MM/dd")
+        txnDateView.text = StringUtils.dateStringFromMillis(txnDateInMillis, "MM/dd")
 //        itemDateView.text = itemDate.slice(5..9).replace("-", "/")
 //        txnDescriptionView.text = txnDescription
 
@@ -149,7 +149,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                     db.transactionDao().deleteItemById(txnId!!)
                     Toast.makeText(it.context, "Transaction deleted", Toast.LENGTH_LONG).show()
 
-                    val intent = Intent(it.context, SoloTabActivity::class.java)
+                    val intent = Intent(it.context, TabActivity::class.java)
                     intent.putExtra("TAB_PARCELABLE", tabParcelable)
                     intent.putExtra("RESTART_ACTIVITY", true)
                     intent.putExtra("NEW_TASK_ON_BACK", true)

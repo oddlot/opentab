@@ -1,98 +1,54 @@
 package io.oddlot.ledger.fragments
 
+import android.content.Context
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.Fragment
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.ListPreference
+import androidx.preference.PreferenceFragmentCompat
+import io.oddlot.ledger.App
+import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.Theme
 import io.oddlot.ledger.activities.prefs
-import io.oddlot.ledger.utils.UsernameFilter
-import io.oddlot.ledger.utils.basicEditText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.util.*
+import io.oddlot.ledger.utils.commatize
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : PreferenceFragmentCompat() {
+    private val TAG = this::class.qualifiedName
+    private lateinit var mContext: Context
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-        val nameView = view.findViewById<TextView>(R.id.name).also { nv ->
-            nv.text = prefs.getString("USERNAME", "null")
-        }
-
-        val editIcon = view.findViewById<ImageView>(R.id.editNameIcon)
-
-        editIcon.setOnClickListener {
-            val input = basicEditText(context!!).apply {
-                text = SpannableStringBuilder(prefs.getString("USERNAME", ""))
-                typeface = ResourcesCompat.getFont(context, R.font.app_font)
-                setSelection(text.length)
-                filters = arrayOf(UsernameFilter())
-            }
-            val builder = AlertDialog.Builder(context!!).apply {
-                setTitle("Change Name")
-                setView(
-                    FrameLayout(context).apply {
-                        addView(input)
-//                        val lp = FrameLayout.LayoutParams(
-//                            ViewGroup.LayoutParams.WRAP_CONTENT,
-//                            ViewGroup.LayoutParams.WRAP_CONTENT
-//                        ).apply {
-//                            setMargins(0, 0, 0, 20)
-//                        }
-//
-//                        layoutParams = lp
-                    }
-                )
-
-                setPositiveButton("OK") { dialog, which ->
-                    val newName = input.text.toString()
-
-                    // Update name of super Member
-                    CoroutineScope(Dispatchers.IO).launch {
-                        db.memberDao().updateMemberName(1, newName)
-                    }
-
-                    // Update name in shared preferences
-                    prefs.edit()
-                        .putString("USERNAME", newName)
-                        .apply()
-
-                    // Update name in layout
-                    nameView.text = newName
-
-                    // Update name in nav drawer
-                    activity!!.findViewById<NavigationView>(R.id.nav_drawer)
-                        .getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary).apply {
-                            val c = Calendar.getInstance()
-
-                            when (c.get(Calendar.HOUR_OF_DAY)) {
-                                in 0 until 12 -> text = "Good morning, $newName"
-                                in 12 until 18 -> text = "Good afternoon, $newName"
-                                else -> text = "Good evening, $newName"
-                            }
-                        }
-
-                    // Toast new name
-                    Toast.makeText(context, "$newName", Toast.LENGTH_SHORT).show()
-                }
-                setNegativeButton("Cancel") { dialog, which ->
-                    dialog.dismiss()
-                }
-            }
-            builder.show()
-        }
-
-        return view
+        mContext = context
     }
 
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        findPreference<ListPreference>(PreferenceKeys.BASE_CURRENCY)!!.apply {
+            setOnPreferenceChangeListener { preference, newValue ->
+                Log.d(TAG, newValue.toString())
+                prefs.edit().putString(PreferenceKeys.BASE_CURRENCY, "XAU").apply()
+                return@setOnPreferenceChangeListener true
+            }
+        }
+
+        findPreference<ListPreference>(PreferenceKeys.THEME)!!.apply {
+            setOnPreferenceChangeListener { preference, newValue ->
+                Log.d(TAG, "THEME CLICKED")
+                when (newValue) {
+                    App.Companion.PreferenceValue.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    getString(R.string.dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    getString(R.string.followSystem) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+                return@setOnPreferenceChangeListener true
+            }
+        }
+    }
 }

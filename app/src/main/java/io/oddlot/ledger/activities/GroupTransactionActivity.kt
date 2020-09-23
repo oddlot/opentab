@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.AllocationAdapter
-import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
@@ -151,7 +151,7 @@ class GroupTransactionActivity : AppCompatActivity() {
         }
 
         // Date picker
-        var dateString = Utils.dateStringFromMillis(mViewModel.date, "yyyy/MM/dd").also {
+        var dateString = StringUtils.dateStringFromMillis(mViewModel.date, "yyyy/MM/dd").also {
             datePicker.text = it
         }
         datePicker.setOnClickListener {
@@ -173,7 +173,7 @@ class GroupTransactionActivity : AppCompatActivity() {
                     val v = it as TextView
                     v.text = dialogDateString
 
-                    mViewModel.date = Utils.millisFromDateString(
+                    mViewModel.date = StringUtils.millisFromDateString(
                         dialogDateString, "yyyy/MM/dd"
                     )
                 }

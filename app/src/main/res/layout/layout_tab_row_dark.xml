@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@color/lightBlack"
+        android:background="@color/BlueBlack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -26,14 +26,14 @@
             android:paddingStart="18dp"
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
-            android:textColor="@color/defaultWhite"
+            android:textColor="@color/DefaultWhite"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Cecilia" />
 
     <ImageView
             android:id="@+id/tabType"
-            android:tint="@color/defaultWhite"
+            android:tint="@color/DefaultWhite"
             android:contentDescription="Individual or Group Tab Icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
             app:srcCompat="@drawable/ic_baseline_person_outline_24px" />
 
     <TextView
-            android:id="@+id/tabCurrency"
+            android:id="@+id/tvTabCurrency"
             android:layout_alignTop="@id/tabBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:paddingTop="8dp"
             android:layout_toStartOf="@+id/tabBalance"
             android:text="HKD"
-            android:textColor="@color/defaultWhite"
+            android:textColor="@color/DefaultWhite"
             android:textSize="10sp" />
 
     <TextView
@@ -67,7 +67,7 @@
             android:gravity="end"
             android:paddingEnd="18dp"
             android:text="0.00"
-            android:textColor="@color/defaultWhite"
+            android:textColor="@color/DefaultWhite"
             android:textSize="24sp"
             android:textStyle="bold" />
 

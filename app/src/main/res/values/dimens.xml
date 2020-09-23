@@ -1,13 +1,23 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_horizontal_margin_plus">24dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin_plus">24dp</dimen>
-    <dimen name="activity_view_padding">4dp</dimen>
+    <dimen name="ACTIVITY_HORIZONTAL_MARGIN">16dp</dimen>
+    <dimen name="ACTIVITY_HORIZONTAL_MARGIN_PLUS">24dp</dimen>
+    <dimen name="ACTIVITY_VERTICAL_MARGIN">16dp</dimen>
+    <dimen name="ACTIVITY_VERTICAL_MARGIN_PLUS">24dp</dimen>
+    <dimen name="ACTIVITY_VIEW_PADDING">4dp</dimen>
+    <dimen name="GENERAL_PADDING">12dp</dimen>
+    <dimen name="DIALOG_INPUT_MARGIN">24dp</dimen>
     <dimen name="DIALOG_INPUT_LEFT_MARGIN">24dp</dimen>
     <dimen name="DIALOG_INPUT_RIGHT_MARGIN">24dp</dimen>
     <dimen name="VIEW_INPUT_HEIGHT">48dp</dimen>
-    <dimen name="amount_input_width">144dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="AMOUNT_INPUT_WIDTH">144dp</dimen>
+    <dimen name="FAB_MARGIN">16dp</dimen>
+    <dimen name="HEADER_HEIGHT">148dp</dimen>
+    <dimen name="HEADER_TEXT_BOTTOM_PADDING">12sp</dimen>
+    <dimen name="PADDING_SECTION_TITLE_TOP">22dp</dimen>
+    <dimen name="PADDING_SECTION_TITLE_BOTTOM">16dp</dimen>
+    <dimen name="PADDING_SECTION_TITLE_VERTICAL">18dp</dimen>
+    <dimen name="PADDING_SECTION_START">18dp</dimen>
+    <dimen name="PADDING_SECTION_VERTICAL">16dp</dimen>
+    <dimen name="SETTING_HEIGHT_SINGLE">39dp</dimen>
+    <dimen name="SETTING_HEIGHT_DOUBLE">52dp</dimen>
 </resources>

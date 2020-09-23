@@ -10,7 +10,6 @@ import io.oddlot.ledger.R
 private val TAG = "HELP_ACTIVITY"
 
 class HelpActivity : AppCompatActivity() {
-    private lateinit var mSharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +21,6 @@ class HelpActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mSharedPrefs = getSharedPreferences("io.oddlot.ledger.prefs", MODE_PRIVATE)
 
     }
 }

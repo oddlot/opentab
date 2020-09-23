@@ -18,7 +18,7 @@ import io.oddlot.ledger.adapters.GroupExpensesAdapter
 import io.oddlot.ledger.*
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
-import io.oddlot.ledger.utils.Utils
+import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.view_models.GroupTabViewModel
 import io.oddlot.ledger.view_models.GroupTabViewModelFactory
@@ -40,7 +40,7 @@ class GroupTabActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group_tab_dark)
+        setContentView(R.layout.activity_group_tab)
 
         // Member Variables
         groupTabParcelable = intent.getParcelableExtra("TAB_PARCELABLE")!!
@@ -253,10 +253,10 @@ class GroupTabActivity: AppCompatActivity() {
                     type = "text/csv"
                     putExtra(
                         Intent.EXTRA_TITLE,
-                        "${ groupTabParcelable.name }_${ Utils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
+                        "${ groupTabParcelable.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
                     )
 
-                    startActivityForResult(this, reqCodes.indexOf("CREATE_DOCUMENT")) // invokes onActivityResult()
+                    startActivityForResult(this, RequestCodes.CREATE_DOCUMENT) // invokes onActivityResult()
                 }
 
                 true

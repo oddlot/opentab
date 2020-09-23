@@ -8,86 +8,188 @@
 
     <TextView
             android:id="@+id/tabsHeader"
-            android:background="@color/appTheme"
-            android:paddingTop="101dp"
+            android:background="@color/AppTheme"
+            android:gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="18dp"
-            android:paddingBottom="18dp"
+            android:layout_height="?android:attr/actionBarSize"
+            android:paddingStart="54dp"
+            android:paddingBottom="14dp"
             android:text="Settings"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textStyle="normal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="32dp"/>
-
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:id="@+id/nameHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp"
-                android:paddingLeft="14dp"
-                android:paddingEnd="14dp"
-                android:text="Name"
-                android:textSize="16sp"/>
-    </LinearLayout>
-
-<!--    <TextView-->
-<!--            android:id="@+id/editNameIcon"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="40"-->
-<!--            android:drawablePadding="-5dp"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:text="Name"-->
-<!--            android:textColor="@color/colorGreen"-->
-<!--            style="@style/behindMenuItemLabel" />-->
-
     <androidx.appcompat.widget.LinearLayoutCompat
-            android:orientation="horizontal"
+            android:id="@+id/generalSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="2dp">
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingTop="@dimen/PADDING_SECTION_TITLE_VERTICAL">
         <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:paddingStart="14dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingEnd="14dp"
-                tools:text="Thomas"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="24sp"
-                android:textStyle="normal"/>
-        <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:text="Edit"/>
-        <ImageView
-                android:id="@+id/editNameIcon"
-                android:contentDescription="Edit icon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="2dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_edit_grey_24dp"/>
+                android:text="General"
+                android:theme="@style/SectionTitle"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/usernameClickable"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"
+                android:layout_marginBottom="14dp"
+                android:orientation="vertical">
+            <TextView
+                    android:id="@+id/nameHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="Username"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    tools:text="Thomas"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="16sp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/defaultCurrencyClickable"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"
+                android:layout_marginBottom="14dp"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="Base currency"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:id="@+id/tvBaseCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:text="USD"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="16sp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/appearanceSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="18dp">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Appearance"
+                android:theme="@style/SectionTitle"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/themeClickable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:orientation="vertical">
+            <TextView
+                    android:text="Theme"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/tvTheme"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    tools:text="Dark"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="16sp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/otherSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingBottom="@dimen/PADDING_SECTION_TITLE_VERTICAL">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:theme="@style/SectionTitle"/>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:orientation="vertical">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ledger app"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"/>
+            <TextView
+                    android:gravity="center_vertical"
+                    android:text="v1.0.0"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                    android:text="Developer"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:gravity="center_vertical"
+                    android:text="Thomas Lee"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginBottom="14dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+                android:text="Licenses"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/SETTING_HEIGHT_SINGLE"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </LinearLayout>

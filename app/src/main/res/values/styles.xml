@@ -1,18 +1,21 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:actionOverflowMenuStyle">@style/MenuTextStyle</item>
-        <item name="colorPrimary">@color/appTheme</item>
-        <item name="android:statusBarColor">@color/appTheme</item>
-        <item name="colorAccent">@color/appTheme</item>
-        <item name="android:actionMenuTextColor">@color/defaultWhite</item>
+    <style name="Base.AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="colorPrimary">@color/AppTheme</item>
+        <item name="android:statusBarColor">@color/AppTheme</item>
+        <item name="colorAccent">@color/AppTheme</item>
         <item name="android:fontFamily">@font/rajdhani</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="tabStyle">@style/TabLayoutStyle</item>
     </style>
 
-    <style name="dialog_view_style" parent="">
+    <style name="AppTheme" parent="Base.AppTheme">
+        <item name="onSurfaceTranslucent">@color/LightTranslucent</item>
+    </style>
+
+    <style name="DialogViewStyle" parent="">
         <item name="android:paddingStart">50dp</item>
     </style>
 
@@ -29,15 +32,25 @@
     </style>
 
     <style name="FabStyle" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="tint">@color/watermelon</item>
-        <item name="backgroundTint">@color/appTheme</item>
+        <item name="tint">@color/Watermelon</item>
+        <item name="backgroundTint">@color/AppTheme</item>
+    </style>
+
+    <style name="SectionTitle" parent="Theme.MaterialComponents.DayNight">
+<!--        <item name="android:paddingTop">@dimen/PADDING_SECTION_TITLE_VERTICAL</item>-->
+<!--        <item name="android:paddingBottom">@dimen/PADDING_SECTION_TITLE_VERTICAL</item>-->
+        <item name="android:height">@dimen/SETTING_HEIGHT_DOUBLE</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/AppTheme</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
-        <item name="tabBackground">@color/appTheme</item>
+        <item name="tabBackground">@color/AppTheme</item>
         <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/defaultWhite</item>
-        <item name="tabIndicatorColor">@color/defaultWhite</item>
+        <item name="tabSelectedTextColor">@color/DefaultWhite</item>
+        <item name="tabIndicatorColor">@color/DefaultWhite</item>
         <item name="tabIndicatorHeight">0dp</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
@@ -45,44 +58,37 @@
         <item name="tabGravity">fill</item>
     </style>
 
-    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/defaultWhite</item>
+    <style name="NavMenuItemTextAppearance" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="MenuTextStyle" parent="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Menu">
-        <item name="android:textSize">28sp</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/DefaultWhite</item>
+        <item name="textAllCaps">false</item>
     </style>
 
-    <style name="toolbar_theme" parent="ThemeOverlay.AppCompat.ActionBar">
-        <item name="android:actionMenuTextColor">@color/colorSecondary</item>
+    <style name="OverflowMenuStyle" parent="Theme.MaterialComponents.CompactMenu">
+        <item name="android:textSize">48sp</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="android:actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item> <!-- Overflow menu item text -->
+<!--        <item name="android:tint">@android:color/white</item> &lt;!&ndash; Drawer icon color &ndash;&gt;-->
         <item name="actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>
     </style>
 
     <style name="ActionOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/defaultWhite</item>
-    </style>
-
-    <style name="ButtonBarButtonStyle" parent="Widget.AppCompat.Button">
-        <item name="android:tint">@color/defaultWhite</item>
-    </style>
-
-    <style name="NavDrawerTheme" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:textSize">55sp</item>
-        <item name="buttonBarButtonStyle">@style/ButtonBarButtonStyle</item>
-        <item name="drawerArrowStyle">@style/ButtonBarButtonStyle</item>
+        <item name="android:tint">@color/DefaultWhite</item>
     </style>
 
     <style name="DrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/defaultWhite</item>
+        <item name="color">@color/DefaultWhite</item>
 =    </style>
-
-<!--    <style name="MenuItemTextStyle" parent="Theme.MaterialComponents.CompactMenu">-->
-<!--        <item name="background">@color/watermelon</item>-->
-<!--    </style>-->
 
 </resources>

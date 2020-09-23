@@ -1,4 +1,31 @@
 <resources>
+
+    <string-array name="currencySymbols">
+        <item>$</item>
+        <item>$</item>
+        <item>Fr.</item>
+        <item>¥</item>
+        <item>€</item>
+        <item>£</item>
+        <item>$</item>
+        <item>¥</item>
+        <item>฿</item>
+        <item>$</item>
+    </string-array>
+
+    <string-array name="currencyEntries">
+        <item>$ Australian Dollar</item>
+        <item>$ Canadian Dollar</item>
+        <item>Fr. Swiss Franc</item>
+        <item>¥ Chinese Renminbi</item>
+        <item>€ Euro</item>
+        <item>£ British Pound</item>
+        <item>$ Hong Kong Dollar</item>
+        <item>¥ Japanese Yen</item>
+        <item>฿ Thai Baht</item>
+        <item>$ United States Dollar</item>
+    </string-array>
+
     <string-array name="currencies">
         <item>AUD</item>
         <item>CAD</item>
@@ -10,6 +37,31 @@
         <item>JPY</item>
         <item>THB</item>
         <item>USD</item>
+    </string-array>
+
+    <string-array name="currencyValues">
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>CHF</item>
+        <item>CNH</item>
+        <item>EUR</item>
+        <item>GBP</item>
+        <item>HKD</item>
+        <item>JPY</item>
+        <item>THB</item>
+        <item>USD</item>
+    </string-array>
+
+    <string-array name="themeEntries">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/followSystem</item>
+    </string-array>
+
+    <string-array name="themeValues">
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/followSystem</item>
     </string-array>
 
     <string-array name="type_array">

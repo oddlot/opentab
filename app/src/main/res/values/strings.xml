@@ -55,15 +55,24 @@
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="general_header">General</string>
+    <string name="appearance_header">Appearance</string>
+    <string name="other_header">Other</string>
 
     <!-- Messages Preferences -->
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="themeTitle">Theme</string>
+    <string name="themeKey">theme</string>
+    <string name="lightKey">light</string>
+    <string name="darkKey">dark</string>
+    <string name="followSystemKey">followSystem</string>
+
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="followSystem">Follow System</string>
+
+    <string name="baseCurrency">Base currency</string>
+    <string name="baseCurrencyKey">baseCurrency</string>
 </resources>
