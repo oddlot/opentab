@@ -75,8 +75,8 @@ class SoloTransactionActivity : AppCompatActivity() {
         Tab, Amount, and Payer views
          */
         CoroutineScope(IO).launch {
-            selectedTab = db.tabDao().get(tabParcelable.id)
-            tabs = db.tabDao().getAll()
+            selectedTab = db.tabDao().tabById(tabParcelable.id)
+            tabs = db.tabDao().allTabs()
 
             CoroutineScope(Main).launch {
                 /*

@@ -10,12 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.db
 import io.oddlot.ledger.adapters.TabsAdapter
-import io.oddlot.ledger.adapters.TransactionsAdapter
-import kotlinx.android.synthetic.main.activity_main.view.*
 //import kotlinx.android.synthetic.main.fragment_main.*
 //import kotlinx.android.synthetic.main.fragment_main.tabsRecyclerView
-import kotlinx.android.synthetic.main.fragment_tabs.*
-import kotlinx.android.synthetic.main.fragment_transactions.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +31,7 @@ class TabsFragment: Fragment() {
             layoutManager = LinearLayoutManager(activity)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val tabs = db.tabDao().getAll()
+                val tabs = db.tabDao().allTabs()
                 CoroutineScope(Dispatchers.Main).launch {
                     adapter = TabsAdapter(tabs)
                 }

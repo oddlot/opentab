@@ -16,14 +16,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import io.oddlot.ledger.App
+import io.oddlot.ledger.HashTab
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
@@ -53,8 +52,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Declare singletons
-        db = App.getDatabase(applicationContext)
-        prefs = App.getPrefs(applicationContext)
+        db = HashTab.getDatabase(applicationContext)
+        prefs = HashTab.getPrefs(applicationContext)
 
         // Configure toolbar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -168,7 +167,7 @@ class MainActivity : AppCompatActivity() {
                                 // Local
                                 thread {
                                     val newTab = Tab(null, tabNameInput.text.toString(), 0.0)
-                                    db.tabDao().insert(newTab)
+                                    db.tabDao().insertTab(newTab)
 
                                     runOnUiThread {
                                         fragmentManager
@@ -289,7 +288,7 @@ class MainActivity : AppCompatActivity() {
                                 val tabName = tabNameInput.text.toString()
 
                                 CoroutineScope(Dispatchers.IO).launch {
-                                    val groupTabId = db.tabDao().insert(
+                                    val groupTabId = db.tabDao().insertTab(
                                         Tab(null, tabName)
                                     )
 
@@ -330,7 +329,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_overflow_menu, menu)
+        menuInflater.inflate(R.menu.main_overflow, menu)
 
         return true
 
@@ -360,13 +359,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Drawer menu
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true
         }
 
         return when (item.itemId) {
-            R.id.menu_about -> {
+            R.id.menu_help -> {
                 startActivity(Intent(this, HelpActivity::class.java))
                 true
             }
@@ -435,7 +433,7 @@ class MainActivity : AppCompatActivity() {
 
                         thread {
                             val newTab = Tab(null, "Sample Tab")
-                            db.tabDao().insert(newTab)
+                            db.tabDao().insertTab(newTab)
                             db.memberDao().insert(firstMember)
                         }
 

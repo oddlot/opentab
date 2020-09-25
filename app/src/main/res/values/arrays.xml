@@ -8,6 +8,7 @@
         <item>€</item>
         <item>£</item>
         <item>$</item>
+        <item>₹</item>
         <item>¥</item>
         <item>฿</item>
         <item>$</item>
@@ -21,6 +22,7 @@
         <item>€ Euro</item>
         <item>£ British Pound</item>
         <item>$ Hong Kong Dollar</item>
+        <item>₹ Indian Rupee</item>
         <item>¥ Japanese Yen</item>
         <item>฿ Thai Baht</item>
         <item>$ United States Dollar</item>
@@ -34,6 +36,7 @@
         <item>EUR</item>
         <item>GBP</item>
         <item>HKD</item>
+        <item>INR</item>
         <item>JPY</item>
         <item>THB</item>
         <item>USD</item>
@@ -47,6 +50,7 @@
         <item>EUR</item>
         <item>GBP</item>
         <item>HKD</item>
+        <item>INR</item>
         <item>JPY</item>
         <item>THB</item>
         <item>USD</item>

@@ -121,7 +121,7 @@ class GroupTabActivity: AppCompatActivity() {
          */
         tabName.text = groupTabParcelable.name
         CoroutineScope(IO).launch {
-            val currency = db.tabDao().get(groupTabParcelable.id).currency
+            val currency = db.tabDao().tabById(groupTabParcelable.id).currency
             withContext(Main) {
                 groupTabVM.currency.value = currency
             }
@@ -224,7 +224,7 @@ class GroupTabActivity: AppCompatActivity() {
                             else {
                                 thread {
 //                                    val tab = Tab(tabParcelable.id, tabNameInput.text.toString())
-                                    val tab = db.tabDao().get(groupTabParcelable.id).also {
+                                    val tab = db.tabDao().tabById(groupTabParcelable.id).also {
                                         it.name = tabNameInput.text.toString()
                                     }
                                     db.tabDao().updateTab(tab)

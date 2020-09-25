@@ -2,10 +2,10 @@
     <PreferenceCategory
             app:iconSpaceReserved="false"
             app:title="@string/general_header">
-        <Preference
+        <EditTextPreference
                 app:iconSpaceReserved="false"
                 app:key="userName"
-                app:title="Username"
+                app:title="Your name"
                 app:summary="Thomas"/>
         <ListPreference
                 app:defaultValue="USD"

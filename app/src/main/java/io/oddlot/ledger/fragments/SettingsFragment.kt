@@ -7,12 +7,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
-import io.oddlot.ledger.App
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
-import io.oddlot.ledger.Theme
 import io.oddlot.ledger.activities.prefs
-import io.oddlot.ledger.utils.commatize
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private val TAG = this::class.qualifiedName
@@ -41,9 +38,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         findPreference<ListPreference>(PreferenceKeys.THEME)!!.apply {
             setOnPreferenceChangeListener { preference, newValue ->
-                Log.d(TAG, "THEME CLICKED")
+                Log.d(TAG, newValue.toString())
                 when (newValue) {
-                    App.Companion.PreferenceValue.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    getString(R.string.light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                     getString(R.string.dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     getString(R.string.followSystem) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                 }

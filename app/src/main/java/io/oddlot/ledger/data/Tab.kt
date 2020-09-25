@@ -21,13 +21,13 @@ data class Tab(
 @Dao
 interface TabDao {
     @Query("SELECT * FROM Tab ORDER BY name ASC")
-    fun getAll(): List<Tab>
+    fun allTabs(): List<Tab>
 
     @Query("SELECT * FROM Tab ORDER BY name ASC")
-    fun getAllAsLiveData(): LiveData<List<Tab>>
+    fun allTabsAsLiveData(): LiveData<List<Tab>>
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
-    fun get(tabId: Int): Tab
+    fun tabById(tabId: Int): Tab
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
     fun getLiveTabById(tabId: Int): LiveData<Tab>
@@ -36,7 +36,7 @@ interface TabDao {
     fun getTabByName(tabName: String): Tab
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    fun insert(tab: Tab): Long
+    fun insertTab(tab: Tab): Long
 
     @Query("DELETE FROM Tab WHERE id = :tabId")
     fun deleteTabById(tabId: Int): Int

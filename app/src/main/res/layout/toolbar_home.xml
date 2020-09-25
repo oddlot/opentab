@@ -7,7 +7,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/AppTheme"
         android:theme="@style/ToolbarTheme"
-        app:titleTextColor="?android:attr/textColorPrimary"
+        app:titleTextColor="@color/DefaultWhite"
         android:elevation="4dp"
         android:paddingTop="0dp">
 </androidx.appcompat.widget.Toolbar>

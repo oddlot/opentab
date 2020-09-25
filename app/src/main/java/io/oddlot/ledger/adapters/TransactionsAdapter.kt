@@ -102,7 +102,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                 paidBy.text = "You were paid"
                 setTextColor(ContextCompat.getColor(this.context, R.color.Watermelon))
 
-                CoroutineScope(IO).launch { paidBy.text = "${db.tabDao().get(txnTabId).name} paid" }
+                CoroutineScope(IO).launch { paidBy.text = "${db.tabDao().tabById(txnTabId).name} paid" }
             }
             else {
                 text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(amount)
@@ -125,7 +125,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
             val txnParcelable = TransactionParcelable(txnTabId, txnId!!, txnAmount, txn.description ?: "", txnDateInMillis)
 
             thread {
-                val tab = db.tabDao().get(txn.tabId)
+                val tab = db.tabDao().tabById(txn.tabId)
                 tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
 
                 val intent = Intent(it.context, SoloTransactionActivity::class.java)
@@ -144,7 +144,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
             builder.setPositiveButton("DELETE") { dialog, which ->
                 thread {
                     Looper.prepare()
-                    val tab = db.tabDao().get(txn.tabId)
+                    val tab = db.tabDao().tabById(txn.tabId)
                     tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
                     db.transactionDao().deleteItemById(txnId!!)
                     Toast.makeText(it.context, "Transaction deleted", Toast.LENGTH_LONG).show()

@@ -105,7 +105,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
             ))
 
             CoroutineScope(IO).launch {
-                val tab = db.tabDao().get(groupExpense.tabId)
+                val tab = db.tabDao().tabById(groupExpense.tabId)
 
                 withContext(Main) {
                     intent.putExtra("GROUP_TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ledger</string>
+    <string name="AppName">HashTab</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
     <string name="paid_by">Paid By</string>
@@ -34,6 +34,7 @@
     <string name="actionbar_overflow_edit_currency">Edit Currency</string>
     <string name="actionbar_overflow_export">Export to CSV</string>
     <string name="actionbar_overflow_import">Import from CSV</string>
+    <string name="actionbar_overflow_about">About</string>
     <string name="actionbar_overflow_help">Help</string>
     <string name="actionbar_overflow_delete_tab">Delete Tab</string>
     <string name="actionbar_overflow_close_tab">Close Tab</string>

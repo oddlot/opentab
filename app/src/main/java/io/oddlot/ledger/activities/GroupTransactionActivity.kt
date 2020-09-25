@@ -90,7 +90,7 @@ class GroupTransactionActivity : AppCompatActivity() {
         return when (item.itemId) {
             android.R.id.home -> { // home
                 CoroutineScope(IO).launch {
-                    val tab = db.tabDao().get(tabId)
+                    val tab = db.tabDao().tabById(tabId)
                     val parcelable = TabParcelable(tabId, tab.name, tab.currency)
                     NavUtils.navigateUpTo(this@GroupTransactionActivity, intent.putExtra("GROUP_TAB_PARCELABLE", parcelable))
                 }
@@ -116,7 +116,7 @@ class GroupTransactionActivity : AppCompatActivity() {
                                allocation = mViewModel.allocation.value!!.serialize()
                             }
 
-                            val groupTab = db.tabDao().get(groupExpense.tabId)
+                            val groupTab = db.tabDao().tabById(groupExpense.tabId)
                             val intent = Intent(this@GroupTransactionActivity, GroupTabActivity::class.java).apply {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                                 putExtra("GROUP_TAB_PARCELABLE", groupTabParcelable)

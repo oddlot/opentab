@@ -13,11 +13,11 @@ class TabsViewModel : ViewModel() {
     // Create a LiveData with list of tabs
     private val tabs: LiveData<List<Tab>> by lazy {
         MutableLiveData<List<Tab>>().also {
-            db.tabDao().getAllAsLiveData()
+            db.tabDao().allTabsAsLiveData()
         }
     }
 
     fun getAll(): LiveData<List<Tab>> {
-        return db.tabDao().getAllAsLiveData()
+        return db.tabDao().allTabsAsLiveData()
     }
 }

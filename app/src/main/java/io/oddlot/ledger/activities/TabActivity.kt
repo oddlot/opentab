@@ -56,7 +56,7 @@ class TabActivity : AppCompatActivity() {
         supportActionBar?.title = pTab.name
 
         CoroutineScope(IO).launch { // Initialize member variables
-            tab = db.tabDao().get(pTab.id)
+            tab = db.tabDao().tabById(pTab.id)
             transactions = db.transactionDao()
                 .getTransactionsByTabId(pTab.id)
                 .toMutableList()
@@ -72,8 +72,8 @@ class TabActivity : AppCompatActivity() {
             }
 
             db.tabDao().updateTabBalance(pTab.id, mTabBalance)
-            Log.d(TAG, mTabBalance.toString())
-            tab = db.tabDao().get(pTab.id)
+            tab = db.tabDao().tabById(pTab.id)
+
 
             withContext(Main) {
                 loadTabDataViews(tab)
@@ -246,13 +246,13 @@ class TabActivity : AppCompatActivity() {
 //                        val currencies = resources.getStringArray(R.array.currencyEntries)
                         thread {
                             Looper.prepare()
-                            val selectedCurrency = ccyValues[which].also {
-                                db.tabDao().setCurrency(pTab.id, it)
-                                tab.currency = it
-                            }
+                            val selectedCurrency = ccyValues[which]
+                            Log.d(TAG, selectedCurrency.toString())
+                            db.tabDao().setCurrency(pTab.id, selectedCurrency)
+                            tab.currency = selectedCurrency
+
                             runOnUiThread {
-                                tvCurrencySymbol.text = ccySymbols[which]
-                                tvTabCurrency.text = selectedCurrency
+                                loadTabDataViews(tab)
                             }
                         }
                     }
@@ -367,9 +367,12 @@ class TabActivity : AppCompatActivity() {
     }
 
     private fun loadTabDataViews(tab: Tab) {
-        balanceDescriptor.text = if (mTabBalance > 0.0) "${pTab.name} owes you" else if (mTabBalance < 0.0) "${pTab.name} is owed" else resources.getString(R.string.flat_balance_primary)
-        tvTabCurrency.text = pTab.currency
-//        tabBalance.text = if (tab.balance >= 0.0) "${tab.balance.commatize()}" else "${(tab.balance * -1.0).commatize()}"
+        balanceDescriptor.text = if (mTabBalance > 0.0) "${tab.name} owes you" else if (mTabBalance < 0.0) "${tab.name} is owed" else resources.getString(R.string.flat_balance_primary)
+        tvTabCurrency.text = ""
+//        tvTabCurrency.text = tab.currency
+        tvCurrencySymbol.text = Currency
+            .getInstance(tab.currency)
+            .getSymbol(Locale.CHINA)
 
         tabBalance.apply {
             setCharacterLists(TickerUtils.provideNumberList())
@@ -383,12 +386,10 @@ class TabActivity : AppCompatActivity() {
             tab.balance < 0.0 -> getColor(R.color.Watermelon).apply {
                 tabBalance.setTextColor(this)
                 tvTabCurrency.setTextColor(this)
-                Log.d(TAG, tab.balance.toString())
             }
             tab.balance > 0.0 -> getColor(R.color.BrightTeal).apply {
                 tabBalance.setTextColor(this)
                 tvTabCurrency.setTextColor(this)
-                Log.d(TAG, tab.balance.toString())
             }
             else -> null
         }
@@ -453,7 +454,7 @@ class TabActivity : AppCompatActivity() {
                 transactions.sortDescending()
 
                 db.tabDao().updateTabBalance(pTab.id, mTabBalance)
-                tab = db.tabDao().get(pTab.id)
+                tab = db.tabDao().tabById(pTab.id)
 
                 runOnUiThread {
                     Toast.makeText(this, "Items Restored!", Toast.LENGTH_LONG).show()
