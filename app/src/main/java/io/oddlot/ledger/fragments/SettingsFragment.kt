@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.ListPreference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.prefs
+import java.util.*
 
 class SettingsFragment : PreferenceFragmentCompat() {
-    private val TAG = this::class.qualifiedName
+    private val TAG = this::class.java.simpleName
     private lateinit var mContext: Context
 
     override fun onAttach(context: Context) {
@@ -28,24 +27,34 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findPreference<ListPreference>(PreferenceKeys.BASE_CURRENCY)!!.apply {
-            setOnPreferenceChangeListener { preference, newValue ->
-                Log.d(TAG, newValue.toString())
-                prefs.edit().putString(PreferenceKeys.BASE_CURRENCY, "XAU").apply()
-                return@setOnPreferenceChangeListener true
-            }
+        val userNamePref = findPreference<EditTextPreference>(PreferenceKeys.USER_NAME)
+        userNamePref?.setOnPreferenceChangeListener { preference, newValue ->  baseCurrencyListener(preference, newValue) }
+
+        val baseCurrencyPref = findPreference<ListPreference>(PreferenceKeys.BASE_CURRENCY).apply {
+//            this?.entries = resources.getStringArray(R.array.currencySymbols)
+            this?.setOnPreferenceChangeListener { preference, newValue ->  baseCurrencyListener(preference, newValue) }
         }
 
-        findPreference<ListPreference>(PreferenceKeys.THEME)!!.apply {
-            setOnPreferenceChangeListener { preference, newValue ->
-                Log.d(TAG, newValue.toString())
-                when (newValue) {
-                    getString(R.string.light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    getString(R.string.dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    getString(R.string.followSystem) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                }
-                return@setOnPreferenceChangeListener true
-            }
+        val themePref = findPreference<ListPreference>(PreferenceKeys.THEME)
+        themePref?.setOnPreferenceChangeListener { pref, newValue ->  themeListener(pref, newValue) }
+
+    }
+
+    private fun baseCurrencyListener(preference: Preference, newValue: Any): Boolean {
+        PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext)
+            .edit().putString(PreferenceKeys.BASE_CURRENCY, newValue.toString())
+            .apply()
+
+        return true
+    }
+
+    private fun themeListener(preference: Preference, newValue: Any): Boolean {
+        when (newValue) {
+            getString(R.string.light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            getString(R.string.dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            getString(R.string.followSystem) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
+
+        return true
     }
 }

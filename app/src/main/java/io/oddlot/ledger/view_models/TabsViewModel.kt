@@ -3,7 +3,7 @@ package io.oddlot.ledger.view_models
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.data.Tab
 
 

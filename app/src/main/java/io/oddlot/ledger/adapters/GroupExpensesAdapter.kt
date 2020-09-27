@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.GroupTransactionActivity
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.commatize

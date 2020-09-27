@@ -16,9 +16,9 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.TabActivity
-import io.oddlot.ledger.activities.SoloTransactionActivity
+import io.oddlot.ledger.activities.TransactionActivity
 import io.oddlot.ledger.parcelables.TransactionParcelable
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Transaction
@@ -51,18 +51,15 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        // Views
         val txn = transactions[position]
         val txnTabId = txn.tabId
         val txnId = txn.id
         val txnAmount = txn.amount
         val txnDateInMillis = txn.date
 
-        // View variables
         val txnDateView = holder.view.findViewById<TextView>(R.id.txnDateView)
         val txnDescriptionView = holder.view.findViewById<TextView>(R.id.etDescription)
         val txnAmountView = holder.view.findViewById<TextView>(R.id.amountPaid)
-//        val txnAmountView = holder.view.findViewById<TickerView>(R.id.amountPaid)
         val txnBalanceView = holder.view.findViewById<TextView>(R.id.dynamicTabBalance)
 
         txnBalanceView.apply {
@@ -128,7 +125,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                 val tab = db.tabDao().tabById(txn.tabId)
                 tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
 
-                val intent = Intent(it.context, SoloTransactionActivity::class.java)
+                val intent = Intent(it.context, TransactionActivity::class.java)
                 intent.putExtra("TXN_PARCELABLE", txnParcelable)
                 intent.putExtra("TAB_PARCELABLE", tabParcelable)
 

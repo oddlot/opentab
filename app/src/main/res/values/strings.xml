@@ -1,5 +1,5 @@
 <resources>
-    <string name="AppName">HashTab</string>
+    <string name="AppName">TabManager</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
     <string name="paid_by">Paid By</string>
@@ -76,4 +76,5 @@
 
     <string name="baseCurrency">Base currency</string>
     <string name="baseCurrencyKey">baseCurrency</string>
+    <string name="tab_type_icon">Tab Type Icon</string>
 </resources>

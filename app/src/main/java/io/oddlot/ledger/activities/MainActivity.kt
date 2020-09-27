@@ -20,13 +20,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
+import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import io.oddlot.ledger.HashTab
+import io.oddlot.ledger.TabManager
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
+import io.oddlot.ledger.db
 import io.oddlot.ledger.fragments.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +37,6 @@ import java.lang.Exception
 import java.util.*
 import kotlin.concurrent.thread
 
-lateinit var db: AppDatabase
 lateinit var prefs: SharedPreferences
 
 class MainActivity : AppCompatActivity() {
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var fragmentManager: FragmentManager
-    private lateinit var drawerNav: NavigationView
+    private lateinit var drawerMenu: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var mainFragment: MainFragment
 
@@ -51,9 +52,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Declare singletons
-        db = HashTab.getDatabase(applicationContext)
-        prefs = HashTab.getPrefs(applicationContext)
+        prefs = TabManager.getPrefs(applicationContext)
 
         // Configure toolbar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -79,64 +78,10 @@ class MainActivity : AppCompatActivity() {
             syncState()
         }
         drawerLayout.addDrawerListener(drawerToggle)
-        drawerNav = findViewById(R.id.nav_drawer)
-        drawerNav.setCheckedItem(R.id.nav_item_home)
-        drawerNav.bringToFront()
-        drawerNav.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_item_home -> {
-                    // Clear back stack on Home (Main) fragment
-                    val stackCount = fragmentManager.backStackEntryCount
-                    if (stackCount > 0) {
-                        for (i in 1..stackCount) fragmentManager.popBackStack()
-                    }
-
-                    // Replace Home fragment if not visible
-                    if (!mainFragment.isVisible) {
-                        fragmentManager
-                            .beginTransaction()
-                            .replace(R.id.container, mainFragment)
-                            .commit()
-                    }
-
-                    it.isChecked = true
-                    drawerLayout.closeDrawer(GravityCompat.START)
-
-                    true
-                }
-                R.id.nav_item_settings -> {
-                    val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent, null)
-
-                    drawerNav.menu.getItem(0).isChecked = true
-//                    R.id.nav_item_home
-//                    fragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.container, PreferenceSettingsFragment(), "SETTINGS")
-////                        .replace(R.id.container, SettingsFragment(), "SETTINGS")
-//                        .addToBackStack(null)
-//                        .commit()
-//                    it.isChecked = true
-//                    drawerLayout.closeDrawer(GravityCompat.START)
-//                    supportActionBar?.setBackgroundDrawable(null)
-
-                    true
-                }
-                R.id.nav_item_help -> {
-                    fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.container, HelpFragment(), "HELP")
-                        .addToBackStack(null)
-                        .commit()
-                    it.isChecked = true
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    supportActionBar?.setBackgroundDrawable(null)
-
-                    true
-                }
-                else -> false
-            }
-        }
+        drawerMenu = findViewById(R.id.nav_drawer)
+        drawerMenu.setCheckedItem(R.id.nav_item_home)
+        drawerMenu.bringToFront()
+        drawerMenu.setNavigationItemSelectedListener { selectedItem -> drawerMenuListener(selectedItem) }
 
         /*
         Create Tab Fab
@@ -166,7 +111,9 @@ class MainActivity : AppCompatActivity() {
                             else {
                                 // Local
                                 thread {
-                                    val newTab = Tab(null, tabNameInput.text.toString(), 0.0)
+                                    val baseCurrency = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                                        .getString(PreferenceKeys.BASE_CURRENCY, "USD")
+                                    val newTab = Tab(null, tabNameInput.text.toString(), 0.0, baseCurrency!!)
                                     db.tabDao().insertTab(newTab)
 
                                     runOnUiThread {
@@ -324,7 +271,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        checkIfFirstLaunch()
+        checkIfFirstRun()
         setGreeting()
     }
 
@@ -393,7 +340,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkIfFirstLaunch() {
+    private fun checkIfFirstRun() {
         val username = prefs.getString(PreferenceKeys.USER_NAME, null)
         if (username == null) {
             val usernameInput = basicEditText(this)
@@ -427,15 +374,19 @@ class MainActivity : AppCompatActivity() {
                         usernameInput.error = "I'm sorry, didn't catch your name!"
                     }
                     else {
-                        val firstMember = Member(null, usernameInput.text.toString())
-                        prefs.edit().putString(PreferenceKeys.USER_NAME, firstMember.name).apply()
-                        setGreeting()
+                        val newName = usernameInput.text.toString()
 
-                        thread {
-                            val newTab = Tab(null, "Sample Tab")
-                            db.tabDao().insertTab(newTab)
-                            db.memberDao().insert(firstMember)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            db.memberDao().updateMemberName(0, newName)
                         }
+
+                        prefs.edit().putString(PreferenceKeys.USER_NAME, newName).apply()
+                        PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                            .edit()
+                            .putString(PreferenceKeys.USER_NAME, newName)
+                            .apply()
+
+                        setGreeting()
 
                         this.dismiss()
                     }
@@ -445,7 +396,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setGreeting() {
-        val hv = drawerNav.getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary)
+        val hv = drawerMenu.getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary)
         val name = prefs.getString(PreferenceKeys.USER_NAME, "Guest")
         val c = Calendar.getInstance()
 
@@ -456,5 +407,55 @@ class MainActivity : AppCompatActivity() {
 //            in 12 until 18 -> hv.text = "Good afternoon, $name"
 //            else -> hv.text = "Good evening, $name"
 //        }
+    }
+
+    private fun drawerMenuListener(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.nav_item_home -> {
+                // Clear back stack on Home (Main) fragment
+                fragmentManager.backStackEntryCount.also {
+                    if (it > 0) {
+                        for (i in 1..it) fragmentManager.popBackStack()
+                    }
+                }
+
+                // Replace Home fragment if not visible
+                if (!mainFragment.isVisible) {
+                    fragmentManager
+                        .beginTransaction()
+                        .replace(R.id.container, mainFragment)
+                        .commit()
+                }
+
+                menuItem.isChecked = true
+                drawerLayout.closeDrawer(GravityCompat.START)
+
+                true
+            }
+            R.id.nav_item_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java), null)
+
+//                drawerMenu.menu.getItem(0).isChecked = true
+
+                true
+            }
+//            R.id.nav_item_help -> {
+//                fragmentManager
+//                    .beginTransaction()
+//                    .replace(R.id.container, HelpFragment(), "HELP")
+//                    .addToBackStack(null)
+//                    .commit()
+//                menuItem.isChecked = true
+//                drawerLayout.closeDrawer(GravityCompat.START)
+//                supportActionBar?.setBackgroundDrawable(null)
+//
+//                true
+//            }
+            R.id.nav_item_about -> {
+                startActivity(Intent(this, AboutActivity::class.java))
+                true
+            }
+            else -> false
+        }
     }
 }

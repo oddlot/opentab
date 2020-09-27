@@ -2,7 +2,7 @@ package io.oddlot.ledger
 
 import android.content.Context
 import android.widget.TextView
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
 import io.oddlot.ledger.utils.round

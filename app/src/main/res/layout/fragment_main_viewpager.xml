@@ -13,6 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="85dp"/>
 
+    <TextView
+            android:id="@+id/noTabsPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Click on the + icon below to add a new Tab"
+            android:visibility="visible"/>
+
     <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_below="@id/spacer"

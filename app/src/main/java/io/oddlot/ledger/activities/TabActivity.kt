@@ -27,10 +27,11 @@ import io.oddlot.ledger.RequestCodes
 import io.oddlot.ledger.adapters.TransactionsAdapter
 import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.data.*
+import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.utils.commatize
-import kotlinx.android.synthetic.main.activity_solo_tab.*
+import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -49,7 +50,7 @@ class TabActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_solo_tab)
+        setContentView(R.layout.activity_tab)
 
         pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
 
@@ -102,7 +103,7 @@ class TabActivity : AppCompatActivity() {
                 Toast.makeText(this, "Add transaction", Toast.LENGTH_SHORT)
                     .show()
 
-                Intent(this, SoloTransactionActivity::class.java).also {
+                Intent(this, TransactionActivity::class.java).also {
                     it.putExtra("TAB_PARCELABLE", pTab)
                     startActivity(it)
                 }
@@ -251,9 +252,15 @@ class TabActivity : AppCompatActivity() {
                             db.tabDao().setCurrency(pTab.id, selectedCurrency)
                             tab.currency = selectedCurrency
 
-                            runOnUiThread {
-                                loadTabDataViews(tab)
-                            }
+//                            runOnUiThread {
+//                                loadTabDataViews(tab)
+//                            }
+                            val intent = Intent(this@TabActivity, TabActivity::class.java)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                .putExtra("TAB_PARCELABLE", pTab)
+                                .putExtra("NEW_TASK_ON_BACK", true)
+
+                            startActivity(intent)
                         }
                     }
                 }

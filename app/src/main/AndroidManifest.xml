@@ -7,7 +7,7 @@
             android:allowBackup="true"
             android:icon="@mipmap/rounded_icon"
             android:label="@string/AppName"
-            android:name="io.oddlot.ledger.HashTab"
+            android:name="io.oddlot.ledger.TabManager"
             android:networkSecurityConfig="@xml/network_security_config"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
@@ -51,7 +51,7 @@
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:screenOrientation="portrait" />
         <activity
-                android:name=".activities.SoloTransactionActivity"
+                android:name=".activities.TransactionActivity"
                 android:configChanges="orientation"
                 android:screenOrientation="portrait" />
         <activity
@@ -59,11 +59,11 @@
                 android:configChanges="orientation"
                 android:parentActivityName=".activities.GroupTabActivity"
                 android:screenOrientation="portrait" />
-<!--        <activity-->
-<!--                android:name=".activities.AddGroupExpenseActivity"-->
-<!--                android:configChanges="orientation"-->
-<!--                android:parentActivityName=".activities.GroupTabActivity"-->
-<!--                android:screenOrientation="portrait" />-->
+        <activity
+                android:name=".activities.AboutActivity"
+                android:configChanges="orientation"
+                android:parentActivityName=".activities.MainActivity"
+                android:screenOrientation="portrait" />
         <meta-data
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts" />

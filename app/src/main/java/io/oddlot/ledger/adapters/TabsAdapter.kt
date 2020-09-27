@@ -1,6 +1,7 @@
 package io.oddlot.ledger.adapters
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +12,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import io.oddlot.ledger.CurrencyHelpers
 import io.oddlot.ledger.R
 import io.oddlot.ledger.activities.*
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Tab
+import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.commatize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import java.util.*
 
 class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabViewHolder>() {
     val TAG = "TABS_ADAPTER"
@@ -32,8 +36,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TabViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-//        val view = inflater.inflate(R.layout.layout_tab_row_dark, parent, false) // Dark layout (to be deprecated)
-        val view = inflater.inflate(R.layout.layout_solo_tab_row, parent, false)
+        val view = inflater.inflate(R.layout.layout_tab_row, parent, false)
 
         return TabViewHolder(view)
     }
@@ -46,11 +49,10 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 
         /* Bind views */
         val tabNameView = holder.view.findViewById<TextView>(R.id.tabName).apply { text = tab.name }
-        val tabTypeIcon = holder.view.findViewById<ImageView>(R.id.tabType).apply {
-            if (tab.isGroup) setImageResource(R.drawable.ic_people_outline_black_24dp)
-        }
-        val tabCurrencyView = holder.view.findViewById<TextView>(R.id.tvTabCurrency).apply {
-            text = tab.currency
+        val tabTypeIcon = holder.view.findViewById<ImageView>(R.id.tabType)
+        val tvTabCurrency = holder.view.findViewById<TextView>(R.id.tvTabCurrency).apply {
+            text = Currency.getInstance(tab.currency).getSymbol(Locale.UK)
+//            CurrencyHelpers.symbolMap.get(tab.currency)
         }
 
         val tabBalanceView = holder.view.findViewById<TextView>(R.id.tabBalance)
@@ -72,7 +74,7 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
         holder.view.setOnClickListener {
             val intent = Intent(
                 holder.view.context,
-                if (tab.isGroup) GroupTabActivity::class.java else TabActivity::class.java
+                TabActivity::class.java
             )
             intent.putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, tab.name, tab.currency))
             startActivity(holder.view.context, intent, null)

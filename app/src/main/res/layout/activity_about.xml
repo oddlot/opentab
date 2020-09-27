@@ -1,52 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/container"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
-        android:paddingLeft="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-        android:paddingRight="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-        android:paddingTop="@dimen/ACTIVITY_VERTICAL_MARGIN">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_home" />
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_home"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp"/>
 
     <TextView
-            android:id="@+id/helpHeaderView1"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:text="HashTab"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingStart="18dp"
+            android:paddingTop="10dp"
+            android:text="v1.0.0"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <TextView
-            android:id="@+id/helpContentView1"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:text="Developer"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="TextView"
-            app:layout_constraintStart_toStartOf="@+id/helpHeaderView1"
-            app:layout_constraintTop_toBottomOf="@+id/helpHeaderView1" />
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingStart="18dp"
+            android:paddingTop="10dp"
+            android:text="Thomas Lee"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <TextView
-            android:id="@+id/helpHeaderView2"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:text="Feedback"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="TextView"
-            app:layout_constraintStart_toStartOf="@id/helpHeaderView1"
-            app:layout_constraintTop_toBottomOf="@+id/helpContentView1" />
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:paddingStart="18dp"
+            android:paddingTop="10dp"
+            android:text="thomaschlee@yahoo.com"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     <TextView
-            android:id="@+id/helpContentView2"
+            android:id="@+id/licenses"
+            android:paddingStart="18dp"
+            android:paddingTop="18dp"
+            android:text="Licenses"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/helpHeaderView1"
-            app:layout_constraintTop_toBottomOf="@+id/helpHeaderView2"
-            tools:text="TextView" />
-
+            android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"/>
 
 </LinearLayout>

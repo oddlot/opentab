@@ -24,6 +24,7 @@ import io.oddlot.ledger.adapters.AllocationAdapter
 import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.data.GroupExpense
 import io.oddlot.ledger.data.Member
+import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.round

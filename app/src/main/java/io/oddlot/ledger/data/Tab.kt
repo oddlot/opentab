@@ -15,7 +15,7 @@ data class Tab(
     var name: String,
     var balance: Double = 0.0,
     var currency: String = "USD",
-    var isGroup: Boolean = false
+    var pinned: Boolean = false
 )
 
 @Dao

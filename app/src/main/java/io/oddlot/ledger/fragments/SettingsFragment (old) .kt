@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.Theme
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.activities.prefs
 import io.oddlot.ledger.utils.UsernameFilter
 import io.oddlot.ledger.utils.basicEditText
@@ -54,7 +54,7 @@ class SettingsFragmentOld : Fragment() {
 
                     // Update name of super Member
                     CoroutineScope(Dispatchers.IO).launch {
-                        db.memberDao().updateMemberName(1, newName)
+                        db.memberDao().updateMemberName(0, newName)
                     }
 
                     // Update name in shared preferences

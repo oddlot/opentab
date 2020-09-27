@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.adapters.TabsAdapter
 //import kotlinx.android.synthetic.main.fragment_main.*
 //import kotlinx.android.synthetic.main.fragment_main.tabsRecyclerView

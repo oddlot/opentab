@@ -12,7 +12,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.ledger.R
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.activities.prefs
 import io.oddlot.ledger.utils.UsernameFilter
 import io.oddlot.ledger.utils.basicEditText

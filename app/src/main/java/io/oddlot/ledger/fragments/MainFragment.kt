@@ -17,7 +17,11 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import io.oddlot.ledger.R
 import io.oddlot.ledger.adapters.MainViewPagerAdapter
+import io.oddlot.ledger.db
 import kotlinx.android.synthetic.main.fragment_main_viewpager.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class MainFragment : Fragment() {
@@ -33,6 +37,14 @@ class MainFragment : Fragment() {
 
         mainActivity = activity as AppCompatActivity
         pager.adapter = MainViewPagerAdapter(mainActivity!!, fragments)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val tabs = db.tabDao().allTabs()
+
+            if (tabs.size > 0) {
+                view.findViewById<TextView>(R.id.noTabsPrompt).visibility = View.GONE
+            }
+        }
 
         return view
     }

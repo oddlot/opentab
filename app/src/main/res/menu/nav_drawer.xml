@@ -12,13 +12,15 @@
 
         <item
                 android:id="@+id/nav_item_settings"
+                android:checkable="false"
                 android:icon="@drawable/ic_settings_white_24dp"
                 android:title="@string/actionbar_overflow_settings" />
 
         <item
-                android:id="@+id/nav_item_help"
+                android:id="@+id/nav_item_about"
+                android:checkable="false"
                 android:icon="@drawable/ic_help_24px"
-                android:title="Help" />
+                android:title="@string/actionbar_overflow_about" />
 
     </group>
 </menu>

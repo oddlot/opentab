@@ -3,7 +3,7 @@ package io.oddlot.ledger.view_models
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 import io.oddlot.ledger.Allocation
 import io.oddlot.ledger.deserialize
 import io.oddlot.ledger.utils.round

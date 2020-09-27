@@ -15,17 +15,17 @@
     </string-array>
 
     <string-array name="currencyEntries">
-        <item>$ Australian Dollar</item>
-        <item>$ Canadian Dollar</item>
-        <item>Fr. Swiss Franc</item>
-        <item>¥ Chinese Renminbi</item>
-        <item>€ Euro</item>
-        <item>£ British Pound</item>
-        <item>$ Hong Kong Dollar</item>
-        <item>₹ Indian Rupee</item>
-        <item>¥ Japanese Yen</item>
-        <item>฿ Thai Baht</item>
-        <item>$ United States Dollar</item>
+        <item>Australian Dollar ($)</item>
+        <item>Canadian Dollar ($)</item>
+        <item>Swiss Franc (Fr.)</item>
+        <item>Chinese Renminbi (¥)</item>
+        <item>Euro (€)</item>
+        <item>British Pound (£)</item>
+        <item>Hong Kong Dollar ($)</item>
+        <item>Indian Rupee (₹)</item>
+        <item>Japanese Yen (¥)</item>
+        <item>Thai Baht (฿)</item>
+        <item>United States Dollar ($)</item>
     </string-array>
 
     <string-array name="currencies">

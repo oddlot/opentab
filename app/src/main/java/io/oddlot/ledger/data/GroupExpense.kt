@@ -3,7 +3,7 @@ package io.oddlot.ledger.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.oddlot.ledger.Allocation
-import io.oddlot.ledger.activities.db
+import io.oddlot.ledger.db
 
 @Entity
 data class GroupExpense(

@@ -79,7 +79,7 @@
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
         <item name="android:actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item> <!-- Overflow menu item text -->
-<!--        <item name="android:tint">@android:color/white</item> &lt;!&ndash; Drawer icon color &ndash;&gt;-->
+        <item name="android:tint">@android:color/white</item> <!-- Drawer icon color -->
         <item name="actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>
     </style>
 
