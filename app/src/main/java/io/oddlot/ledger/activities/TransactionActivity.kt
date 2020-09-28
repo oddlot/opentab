@@ -12,6 +12,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
+import androidx.preference.PreferenceManager
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.data.Member
@@ -63,7 +64,7 @@ class TransactionActivity : AppCompatActivity() {
          Member variables
          */
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
-        userName = prefs.getString(PreferenceKeys.USER_NAME, "null")!!
+        userName = PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(PreferenceKeys.USER_NAME, "null")!!
 
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
             txnParcelable = it

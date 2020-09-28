@@ -30,13 +30,6 @@ class TabManager : Application() {
         db = appDatabase(applicationContext)
         setAppTheme()
 
-        Log.d(TAG, PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getString(PreferenceKeys.BASE_CURRENCY, "THOM")!!)
-        Log.d(TAG, PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getString(PreferenceKeys.THEME, "THOM")!!)
-        Log.d(TAG, PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getString(PreferenceKeys.USER_NAME, "THOM")!!)
-
         // additional setup if first run
         if (isFirstRun) {
             PreferenceManager.getDefaultSharedPreferences(applicationContext)
@@ -94,9 +87,9 @@ class TabManager : Application() {
         val theme = sharedPreferences.getString(PreferenceKeys.THEME, getString(R.string.followSystemKey))
 
         when (theme) {
-            getString(R.string.dark) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            getString(R.string.light) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            getString(R.string.followSystem) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "followSystem" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 }

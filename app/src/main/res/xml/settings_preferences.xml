@@ -6,8 +6,7 @@
         <EditTextPreference
                 app:iconSpaceReserved="false"
                 app:key="userName"
-                app:title="Your name"
-                app:summary="Thomas"/>
+                app:title="Your name"/>
         <ListPreference
                 app:defaultValue="USD"
                 app:entries="@array/currencyEntries"
@@ -20,12 +19,8 @@
     <PreferenceCategory
             app:iconSpaceReserved="false"
             app:title="@string/appearance_header">
-<!--        <SwitchPreferenceCompat-->
-<!--                app:iconSpaceReserved="false"-->
-<!--                app:key="darkTheme"-->
-<!--                app:title="Dark theme" />-->
         <ListPreference
-                app:defaultValue="@string/followSystemKey"
+                app:defaultValue="followSystem"
                 app:entries="@array/themeEntries"
                 app:entryValues="@array/themeValues"
                 app:iconSpaceReserved="false"

@@ -14,6 +14,7 @@ import android.view.animation.OvershootInterpolator
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -29,6 +30,7 @@ import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.TabParcelable
+import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.utils.commatize
 import kotlinx.android.synthetic.main.activity_tab.*
@@ -41,7 +43,7 @@ import java.util.*
 import kotlin.concurrent.thread
 
 class TabActivity : AppCompatActivity() {
-    private val TAG = this::class.qualifiedName
+    private val TAG = this::class.java.simpleName
 
     private var mTabBalance = 0.0
     private var transactions: MutableList<Transaction> = mutableListOf()
@@ -54,7 +56,7 @@ class TabActivity : AppCompatActivity() {
 
         pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
 
-        supportActionBar?.title = pTab.name
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         CoroutineScope(IO).launch { // Initialize member variables
             tab = db.tabDao().tabById(pTab.id)
@@ -62,6 +64,8 @@ class TabActivity : AppCompatActivity() {
                 .getTransactionsByTabId(pTab.id)
                 .toMutableList()
             transactions.sortDescending()
+
+            supportActionBar?.title = tab.name
 
             /*
             1. Sum up tab amounts
@@ -113,14 +117,8 @@ class TabActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        Log.d(TAG, "Restarting activity")
 
         pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "Resuming activity")
     }
 
     override fun onBackPressed() {
@@ -270,11 +268,10 @@ class TabActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_rename_tab -> {
-                val tabNameInput = EditText(this).apply {
-                    background = null
-                    gravity = Gravity.CENTER
-                    inputType = InputType.TYPE_CLASS_TEXT
-                    inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+                val tabNameInput = basicEditText(this).apply {
+//                    background = null
+                    gravity = Gravity.START
+                    inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
                     layoutParams = FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT).apply {
@@ -299,10 +296,13 @@ class TabActivity : AppCompatActivity() {
                                 thread {
                                     db.tabDao().updateTab(newTab)
 
-                                    runOnUiThread {
-//                                        supportActionBar!!.title = newTab.name
-//                                        tabName.text = newTab.name
+                                    val intent = Intent(this@TabActivity, TabActivity::class.java).apply {
+                                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                        putExtra("NEW_TASK_ON_BACK", true)
+                                        putExtra("TAB_PARCELABLE", pTab)
                                     }
+
+                                    startActivity(intent)
                                 }
                                 Toast.makeText(context,"Tab renamed \"${newTab.name}\"", Toast.LENGTH_LONG)
                                     .show()

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.content.SharedPreferences
 import android.database.sqlite.SQLiteConstraintException
 import android.os.PersistableBundle
+import android.text.InputType
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -40,7 +41,7 @@ import kotlin.concurrent.thread
 lateinit var prefs: SharedPreferences
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MAIN_ACTIVITY"
+    private val TAG = this::class.java.simpleName
 
     private lateinit var drawerToggle: ActionBarDrawerToggle
     private lateinit var fragmentManager: FragmentManager
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         drawerMenu.setNavigationItemSelectedListener { selectedItem -> drawerMenuListener(selectedItem) }
 
         /*
-        Create Tab Fab
+        Open Tab Fab
          */
         findViewById<FloatingActionButton>(R.id.fab).apply {
             setOnClickListener {
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
                     val tabNameInput = basicEditText(context).also {
                         it.requestFocus()
+                        it.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
                         it.typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
                     }
                     val container = FrameLayout(context).apply {
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                         try {
                             // Throw exception if no name is entered
                             val inputText = tabNameInput.text
-                            if (tabNameInput.text.isBlank() or (inputText.length > 18))
+                            if (tabNameInput.text.isBlank() or (inputText.length > 25))
                                 throw IllegalArgumentException("Exception")
                             else {
                                 // Local
@@ -129,11 +131,12 @@ class MainActivity : AppCompatActivity() {
                             when(e) {
                                 is IllegalArgumentException -> {
                                     if (tabNameInput.text.isBlank())
-                                        Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
+                                        tabNameInput.error = "Name is required!"
+//                                        Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
                                     else
                                         Toast.makeText(
                                             context,
-                                            "Tab name must be 18 characters or less",
+                                            "Tab name cannot be more than 25 characters long",
                                             Toast.LENGTH_LONG
                                         ).show()
                                 }
@@ -291,6 +294,8 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         Log.d(TAG, "Resuming activity")
         super.onResume()
+
+        setGreeting()
     }
 
     override fun onRestart() {
@@ -343,8 +348,7 @@ class MainActivity : AppCompatActivity() {
     private fun checkIfFirstRun() {
         val username = prefs.getString(PreferenceKeys.USER_NAME, null)
         if (username == null) {
-            val usernameInput = basicEditText(this)
-//                .apply { background = null }
+            val usernameInput = basicEditText(this).apply { inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_SENTENCES }
 
             val container = FrameLayout(this).apply {
                 addView(usernameInput)
@@ -397,16 +401,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setGreeting() {
         val hv = drawerMenu.getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary)
-        val name = prefs.getString(PreferenceKeys.USER_NAME, "Guest")
+        val name = PreferenceManager.getDefaultSharedPreferences(this).getString(PreferenceKeys.USER_NAME, "No name")
         val c = Calendar.getInstance()
 
         hv.text = "$name"
 
-//        when (c.get(Calendar.HOUR_OF_DAY)) {
-//            in 0 until 12 -> hv.text = "Good morning, $name"
-//            in 12 until 18 -> hv.text = "Good afternoon, $name"
-//            else -> hv.text = "Good evening, $name"
-//        }
+        when (c.get(Calendar.HOUR_OF_DAY)) {
+            in 0 until 12 -> hv.text = "Good morning, $name"
+            in 12 until 18 -> hv.text = "Good afternoon, $name"
+            else -> hv.text = "Good evening, $name"
+        }
     }
 
     private fun drawerMenuListener(menuItem: MenuItem): Boolean {

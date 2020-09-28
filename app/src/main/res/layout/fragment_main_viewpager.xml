@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Click on the + icon below to add a new Tab"
+            android:text="@string/empty_tabs_hint"
+            android:textSize="16sp"
             android:visibility="visible"/>
 
     <com.google.android.material.tabs.TabLayout

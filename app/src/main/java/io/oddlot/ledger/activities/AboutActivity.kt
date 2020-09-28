@@ -1,5 +1,7 @@
 package io.oddlot.ledger.activities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -20,6 +22,8 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val tvLicenses = findViewById<TextView>(R.id.licenses)
+        val tvFeedback = findViewById<TextView>(R.id.feedback)
+        val tvRateMe = findViewById<TextView>(R.id.rateMe)
 
         tvLicenses.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -28,19 +32,29 @@ class AboutActivity : AppCompatActivity() {
                 .setTitle("Ticker")
                 .setMessage(
                     "Copyright 2016 Robinhood Markets, Inc.\n\n" +
-                    "Licensed under the Apache License, Version 2.0 (the \"License\");\n" +
-                    "   you may not use this file except in compliance with the License.\n" +
-                    "   You may obtain a copy of the License at\n" +
-                    "\n" +
-                    "       http://www.apache.org/licenses/LICENSE-2.0\n" +
-                    "\n" +
-                    "   Unless required by applicable law or agreed to in writing, software\n" +
-                    "   distributed under the License is distributed on an \"AS IS\" BASIS,\n" +
-                    "   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n" +
-                    "   See the License for the specific language governing permissions and\n" +
-                    "   limitations under the License.")
+                    """Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+            
+http://www.apache.org/licenses/LICENSE-2.0
+            
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.""")
                 .create()
                 .show()
+        }
+        tvFeedback.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = "message/rfc822"
+                putExtra(Intent.EXTRA_TITLE, "Send Email")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.my_email_address)))
+                putExtra(Intent.EXTRA_SUBJECT, "[Feedback] TabManager")
+            }
+
+            startActivity(Intent.createChooser(intent, "Send Email"))
+        }
+        tvRateMe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(getString(R.string.app_store_link))
+            }
+            startActivity(intent)
         }
     }
 }

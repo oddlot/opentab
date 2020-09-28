@@ -12,6 +12,7 @@
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme">
+        <item name="colorSurface">@color/DefaultWhite</item>
         <item name="onSurfaceTranslucent">@color/LightTranslucent</item>
     </style>
 
@@ -31,9 +32,9 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
-    <style name="FabStyle" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="tint">@color/Watermelon</item>
-        <item name="backgroundTint">@color/AppTheme</item>
+    <style name="FabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
+<!--        <item name="android:tint">@color/Watermelon</item>-->
+<!--        <item name="backgroundTint">@color/AppTheme</item>-->
     </style>
 
     <style name="SectionTitle" parent="Theme.MaterialComponents.DayNight">

@@ -72,9 +72,13 @@
 
     <string name="light">Light</string>
     <string name="dark">Dark</string>
-    <string name="followSystem">Follow System</string>
+    <string name="followSystem">Follow system</string>
 
     <string name="baseCurrency">Base currency</string>
     <string name="baseCurrencyKey">baseCurrency</string>
     <string name="tab_type_icon">Tab Type Icon</string>
+    <string name="empty_tabs_hint">Click the + icon below to open a new Tab</string>
+    <string name="about_other">Other</string>
+    <string name="app_store_link">https://play.google.com/store/apps/details?id=io.oddlot.ledger</string>
+    <string name="my_email_address">thomaschlee@yahoo.com</string>
 </resources>
