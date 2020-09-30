@@ -65,8 +65,8 @@ class TabManager : Application() {
 
         fun appDatabase(context: Context): AppDatabase {
             return database ?: Room.databaseBuilder(context, AppDatabase::class.java, "AppDatabase")
-                .addMigrations(AppDatabase.MIGRATION_1_2)
-                .fallbackToDestructiveMigration()
+                .addMigrations(AppDatabase.MIGRATION_2_3)
+//                .fallbackToDestructiveMigration()
                 .build()
                 .also {
                     database = it

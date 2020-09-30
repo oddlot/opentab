@@ -1,9 +1,11 @@
 package io.oddlot.ledger.activities
 
+import android.app.ActivityOptions
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -12,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
@@ -22,9 +25,10 @@ import io.oddlot.ledger.data.Transaction
 import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.parcelables.TransactionParcelable
+import io.oddlot.ledger.viewmodels.TransactionViewModel
 import kotlinx.android.synthetic.main.activity_create_expense.amountPaid
 import kotlinx.android.synthetic.main.activity_create_expense.datePicker
-import kotlinx.android.synthetic.main.activity_individual_transaction.*
+import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -42,36 +46,41 @@ import java.util.*
  */
 
 class TransactionActivity : AppCompatActivity() {
-    private val TAG = this::class.java.name
+    private val TAG = this::class.java.simpleName
+    private lateinit var viewModel: TransactionViewModel
 
     private var txnParcelable: TransactionParcelable? = null
     private var txnAmount: Double? = null
     private var txnDescription: String? = null
     private lateinit var payerName: String
-    private lateinit var itemDate: Date
+    private var itemDate = Date()
     private lateinit var tabs: List<Tab>
     private lateinit var selectedTab: Tab
     private lateinit var selectedPayee: Member
     private lateinit var tabParcelable: TabParcelable
     private lateinit var userName: String
+    private var isTransfer: Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_individual_transaction)
+        setContentView(R.layout.activity_transaction)
 
-        /*
-         Member variables
-         */
-        tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
         userName = PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(PreferenceKeys.USER_NAME, "null")!!
-
+        tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
             txnParcelable = it
             txnAmount = it.amount
             txnDescription = it.description
+            itemDate = Date(it.date)
             payerName = if (txnAmount!! > 0.0) userName else tabParcelable.name
         }
+
+        viewModel = ViewModelProvider(this).get(TransactionViewModel::class.java).also { vm ->
+            txnParcelable?.let { vm.init(it) } // initialize with parcelable data if one exists
+        }
+
+        Log.d(TAG, viewModel.toString())
 
         /*
         Tab, Amount, and Payer views
@@ -139,7 +148,20 @@ class TransactionActivity : AppCompatActivity() {
                     listOf(userName, tabParcelable.name)
                 )
 
-                txnDescription?.let { etDescription.text = SpannableStringBuilder(it) }
+                /*
+                Is transfer switch
+                 */
+                txnParcelable?.let {
+                    if (it.isTransfer == 1) isTransfer = true
+                    Log.d(TAG, it.isTransfer.toString())
+                    isTransferSwitch.isChecked = isTransfer
+                }
+                isTransferSwitch.setOnCheckedChangeListener { btn, checked ->
+                    Log.d(TAG, "Switch checked! $checked")
+                    isTransfer = checked
+                }
+
+                txnDescription?.let { transactionDescription.text = SpannableStringBuilder(it) }
             }
         }
 
@@ -158,7 +180,6 @@ class TransactionActivity : AppCompatActivity() {
 //            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd") // min API level 26
         val formatter = SimpleDateFormat("yyyy/MM/dd")
 
-        itemDate = Date()
         val dateString = formatter.format(itemDate)
 
         datePicker.text = dateString
@@ -219,12 +240,13 @@ class TransactionActivity : AppCompatActivity() {
                                 txnAmount *= -1.0
                             }
 
-                            txnDescription = etDescription.text.toString()
+                            txnDescription = transactionDescription.text.toString()
 
                             val txn = Transaction(txnParcelable?.id, selectedTab.id ?: tabParcelable.id, txnAmount, txnDescription,
                                 StringUtils.millisFromDateString(
                                     datePicker.text.toString(), "yyyy/MM/dd"
-                                )
+                                ),
+                                isTransfer
                             )
                             db.transactionDao().insert(txn)
                         }
@@ -253,5 +275,16 @@ class TransactionActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, TabActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
+            putExtra("TAB_PARCELABLE", tabParcelable)
+        }
+
+        startActivity(intent, ActivityOptions.makeCustomAnimation(this, 0, R.anim.exit_right).toBundle())
+
+        finish()
     }
 }

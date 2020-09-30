@@ -17,16 +17,23 @@ data class Transaction(
     val tabId: Int,
     var amount: Double,
     var description: String? = null,
-    var date: Long = System.currentTimeMillis()) : Comparable<Transaction> {
+    var date: Long = System.currentTimeMillis(),
+    var isTransfer: Boolean = false,
+    var pinned: Boolean = false) : Comparable<Transaction> {
 
     override fun compareTo(other: Transaction): Int {
-        val delta = round(
-            (this.date - other.date) / 10000.0
-        )
-        return when (delta) {
-            in 1 .. Int.MAX_VALUE -> 1
-            in 0 .. 0 -> if (this.id!! > other.id!!) 1 else -1
-            else -> -1
+        val timeDelta = round((this.date - other.date) / 10000.0)
+
+        return if (this.pinned && !other.pinned) { // only this pinned
+            1
+        } else if (!this.pinned && other.pinned) { // only other pinned
+            -1
+        } else {
+            when (timeDelta) {
+                in 1 .. Int.MAX_VALUE -> 1 // true if this transaction's value is greater than the other
+                in 0 .. 0 -> if (this.id!! > other.id!!) 1 else -1
+                else -> -1
+            }
         }
     }
 }

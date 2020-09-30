@@ -28,8 +28,8 @@ import io.oddlot.ledger.db
 import io.oddlot.ledger.parcelables.GroupExpenseParcelable
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.round
-import io.oddlot.ledger.view_models.GroupExpenseViewModel
-import io.oddlot.ledger.view_models.GroupExpenseViewModelFactory
+import io.oddlot.ledger.viewmodels.GroupExpenseViewModel
+import io.oddlot.ledger.viewmodels.GroupExpenseViewModelFactory
 import kotlinx.android.synthetic.main.activity_group_expense.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -104,7 +104,7 @@ class GroupTransactionActivity : AppCompatActivity() {
                         Log.d(TAG, mViewModel.amountPaid.value.toString() + mViewModel.unallocated().toString())
                         throw IllegalStateException("Amount not fully allocated")
                     } else {
-                        mViewModel.description.value = etDescription.text.toString()
+                        mViewModel.description.value = transactionDescription.text.toString()
 
                         CoroutineScope(IO).launch {
                             groupExpense.apply {
@@ -211,7 +211,7 @@ class GroupTransactionActivity : AppCompatActivity() {
                     }
 
                 }
-                etDescription.text = SpannableStringBuilder(it.description)
+                transactionDescription.text = SpannableStringBuilder(it.description)
             }
         }
 

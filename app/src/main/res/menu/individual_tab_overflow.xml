@@ -11,6 +11,14 @@
     <item
             android:id="@+id/menu_delete_tab"
             android:title="@string/actionbar_overflow_delete_tab" />
+
+    <item
+            android:id="@+id/menu_share_tab"
+            app:showAsAction="always"
+            android:icon="@android:drawable/ic_menu_share"
+            android:iconTint="?android:attr/textColorPrimary"
+            android:title="@string/menu_share" />
+
     <item
             android:id="@+id/menu_export_to_csv"
             android:title="@string/actionbar_overflow_export" />

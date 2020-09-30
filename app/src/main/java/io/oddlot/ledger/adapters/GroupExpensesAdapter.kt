@@ -47,7 +47,7 @@ class GroupExpensesAdapter(private val groupExpenses: List<GroupExpense>) : Recy
             text = StringUtils.dateStringFromMillis(groupExpense.date, "MM/dd")
         }
 
-        holder.view.findViewById<TextView>(R.id.paidBy).apply {
+        holder.view.findViewById<TextView>(R.id.transactionSummary).apply {
             CoroutineScope(IO).launch {
                 val payerName = db.memberDao().getMemberNameById(groupExpense.payerId)
 

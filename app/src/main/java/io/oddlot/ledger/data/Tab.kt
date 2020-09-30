@@ -9,14 +9,24 @@ import java.util.*
         Index(value = ["name"], unique = true)
     ]
 )
-data class Tab(
+data class Tab (
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     var name: String,
     var balance: Double = 0.0,
     var currency: String = "USD",
     var pinned: Boolean = false
-)
+) : Comparable<Tab> {
+    override fun compareTo(other: Tab): Int {
+        return if (this.pinned && !other.pinned) { // only this pinned
+            1
+        } else if (!this.pinned && other.pinned) { // only other pinned
+            -1
+        } else {
+            0
+        }
+    }
+}
 
 @Dao
 interface TabDao {

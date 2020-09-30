@@ -9,7 +9,8 @@ class TransactionParcelable(
     val id: Int,
     var amount: Double,
     var description: String,
-    var date: Long) : Parcelable {
+    var date: Long,
+    var isTransfer: Int = 0) : Parcelable {
 
     companion object {
         @JvmField
@@ -28,7 +29,8 @@ class TransactionParcelable(
         id = parcel.readInt(),
         amount = parcel.readDouble(),
         description = parcel.readString()!!,
-        date = parcel.readLong()
+        date = parcel.readLong(),
+        isTransfer = parcel.readInt()
     )
 
     // Invoked when calling Intent.putExtra()
@@ -38,6 +40,7 @@ class TransactionParcelable(
         parcel.writeDouble(amount)
         parcel.writeString(description)
         parcel.writeLong(date)
+        parcel.writeInt(isTransfer)
     }
 
     override fun describeContents() = 0

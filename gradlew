@@ -41,7 +41,7 @@ die () {
     echo
     echo "$*"
     echo
-    exit 1
+    exit_static 1
 }
 
 # OS specific support (must be 'true' or 'false').

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.ledger.R
 import io.oddlot.ledger.Allocation
 import io.oddlot.ledger.data.Member
-import io.oddlot.ledger.view_models.GroupExpenseViewModel
+import io.oddlot.ledger.viewmodels.GroupExpenseViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 

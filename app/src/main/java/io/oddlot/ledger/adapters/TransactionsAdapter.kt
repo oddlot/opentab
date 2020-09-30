@@ -1,9 +1,8 @@
 package io.oddlot.ledger.adapters
 
-import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +22,6 @@ import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.utils.round
 import io.oddlot.ledger.data.Transaction
 import io.oddlot.ledger.parcelables.TabParcelable
-import io.oddlot.ledger.utils.commatize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -45,7 +43,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.layout_solo_transaction_row, parent, false)
+        val view = inflater.inflate(R.layout.layout_transaction_row, parent, false)
 
         return TransactionViewHolder(view)
     }
@@ -57,22 +55,22 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
         val txnAmount = txn.amount
         val txnDateInMillis = txn.date
 
-        val txnDateView = holder.view.findViewById<TextView>(R.id.txnDateView)
-        val txnDescriptionView = holder.view.findViewById<TextView>(R.id.etDescription)
+        val txnDateView = holder.view.findViewById<TextView>(R.id.transactionDate)
+        val txnDescriptionView = holder.view.findViewById<TextView>(R.id.transactionDescription)
         val txnAmountView = holder.view.findViewById<TextView>(R.id.amountPaid)
-        val txnBalanceView = holder.view.findViewById<TextView>(R.id.dynamicTabBalance)
+        val tvAggregateBalance = holder.view.findViewById<TextView>(R.id.aggregateTabBalance)
 
-        txnBalanceView.apply {
-            val balance = mComputedBalances[position] /* set to cached balance if one exists*/ ?: mComputedBalance.also {
-                mLastAmount = txnAmount.also {
-                    Log.d(TAG, it.toString())
-                }
-                mComputedBalance -= mLastAmount
-                mComputedBalances[position] = it // memoize
-            }
-
-            text = balance.commatize()
-        }
+//        tvAggregateBalance?.apply {
+//            val balance = mComputedBalances[position] /* set to cached balance if one exists*/ ?: mComputedBalance.also {
+//                mLastAmount = txnAmount.also {
+//                    Log.d(TAG, it.toString())
+//                }
+//                mComputedBalance -= mLastAmount
+//                mComputedBalances[position] = it // memoize
+//            }
+//
+//            text = balance.commatize()
+//        }
 
         if (position == 0) {
             val params = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -80,7 +78,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
             holder.view.layoutParams = params
         }
 
-        val paidBy = holder.view.findViewById<TextView>(R.id.paidBy)
+        val paidBy = holder.view.findViewById<TextView>(R.id.transactionSummary)
 
         mLastAmount = txnAmount
 
@@ -96,14 +94,25 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
 
             if (amount < 0.0) {
                 text = NumberFormat.getNumberInstance(Locale.getDefault()).format(amount * -1.0)
-                paidBy.text = "You were paid"
                 setTextColor(ContextCompat.getColor(this.context, R.color.Watermelon))
 
-                CoroutineScope(IO).launch { paidBy.text = "${db.tabDao().tabById(txnTabId).name} paid" }
+                CoroutineScope(IO).launch {
+                    if (txn.isTransfer) {
+                        paidBy.text = "${db.tabDao().tabById(txnTabId).name} transferred you"
+                    } else {
+                        paidBy.text = "You owe ${db.tabDao().tabById(txnTabId).name} for"
+                    }
+                }
             }
             else {
                 text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(amount)
-                paidBy.text = "You paid"
+                CoroutineScope(IO).launch {
+                    if (txn.isTransfer) {
+                        paidBy.text = "You paid ${db.tabDao().tabById(txnTabId).name}"
+                    } else {
+                        paidBy.text = "${db.tabDao().tabById(txnTabId).name} owes you"
+                    }
+                }
                 setTextColor(ContextCompat.getColor(this.context, R.color.BrightTeal))
             }
         }
@@ -119,7 +128,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
         holder.view.setOnClickListener {
             val txnDateTime = Date(txnDateInMillis)
             val txnDateString = SimpleDateFormat("yyyy-MM-dd").format(txnDateTime)
-            val txnParcelable = TransactionParcelable(txnTabId, txnId!!, txnAmount, txn.description ?: "", txnDateInMillis)
+            val txnParcelable = TransactionParcelable(txnTabId, txnId!!, txnAmount, txn.description ?: "", txnDateInMillis, if (txn.isTransfer) 1 else 0)
 
             thread {
                 val tab = db.tabDao().tabById(txn.tabId)
@@ -129,8 +138,7 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
                 intent.putExtra("TXN_PARCELABLE", txnParcelable)
                 intent.putExtra("TAB_PARCELABLE", tabParcelable)
 
-                // 3. Start edit transaction activity
-                startActivity(it.context, intent, null)
+                startActivity(it.context, intent, ActivityOptions.makeCustomAnimation(it.context, R.anim.enter_from_right, R.anim.exit_static).toBundle())
             }
         }
 
@@ -153,8 +161,8 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
 
                     startActivity(it.context, intent,null)
 
-                    val activity = it.context as Activity
-                    activity.finish()
+//                    val activity = it.context as Activity
+//                    activity.finish()
                 }
             }
             builder.setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }

@@ -75,7 +75,7 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"/>
+                android:layout_height="42dp"/>
         <TextView
                 android:id="@+id/licenses"
                 android:gravity="center_vertical"
@@ -83,7 +83,7 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"/>
+                android:layout_height="42dp"/>
         <TextView
                 android:id="@+id/rateMe"
                 android:text="Rate app!"
@@ -91,7 +91,7 @@
                 android:textSize="16sp"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/SETTING_HEIGHT_DOUBLE"/>
+                android:layout_height="42dp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

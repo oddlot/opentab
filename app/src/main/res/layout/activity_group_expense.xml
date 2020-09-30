@@ -105,7 +105,7 @@
             app:layout_constraintTop_toBottomOf="@+id/amountPaid" />
 
     <EditText
-            android:id="@+id/etDescription"
+            android:id="@+id/transactionDescription"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
@@ -126,7 +126,7 @@
             android:layout_marginTop="18dp"
             android:text="Allocation"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/transactionDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/payeeAllocation"

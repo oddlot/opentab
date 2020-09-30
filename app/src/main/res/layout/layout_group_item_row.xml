@@ -26,7 +26,7 @@
                 android:text="01/01"
                 android:textSize="14sp" />
         <TextView
-                android:id="@+id/paidBy"
+                android:id="@+id/transactionSummary"
                 android:layout_height="wrap_content"
                 android:layout_width="232dp"
                 tools:text="Cecilia paid"

@@ -20,8 +20,8 @@ import io.oddlot.ledger.data.*
 import io.oddlot.ledger.parcelables.TabParcelable
 import io.oddlot.ledger.utils.StringUtils
 import io.oddlot.ledger.utils.basicEditText
-import io.oddlot.ledger.view_models.GroupTabViewModel
-import io.oddlot.ledger.view_models.GroupTabViewModelFactory
+import io.oddlot.ledger.viewmodels.GroupTabViewModel
+import io.oddlot.ledger.viewmodels.GroupTabViewModelFactory
 import kotlinx.android.synthetic.main.activity_group_tab.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO

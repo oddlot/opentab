@@ -81,4 +81,5 @@
     <string name="about_other">Other</string>
     <string name="app_store_link">https://play.google.com/store/apps/details?id=io.oddlot.ledger</string>
     <string name="my_email_address">thomaschlee@yahoo.com</string>
+    <string name="menu_share">Share</string>
 </resources>

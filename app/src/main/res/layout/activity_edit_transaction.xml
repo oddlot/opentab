@@ -144,7 +144,7 @@
                 style="@style/TextLabelStyle"
                 android:text="Description" />
         <EditText
-                android:id="@+id/etDescription"
+                android:id="@+id/transactionDescription"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_below="@id/descriptionLabel"

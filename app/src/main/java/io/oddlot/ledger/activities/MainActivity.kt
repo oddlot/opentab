@@ -9,10 +9,13 @@ import android.database.sqlite.SQLiteConstraintException
 import android.os.PersistableBundle
 import android.text.InputType
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
+import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -89,7 +92,12 @@ class MainActivity : AppCompatActivity() {
          */
         findViewById<FloatingActionButton>(R.id.fab).apply {
             setOnClickListener {
-                // Individual Tab
+                val v = View(this@MainActivity)
+                    v.layoutParams = FrameLayout.LayoutParams(100,1000,Gravity.BOTTOM)
+                val popupMenu = PopupMenu(this@MainActivity, v, Gravity.BOTTOM)
+                popupMenu.inflate(R.menu.bottom_nav_menu)
+                popupMenu.show()
+
                 val builder = AlertDialog.Builder(context!!).apply {
                     setTitle("Create New Tab")
 
@@ -162,60 +170,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 builder.show()
 
-//                var groupTabDialog = AlertDialog.Builder(context!!).apply {
-//                    val tabNameInput = basicEditText(
-//                        context
-//                    ).also { it.requestFocus() }
-//                    val container = FrameLayout(context).apply {
-//                        addView(tabNameInput)
-//                    }
-//                    setView(container)
-//                    setTitle("Create a Group Tab")
-//                    setPositiveButton("OK") { dialog, which ->
-//                        try {
-//                            // Throw exception if no name is entered
-//                            val inputText = tabNameInput.text
-//                            if (tabNameInput.text.isBlank() or (inputText.length > 32))
-//                                throw IllegalArgumentException("Exception")
-//                            else {
-//                                val tabName = tabNameInput.text.toString()
-//
-//                                CoroutineScope(IO).launch {
-//                                    val groupTabId = db.tabDao().insert(
-//                                        Tab(null, tabName, isGroup=true)
-//                                    )
-//
-//                                    val newMS = Membership(null, groupTabId.toInt(), 1)
-//                                    db.membershipDao().insert(newMS)
-//                                }
-//                            }
-//
-//                        } catch (e: IllegalArgumentException) {
-//                            if (tabNameInput.text.isBlank())
-//                                Toast.makeText(
-//                                    context,
-//                                    "Name is required",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                            else
-//                                Toast.makeText(
-//                                    context,
-//                                    "Name cannot be greater than 32 characters",
-//                                    Toast.LENGTH_LONG
-//                                ).show()
-//                        }
-//                    }
-//                    setNegativeButton("Cancel") { dialog, which ->
-//                        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                        imm.hideSoftInputFromWindow(tabNameInput.windowToken, 0)
-//                        dialog.cancel()
-//                    }
-//                }
-//                groupTabDialog.show()
-
                 // Show soft keyboard
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
             }
 

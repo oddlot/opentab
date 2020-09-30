@@ -1,6 +1,7 @@
 package io.oddlot.ledger.activities
 
 import android.Manifest
+import android.app.ActivityOptions
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,18 +12,15 @@ import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.*
 import android.view.animation.OvershootInterpolator
-import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.robinhood.ticker.TickerUtils
-import io.oddlot.ledger.view_models.TransactionsViewModel
+import io.oddlot.ledger.viewmodels.TabViewModel
 import io.oddlot.ledger.R
 import io.oddlot.ledger.RequestCodes
 import io.oddlot.ledger.adapters.TransactionsAdapter
@@ -44,6 +42,7 @@ import kotlin.concurrent.thread
 
 class TabActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
+    private lateinit var viewModel: TabViewModel
 
     private var mTabBalance = 0.0
     private var transactions: MutableList<Transaction> = mutableListOf()
@@ -58,27 +57,19 @@ class TabActivity : AppCompatActivity() {
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        CoroutineScope(IO).launch { // Initialize member variables
+        CoroutineScope(IO).launch {
             tab = db.tabDao().tabById(pTab.id)
             transactions = db.transactionDao()
                 .getTransactionsByTabId(pTab.id)
                 .toMutableList()
             transactions.sortDescending()
 
-            supportActionBar?.title = tab.name
-
-            /*
-            1. Sum up tab amounts
-            2. Update Tab balance
-            3. Load data in views
-             */
             for (item in transactions) {
                 mTabBalance += item.amount
             }
 
             db.tabDao().updateTabBalance(pTab.id, mTabBalance)
             tab = db.tabDao().tabById(pTab.id)
-
 
             withContext(Main) {
                 loadTabDataViews(tab)
@@ -89,29 +80,35 @@ class TabActivity : AppCompatActivity() {
         // ...finish setting up UI
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.title = pTab.name
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         transactionsRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        ViewModelProviders.of(this).get(TransactionsViewModel::class.java)
-            .getItems().observe(this, Observer {
+        viewModel = ViewModelProvider(this).get(TabViewModel::class.java)
+        viewModel.getItems().observe(this, Observer {
 
         })
 
-        /*
-        New Transaction Fab
-         */
-        findViewById<FloatingActionButton>(R.id.newTransactionFab).also {
-            it.setOnClickListener {
-                Toast.makeText(this, "Add transaction", Toast.LENGTH_SHORT)
-                    .show()
+        newTransactionFab.setOnClickListener { fabListener("click") }
+        newTransactionFab.setOnLongClickListener { fabListener("longClick") }
+    }
 
-                Intent(this, TransactionActivity::class.java).also {
+    private fun fabListener(type: String): Boolean {
+        return when (type) {
+            "click" -> {
+                val intent = Intent(this, TransactionActivity::class.java).also {
                     it.putExtra("TAB_PARCELABLE", pTab)
-                    startActivity(it)
                 }
+
+                val options = ActivityOptions.makeCustomAnimation(this, R.anim.enter_from_bottom, R.anim.exit_static).toBundle()
+                startActivity(intent, options)
+
+                true
             }
+            "longClick" -> true
+            else -> false
         }
     }
 
