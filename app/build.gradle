@@ -5,6 +5,9 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29 // Original
+    buildFeatures {
+        viewBinding true
+    }
     buildToolsVersion "29.0.2" // Original
     defaultConfig {
         applicationId "io.oddlot.ledger"

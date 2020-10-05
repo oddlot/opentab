@@ -3,9 +3,13 @@ package io.oddlot.ledger.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.SpannedString
+import android.text.style.UnderlineSpan
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import io.oddlot.ledger.R
 
 class AboutActivity : AppCompatActivity() {
@@ -27,8 +31,6 @@ class AboutActivity : AppCompatActivity() {
 
         tvLicenses.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-
-            builder
                 .setTitle("Ticker")
                 .setMessage(
                     "Copyright 2016 Robinhood Markets, Inc.\n\n" +
@@ -38,7 +40,12 @@ http://www.apache.org/licenses/LICENSE-2.0
             
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.""")
                 .create()
-                .show()
+
+            builder.show()
+
+            // Set alert message font
+            builder.window?.findViewById<TextView>(android.R.id.message)
+                ?.typeface = ResourcesCompat.getFont(this, R.font.rajdhani)
         }
         tvFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND).apply {

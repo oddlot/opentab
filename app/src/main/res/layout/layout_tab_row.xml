@@ -19,7 +19,7 @@
             android:paddingStart="18dp"
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
-            android:textColor="?android:attr/textColorTertiary"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Cecilia" />

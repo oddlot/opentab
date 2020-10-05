@@ -9,13 +9,10 @@ import android.database.sqlite.SQLiteConstraintException
 import android.os.PersistableBundle
 import android.text.InputType
 import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -23,17 +20,22 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.preference.PreferenceManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import io.oddlot.ledger.TabManager
+import io.oddlot.ledger.TabKeeper
 import io.oddlot.ledger.PreferenceKeys
 import io.oddlot.ledger.R
 import io.oddlot.ledger.utils.basicEditText
 import io.oddlot.ledger.data.*
 import io.oddlot.ledger.db
 import io.oddlot.ledger.fragments.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main_viewpager.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        prefs = TabManager.getPrefs(applicationContext)
+        prefs = TabKeeper.getPrefs(applicationContext)
 
         // Configure toolbar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -75,6 +77,14 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
+//        val bottomSheet = findViewById<FragmentContainerView>(R.id.bottomSheet)
+//        val bottomSheetFragment = TabBottomFragment(0)
+//        val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+//
+//        fragmentManager.beginTransaction().replace(R.id.container, bottomSheetFragment)
+//        bottomSheetBehavior.peekHeight = 100
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         // Nav drawer
         drawerLayout = findViewById(R.id.drawerLayout)
         drawerToggle = ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close).apply {
@@ -87,17 +97,8 @@ class MainActivity : AppCompatActivity() {
         drawerMenu.bringToFront()
         drawerMenu.setNavigationItemSelectedListener { selectedItem -> drawerMenuListener(selectedItem) }
 
-        /*
-        Open Tab Fab
-         */
         findViewById<FloatingActionButton>(R.id.fab).apply {
             setOnClickListener {
-                val v = View(this@MainActivity)
-                    v.layoutParams = FrameLayout.LayoutParams(100,1000,Gravity.BOTTOM)
-                val popupMenu = PopupMenu(this@MainActivity, v, Gravity.BOTTOM)
-                popupMenu.inflate(R.menu.bottom_nav_menu)
-                popupMenu.show()
-
                 val builder = AlertDialog.Builder(context!!).apply {
                     setTitle("Create New Tab")
 
@@ -238,7 +239,6 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.main_overflow, menu)
 
         return true
-
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -247,17 +247,24 @@ class MainActivity : AppCompatActivity() {
         outState.putInt("PAGER_POSITION", 1)
     }
 
+    override fun onStart() {
+        Log.d(TAG, "starting")
+        super.onStart()
+    }
+
     override fun onResume() {
-        Log.d(TAG, "Resuming activity")
+        Log.d(TAG, "resuming")
         super.onResume()
 
         setGreeting()
     }
 
     override fun onRestart() {
+        Log.d(TAG, "restarting")
         super.onRestart()
 
         intent.extras?.getBoolean("RESTART_ACTIVITY")?.let {
+            Log.d(TAG, "restarting activity")
             // Refresh main fragment
             fragmentManager.beginTransaction()
                 .remove(mainFragment)

@@ -9,6 +9,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="tabStyle">@style/TabLayoutStyle</item>
+        <item name="android:windowBackground">@color/DefaultWhite</item>
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme">
@@ -35,7 +36,12 @@
     <style name="FabStyle" parent="Widget.MaterialComponents.FloatingActionButton">
 <!--        <item name="android:tint">@color/Watermelon</item>-->
 <!--        <item name="backgroundTint">@color/AppTheme</item>-->
+        <item name="font">@font/varela_round</item>
     </style>
+
+<!--    <style name="Base.TickerStyle" parent="">-->
+<!--        <item name="font">@font/rajdhani</item>-->
+<!--    </style>-->
 
     <style name="SectionTitle" parent="Theme.MaterialComponents.DayNight">
 <!--        <item name="android:paddingTop">@dimen/PADDING_SECTION_TITLE_VERTICAL</item>-->
@@ -47,28 +53,30 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabBackground">@color/AppTheme</item>
-        <item name="tabMode">fixed</item>
-        <item name="tabSelectedTextColor">@color/DefaultWhite</item>
-        <item name="tabIndicatorColor">@color/DefaultWhite</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabIndicatorColor">@color/Whitish</item>
         <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabMode">fixed</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>
         <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item>
-        <item name="tabGravity">fill</item>
+        <item name="tabTextColor">@color/LightGray</item>
+        <item name="tabSelectedTextColor">@color/DefaultWhite</item>
+    </style>
+
+    <style name="TabLayoutTextAppearance" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:textSize">24sp</item>
+        <item name="tabTextColor">@color/Watermelon</item> // need to use in TabLayoutStyle (not TabLayoutTextAppearance)
+        <item name="android:textColor">@color/Watermelon</item> // doesn't work in Widget.MaterialComponents.TabLayout
+        <item name="textAllCaps">false</item>
     </style>
 
     <style name="NavMenuItemTextAppearance" parent="">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?android:attr/textColorTertiary</item>
-        <item name="textAllCaps">false</item>
-    </style>
-
-    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">@color/DefaultWhite</item>
         <item name="textAllCaps">false</item>
     </style>
 

@@ -10,26 +10,6 @@
         <item name="android:paddingStart">50dp</item>
     </style>
 
-    <style name="TabLayoutStyle" parent="Widget.MaterialComponents.TabLayout">
-        <item name="tabMode">fixed</item>
-        <item name="tabBackground">@color/AppTheme</item> // Does not work in night mode
-        <item name="colorSurface">@color/AppTheme</item> // ...must use Color Surface instead
-        <item name="tabSelectedTextColor">?android:attr/textColorPrimary</item>
-        <item name="tabIndicatorColor">?android:attr/textColorPrimary</item>
-        <item name="tabIndicatorHeight">4dp</item> // Does not work in night mode
-        <item name="tabPaddingStart">12dp</item>
-        <item name="tabPaddingEnd">12dp</item>
-        <item name="tabTextAppearance">@style/TabLayoutTextAppearance</item>
-        <item name="tabGravity">fill</item>
-        <item name="tabTextColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="TabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textSize">24sp</item>
-        <item name="android:textColor">?android:attr/textColorTertiary</item> // not working in night mode
-        <item name="textAllCaps">false</item>
-    </style>
-
     <style name="TextLabelStyle">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_height">wrap_content</item>

@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabViewHolder>() {
-    val TAG = "TABS_ADAPTER"
+    val TAG = this::class.java.simpleName
 
     override fun getItemCount(): Int {
         return data.size // Local Tab list

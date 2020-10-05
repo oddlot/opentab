@@ -155,9 +155,10 @@
                     android:layout_width="188dp"/>
             <TextView
                     android:id="@+id/isTransferLabel"
-                    android:layout_width="102dp"
+                    style="@style/TextLabelStyle"
+                    android:layout_width="112dp"
                     android:layout_height="wrap_content"
-                    android:text="Is transfer"/>
+                    android:text="Is Transfer"/>
             <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/isTransferSwitch"
                     android:layout_alignTop="@id/isTransferLabel"

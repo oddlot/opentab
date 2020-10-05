@@ -1,6 +1,7 @@
 package io.oddlot.ledger.adapters
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Looper
 import android.view.LayoutInflater
@@ -24,9 +25,10 @@ import io.oddlot.ledger.data.Transaction
 import io.oddlot.ledger.parcelables.TabParcelable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -51,13 +53,12 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
         val txn = transactions[position]
         val txnTabId = txn.tabId
-        val txnId = txn.id
-        val txnAmount = txn.amount
         val txnDateInMillis = txn.date
 
         val txnDateView = holder.view.findViewById<TextView>(R.id.transactionDate)
+        val tvSummary = holder.view.findViewById<TextView>(R.id.transactionSummary)
         val txnDescriptionView = holder.view.findViewById<TextView>(R.id.transactionDescription)
-        val txnAmountView = holder.view.findViewById<TextView>(R.id.amountPaid)
+        val tvAmount = holder.view.findViewById<TextView>(R.id.amountPaid)
         val tvAggregateBalance = holder.view.findViewById<TextView>(R.id.aggregateTabBalance)
 
 //        tvAggregateBalance?.apply {
@@ -78,134 +79,80 @@ class TransactionsAdapter(var transactions: List<Transaction>, startingTabBalanc
             holder.view.layoutParams = params
         }
 
-        val paidBy = holder.view.findViewById<TextView>(R.id.transactionSummary)
+        mLastAmount = txn.amount
 
-        mLastAmount = txnAmount
+        CoroutineScope(IO).launch {
+            val tabName = db.tabDao().tabById(txnTabId).name
+            val roundedAmount = txn.amount.round(2)
 
-        // Transaction amount view
-        txnAmountView.apply {
-//            this.setCharacterLists(TickerUtils.provideNumberList())
-//            animationInterpolator = OvershootInterpolator()
-//            animationDuration = 800
-//            typeface = ResourcesCompat.getFont(context, R.font.abel) // Works
-////            typeface = Typeface.createFromAsset(context.assets, "fonts/AbelRegular.ttf") // Doesn't work
-
-            val amount = txnAmount.round(2)
-
-            if (amount < 0.0) {
-                text = NumberFormat.getNumberInstance(Locale.getDefault()).format(amount * -1.0)
-                setTextColor(ContextCompat.getColor(this.context, R.color.Watermelon))
-
-                CoroutineScope(IO).launch {
-                    if (txn.isTransfer) {
-                        paidBy.text = "${db.tabDao().tabById(txnTabId).name} transferred you"
-                    } else {
-                        paidBy.text = "You owe ${db.tabDao().tabById(txnTabId).name} for"
-                    }
+            withContext(Main) {
+                if (txn.amount > 0) {
+                    tvSummary.text = if (txn.isTransfer) { "You transferred $tabName" } else { "$tabName owes you" }
+                    tvAmount.text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(roundedAmount)
+                    tvAmount.setTextColor(ContextCompat.getColor(holder.view.context, R.color.BrightTeal))
+                } else {
+                    tvSummary.text = if (txn.isTransfer) { "$tabName transferred you" } else { "You owe $tabName" }
+                    tvAmount.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(roundedAmount * -1.0)
+                    tvAmount.setTextColor(ContextCompat.getColor(holder.view.context, R.color.Watermelon))
                 }
-            }
-            else {
-                text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(amount)
-                CoroutineScope(IO).launch {
-                    if (txn.isTransfer) {
-                        paidBy.text = "You paid ${db.tabDao().tabById(txnTabId).name}"
-                    } else {
-                        paidBy.text = "${db.tabDao().tabById(txnTabId).name} owes you"
-                    }
-                }
-                setTextColor(ContextCompat.getColor(this.context, R.color.BrightTeal))
             }
         }
 
         txnDateView.text = StringUtils.dateStringFromMillis(txnDateInMillis, "MM/dd")
-//        itemDateView.text = itemDate.slice(5..9).replace("-", "/")
-//        txnDescriptionView.text = txnDescription
 
         txn.description?.let {
             if (it.length > 0) txnDescriptionView.text = it
         }
 
-        holder.view.setOnClickListener {
-            val txnDateTime = Date(txnDateInMillis)
-            val txnDateString = SimpleDateFormat("yyyy-MM-dd").format(txnDateTime)
-            val txnParcelable = TransactionParcelable(txnTabId, txnId!!, txnAmount, txn.description ?: "", txnDateInMillis, if (txn.isTransfer) 1 else 0)
+        holder.view.setOnClickListener { clickListener(it.context, txn) }
+        holder.view.setOnLongClickListener { longClickListener(it.context, txn) }
+    }
 
-            thread {
-                val tab = db.tabDao().tabById(txn.tabId)
-                tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
+    private fun clickListener(context: Context, txn: Transaction): Boolean {
+        val txnParcelable = TransactionParcelable(txn.tabId, txn.id!!, txn.amount, txn.description ?: "", txn.date, if (txn.isTransfer) 1 else 0)
 
-                val intent = Intent(it.context, TransactionActivity::class.java)
-                intent.putExtra("TXN_PARCELABLE", txnParcelable)
-                intent.putExtra("TAB_PARCELABLE", tabParcelable)
+        thread {
+            val tab = db.tabDao().tabById(txn.tabId)
+            tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
 
-                startActivity(it.context, intent, ActivityOptions.makeCustomAnimation(it.context, R.anim.enter_from_right, R.anim.exit_static).toBundle())
-            }
+            val intent = Intent(context, TransactionActivity::class.java)
+            intent.putExtra("TXN_PARCELABLE", txnParcelable)
+            intent.putExtra("TAB_PARCELABLE", tabParcelable)
+
+            startActivity(context, intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_from_right, R.anim.exit_static).toBundle())
         }
 
-        // Local
-        holder.view.setOnLongClickListener {
-            val builder = AlertDialog.Builder(it.context)
-            builder.setTitle("Delete this transaction?")
-            builder.setPositiveButton("DELETE") { dialog, which ->
-                thread {
-                    Looper.prepare()
-                    val tab = db.tabDao().tabById(txn.tabId)
-                    tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
-                    db.transactionDao().deleteItemById(txnId!!)
-                    Toast.makeText(it.context, "Transaction deleted", Toast.LENGTH_LONG).show()
+        return true
+    }
 
-                    val intent = Intent(it.context, TabActivity::class.java)
-                    intent.putExtra("TAB_PARCELABLE", tabParcelable)
-                    intent.putExtra("RESTART_ACTIVITY", true)
-                    intent.putExtra("NEW_TASK_ON_BACK", true)
+    private fun longClickListener(context: Context, txn: Transaction): Boolean {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete this transaction?")
+        builder.setPositiveButton("DELETE") { dialog, which ->
+            thread {
+                Looper.prepare()
+                val tab = db.tabDao().tabById(txn.tabId)
+                tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
+                db.transactionDao().deleteItemById(txn.id!!)
+                Toast.makeText(context, "Transaction deleted", Toast.LENGTH_LONG).show()
 
-                    startActivity(it.context, intent,null)
+                val intent = Intent(context, TabActivity::class.java)
+                intent.putExtra("TAB_PARCELABLE", tabParcelable)
+                intent.putExtra("RESTART_ACTIVITY", true)
+                intent.putExtra("NEW_TASK_ON_BACK", true)
+
+                startActivity(context, intent,null)
 
 //                    val activity = it.context as Activity
 //                    activity.finish()
-                }
             }
-            builder.setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }
-//            builder.setNeutralButton("Cancel") { dialog, which -> dialog.cancel() }
-
-            val dialog = builder.create()
-            dialog.show()
-
-            true
         }
+        builder.setNegativeButton("CANCEL") { dialog, which -> dialog.cancel() }
 
+        val dialog = builder.create()
+        dialog.show()
 
-//        // Network
-//        holder.view.setOnLongClickListener {
-//            val dialog = AlertDialog.Builder(it.context)
-//            dialog.setTitle("Delete Item?")
-//            dialog.setPositiveButton("OK",
-//                DialogInterface.OnClickListener { dialog, which ->
-//                    val url = "http://167.99.70.234:8001/api/v1/items/$itemId"
-//                    Log.d(TAG, url)
-//                    val deleteItem = JsonObjectRequest(
-//                        Request.Method.DELETE, url, null,
-//                        Response.Listener { response ->
-//                            Toast.makeText(it.context, "Item deleted", Toast.LENGTH_LONG).show()
-//                            Log.d(TAG, it.context.toString())
-//                        },
-//                        Response.ErrorListener { error ->
-//                            Log.d(TAG, "Error while deleting item")
-//                            Toast.makeText(it.context, error.message.toString(), Toast.LENGTH_LONG).show()
-//                        }
-//                    )
-//
-//                    val queue = App.getRequestQueue(it.context)
-//                    queue!!.add(deleteItem)
-//                }
-//            )
-//            dialog.setNegativeButton("Cancel",
-//                DialogInterface.OnClickListener { dialog, which -> dialog.cancel() }
-//            )
-//            dialog.show()
-//            true
-//        }
-
+        return true
     }
 
     class TransactionViewHolder(val view: View): RecyclerView.ViewHolder(view)

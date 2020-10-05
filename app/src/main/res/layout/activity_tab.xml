@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content">
 
                 <TextView
-                        android:id="@+id/balanceDescriptor"
+                        android:id="@+id/balanceSummary"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:singleLine="true"
@@ -48,6 +48,7 @@
                         android:textStyle="normal"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     <TextView
@@ -60,29 +61,24 @@
                             android:textSize="18sp"/>
                     <com.robinhood.ticker.TickerView
                             android:id="@+id/tabBalance"
-                            android:gravity="bottom"
-                            android:layout_gravity="bottom"
+                            android:gravity="end"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="-4dp"
-                            android:paddingTop="4dp"
+                            android:paddingStart="4dp"
                             android:text="0"
                             android:textColor="?android:attr/textColorTertiary"
                             android:textSize="34sp"
-                            android:textStyle="bold" />
-
-                    <TextView
-                            android:id="@+id/tvTabCurrency"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="USD"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:layout_gravity="bottom"
-                            android:textColor="?android:attr/textColorTertiary"
-                            app:layout_constraintEnd_toStartOf="@+id/tabBalance" />
+                            android:textStyle="bold"/>
+<!--                    <TextView-->
+<!--                            android:id="@+id/tvTabCurrency"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:text="USD"-->
+<!--                            android:textSize="20sp"-->
+<!--                            android:textStyle="bold"-->
+<!--                            android:layout_gravity="bottom"-->
+<!--                            android:textColor="?android:attr/textColorTertiary"-->
+<!--                            app:layout_constraintEnd_toStartOf="@+id/tabBalance" />-->
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>

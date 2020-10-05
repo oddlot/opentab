@@ -7,8 +7,9 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
-import android.text.InputType
-import android.text.SpannableStringBuilder
+import android.text.*
+import android.text.style.BulletSpan
+import android.text.style.UnderlineSpan
 import android.util.Log
 import android.view.*
 import android.view.animation.OvershootInterpolator
@@ -16,6 +17,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.HtmlCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +39,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.OutputStream
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -46,76 +49,41 @@ class TabActivity : AppCompatActivity() {
 
     private var mTabBalance = 0.0
     private var transactions: MutableList<Transaction> = mutableListOf()
-    private lateinit var pTab: TabParcelable
+    private lateinit var tabParcelable: TabParcelable
     private lateinit var tab: Tab
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab)
 
-        pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
-
-        setSupportActionBar(findViewById(R.id.toolbar))
-
+        /*
+        Initialize data and UI
+         */
         CoroutineScope(IO).launch {
-            tab = db.tabDao().tabById(pTab.id)
-            transactions = db.transactionDao()
-                .getTransactionsByTabId(pTab.id)
-                .toMutableList()
-            transactions.sortDescending()
-
-            for (item in transactions) {
-                mTabBalance += item.amount
-            }
-
-            db.tabDao().updateTabBalance(pTab.id, mTabBalance)
-            tab = db.tabDao().tabById(pTab.id)
+            initializeDataObjects()
 
             withContext(Main) {
-                loadTabDataViews(tab)
+                setSupportActionBar(findViewById(R.id.toolbar))
+                supportActionBar?.title = tabParcelable.name
+                supportActionBar?.setDisplayShowHomeEnabled(true)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+                viewModel.getItems().observe(this@TabActivity, Observer {
+
+                })
+                populateTabData(tab)
                 loadTransactionsRecyclerView(transactions)
             }
         }
-
-        // ...finish setting up UI
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.title = pTab.name
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        transactionsRecyclerView.layoutManager = LinearLayoutManager(this)
-
-        viewModel = ViewModelProvider(this).get(TabViewModel::class.java)
-        viewModel.getItems().observe(this, Observer {
-
-        })
 
         newTransactionFab.setOnClickListener { fabListener("click") }
         newTransactionFab.setOnLongClickListener { fabListener("longClick") }
     }
 
-    private fun fabListener(type: String): Boolean {
-        return when (type) {
-            "click" -> {
-                val intent = Intent(this, TransactionActivity::class.java).also {
-                    it.putExtra("TAB_PARCELABLE", pTab)
-                }
-
-                val options = ActivityOptions.makeCustomAnimation(this, R.anim.enter_from_bottom, R.anim.exit_static).toBundle()
-                startActivity(intent, options)
-
-                true
-            }
-            "longClick" -> true
-            else -> false
-        }
-    }
-
     override fun onRestart() {
         super.onRestart()
 
-        pTab = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
+        tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
     }
 
     override fun onBackPressed() {
@@ -139,19 +107,19 @@ class TabActivity : AppCompatActivity() {
             RequestCodes.WRITE_EXTERNAL_STORAGE -> {
                 data!!.putExtra(
                     "FILENAME",
-                    "${ pTab.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }"
+                    "${ tabParcelable.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }"
                 )
 
                 writeExportFile(data)
             }
             RequestCodes.CLOSE_TAB -> {
-                writeExportFile(data)
+                writeExportFile(data!!)
 
                 // Delete items
                 val deleteThread = thread {
-                    val tabItems = db.transactionDao().getTransactionsByTabId(pTab.id)
+                    val tabItems = db.transactionDao().getTransactionsByTabId(tabParcelable.id)
                     for (item in tabItems) db.transactionDao().deleteItemById(item.id!!)
-                    db.tabDao().updateTabBalance(pTab.id, 0.0)
+                    db.tabDao().updateTabBalance(tabParcelable.id, 0.0)
                 }
 
                 deleteThread.join()
@@ -164,12 +132,11 @@ class TabActivity : AppCompatActivity() {
                         setCharacterLists(TickerUtils.provideNumberList())
                         animationInterpolator = OvershootInterpolator()
                         animationDuration = 800
-                        tabBalance.typeface = ResourcesCompat.getFont(this@TabActivity, R.font.rajdhani)
                     }
                     loadTransactionsRecyclerView(mutableListOf())
                 }
             }
-            RequestCodes.CREATE_DOCUMENT -> writeExportFile(data)
+            RequestCodes.CREATE_DOCUMENT -> writeExportFile(data!!)
         }
     }
 
@@ -182,50 +149,23 @@ class TabActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_export_to_csv -> {
-                /* Parse tabItems array into CSV */
-                val needsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                if (needsPermission) {
-                    // Should we show an explanation?
+            android.R.id.home -> false
+            R.id.menu_share_tab -> {
+                val i = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
 
-                }
-                else {
-                    // No explanation needed, we can request the permission.
-                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
-                }
+                    var shareText = "<b>${tab.name} owes Thomas ${tab.balance.commatize()} ${tab.currency}\n<b>\n<u>Recent Transactions</u><br><br>"
+                    transactions.forEach { shareText += (it.toString() + "<br>") }
+                    val shareSpannable = HtmlCompat.fromHtml(shareText, 0)
 
-                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                    type = "text/csv"
-                    this.putExtra(
-                        Intent.EXTRA_TITLE,
-                        "${ pTab.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
-                    )
-                    // Launch Content Provider
-                    startActivityForResult(this, RequestCodes.CREATE_DOCUMENT) // invokes onActivityResult()
+                    putExtra(Intent.EXTRA_TEXT, shareText)
+//                            "\n\nGenerated by TabKeeper (https://play.google.com/store/apps/details?id=io.oddlot.ledger)")
                 }
-//                Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-//                    startActivityForResult(this, reqCodes.indexOf("WRITE_EXTERNAL_STORAGE"))
-//                }
-
+//                startActivity(i)
+                startActivity(Intent.createChooser(i, "Share with"))
                 true
             }
-//            R.id.menu_restore_from_csv -> {
-//                val needsPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-//                if (needsPermission) {
-//                    // Should we show an explanation?
-//                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
-//
-//                }
-//
-//                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-//                    type = "text/csv"
-//
-//                    // Launch Content Provider
-//                    startActivityForResult(this, reqCodes.indexOf("READ_EXTERNAL_STORAGE")) // invokes onActivityResult()
-//                }
-//
-//                true
-//            }
+            R.id.menu_export_to_csv -> exportAndLaunchContentProvider()
             R.id.menu_set_currency -> {
                 val builder = AlertDialog.Builder(this).apply {
                     val currencies = resources.getStringArray(R.array.currencyEntries)
@@ -244,7 +184,7 @@ class TabActivity : AppCompatActivity() {
                             Looper.prepare()
                             val selectedCurrency = ccyValues[which]
                             Log.d(TAG, selectedCurrency.toString())
-                            db.tabDao().setCurrency(pTab.id, selectedCurrency)
+                            db.tabDao().setCurrency(tabParcelable.id, selectedCurrency)
                             tab.currency = selectedCurrency
 
 //                            runOnUiThread {
@@ -252,7 +192,7 @@ class TabActivity : AppCompatActivity() {
 //                            }
                             val intent = Intent(this@TabActivity, TabActivity::class.java)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                                .putExtra("TAB_PARCELABLE", pTab)
+                                .putExtra("TAB_PARCELABLE", tabParcelable)
                                 .putExtra("NEW_TASK_ON_BACK", true)
 
                             startActivity(intent)
@@ -289,14 +229,14 @@ class TabActivity : AppCompatActivity() {
                             if (tabNameInput.text.isBlank() or (inputText.length > 15))
                                 throw IllegalArgumentException("Name is missing or too long")
                             else {
-                                val newTab = Tab(pTab.id, tabNameInput.text.toString(), 0.0)
+                                val newTab = Tab(tabParcelable.id, tabNameInput.text.toString(), 0.0)
                                 thread {
                                     db.tabDao().updateTab(newTab)
 
                                     val intent = Intent(this@TabActivity, TabActivity::class.java).apply {
                                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         putExtra("NEW_TASK_ON_BACK", true)
-                                        putExtra("TAB_PARCELABLE", pTab)
+                                        putExtra("TAB_PARCELABLE", tabParcelable)
                                     }
 
                                     startActivity(intent)
@@ -328,12 +268,12 @@ class TabActivity : AppCompatActivity() {
                                 // Insert closing transaction
                                 thread {
                                     db.transactionDao().insert(
-                                        Transaction(null, pTab.id, tab.balance * -1.0, "Closing", Date().time)
+                                        Transaction(null, tabParcelable.id, tab.balance * -1.0, "Closing", Date().time)
                                     )
                                 }
 
                                 type = "text/csv"
-                                putExtra(Intent.EXTRA_TITLE, "${pTab.name} (closed).csv")
+                                putExtra(Intent.EXTRA_TITLE, "${tabParcelable.name} (closed).csv")
 
                                 // Invoke onActivityResult()
                                 startActivityForResult(this, RequestCodes.CLOSE_TAB)
@@ -360,9 +300,93 @@ class TabActivity : AppCompatActivity() {
                 dialog.show()
                 true
             }
+//            R.id.menu_restore_from_csv -> {
+//                val needsPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//                if (needsPermission) {
+//                    // Should we show an explanation?
+//                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+//
+//                }
+//
+//                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+//                    type = "text/csv"
+//
+//                    // Launch Content Provider
+//                    startActivityForResult(this, reqCodes.indexOf("READ_EXTERNAL_STORAGE")) // invokes onActivityResult()
+//                }
+//
+//                true
+//            }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
 
+    /**
+     * Private methods
+     */
+    private fun initializeDataObjects() {
+        tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
+        viewModel = ViewModelProvider(this).get(TabViewModel::class.java)
+
+        tab = db.tabDao().tabById(tabParcelable.id)
+        transactions = db.transactionDao()
+            .getTransactionsByTabId(tabParcelable.id)
+            .toMutableList()
+        transactions.sortDescending()
+
+        for (item in transactions) {
+            mTabBalance += item.amount
+        }
+
+        db.tabDao().updateTabBalance(tabParcelable.id, mTabBalance)
+        tab = db.tabDao().tabById(tabParcelable.id)
+    }
+
+    private fun fabListener(type: String): Boolean {
+        return when (type) {
+            "click" -> {
+                val intent = Intent(this, TransactionActivity::class.java).also {
+                    it.putExtra("TAB_PARCELABLE", tabParcelable)
+                }
+
+                val options = ActivityOptions.makeCustomAnimation(this, R.anim.enter_from_right, R.anim.exit_static)
+                    .toBundle()
+                startActivity(intent, options)
+
+                true
+            }
+            "longClick" -> true
+            else -> false
+        }
+    }
+
+    private fun exportAndLaunchContentProvider(): Boolean {
+        /* Parse tabItems array into CSV */
+        val needsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        if (needsPermission) {
+            // Should we show an explanation?
+
+        }
+        else {
+            // No explanation needed, we can request the permission.
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+        }
+
+        Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            type = "text/csv"
+            this.putExtra(
+                Intent.EXTRA_TITLE,
+                "${ tabParcelable.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
+            )
+            // Launch Content Provider
+            startActivityForResult(this, RequestCodes.CREATE_DOCUMENT) // invokes onActivityResult()
+        }
+//                Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+//                    startActivityForResult(this, reqCodes.indexOf("WRITE_EXTERNAL_STORAGE"))
+//                }
+
+        return true
     }
 
     private fun loadTransactionsRecyclerView(transactions: MutableList<Transaction>) {
@@ -370,38 +394,40 @@ class TabActivity : AppCompatActivity() {
         transactionsRecyclerView.adapter = TransactionsAdapter(transactions, mTabBalance)
     }
 
-    private fun loadTabDataViews(tab: Tab) {
-        balanceDescriptor.text = if (mTabBalance > 0.0) "${tab.name} owes you" else if (mTabBalance < 0.0) "${tab.name} is owed" else resources.getString(R.string.flat_balance_primary)
-        tvTabCurrency.text = ""
+    private fun populateTabData(tab: Tab) {
+        balanceSummary.text = if (mTabBalance > 0.0) "${tab.name} owes you" else if (mTabBalance < 0.0) "${tab.name} is owed" else resources.getString(R.string.flat_balance_primary)
+//        tvTabCurrency.text = ""
 //        tvTabCurrency.text = tab.currency
         tvCurrencySymbol.text = Currency
             .getInstance(tab.currency)
             .getSymbol(Locale.CHINA)
 
         tabBalance.apply {
-            setCharacterLists(TickerUtils.provideNumberList())
-            animationInterpolator = OvershootInterpolator()
             animationDuration = 800
-            tabBalance.typeface = ResourcesCompat.getFont(this@TabActivity, R.font.rajdhani)
+            animationInterpolator = OvershootInterpolator()
+            typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
+            setCharacterLists(TickerUtils.provideNumberList())
             text = if (tab.balance > 0.0) "${tab.balance.commatize()}" else if (tab.balance < 0.0) "${(tab.balance * -1.0).commatize()}" else "0.0"
         }
 
         when {
             tab.balance < 0.0 -> getColor(R.color.Watermelon).apply {
                 tabBalance.setTextColor(this)
-                tvTabCurrency.setTextColor(this)
+//                tvTabCurrency.setTextColor(this)
             }
             tab.balance > 0.0 -> getColor(R.color.BrightTeal).apply {
                 tabBalance.setTextColor(this)
-                tvTabCurrency.setTextColor(this)
+//                tvTabCurrency.setTextColor(this)
             }
             else -> null
         }
     }
 
-    private fun writeExportFile(data: Intent?) {
+    private fun writeExportFile(data: Intent): OutputStream? {
         // Export to CSV
-        contentResolver.openOutputStream(data!!.data!!, "w").use {
+        val output = contentResolver.openOutputStream(data.data!!, "w")
+
+        output.use {
 //            it!!.write("${ pTab.name }\n".toByteArray()) // Tab Name
             it!!.write("Date,Tab,Amount,Description\n".toByteArray()) // Headers
             val transactionsSorted = transactions.toMutableList().apply { sort() }
@@ -414,12 +440,14 @@ class TabActivity : AppCompatActivity() {
                     mItemDescription = '"' + this + '"'
                 }
                 val mItemAmount = item.amount.toString()
-                it.write("$mItemDateString,${pTab.name},$mItemAmount,$mItemDescription\n".toByteArray()) // Data
+                it.write("$mItemDateString,${tabParcelable.name},$mItemAmount,$mItemDescription\n".toByteArray()) // Data
             }
             it.close()
         }
 
         Toast.makeText(this, "Exported", Toast.LENGTH_SHORT).show()
+
+        return output
     }
 
     private fun launchRestoreRequest(data: Intent?) {
@@ -439,7 +467,7 @@ class TabActivity : AppCompatActivity() {
 
                     val item = Transaction(
                         null,
-                        tabId = pTab.id,
+                        tabId = tabParcelable.id,
                         amount = rowItem[2].toDouble(),
                         description = rowItem[1].removeSurrounding("\""),
                         date = StringUtils.millisFromDateString(rowItem[0])
@@ -454,15 +482,15 @@ class TabActivity : AppCompatActivity() {
                     }
                 }
 
-                transactions = db.transactionDao().getTransactionsByTabId(pTab.id).toMutableList()
+                transactions = db.transactionDao().getTransactionsByTabId(tabParcelable.id).toMutableList()
                 transactions.sortDescending()
 
-                db.tabDao().updateTabBalance(pTab.id, mTabBalance)
-                tab = db.tabDao().tabById(pTab.id)
+                db.tabDao().updateTabBalance(tabParcelable.id, mTabBalance)
+                tab = db.tabDao().tabById(tabParcelable.id)
 
                 runOnUiThread {
                     Toast.makeText(this, "Items Restored!", Toast.LENGTH_LONG).show()
-                    loadTabDataViews(tab)
+                    populateTabData(tab)
                     loadTransactionsRecyclerView(transactions)
                 }
                 it.close()

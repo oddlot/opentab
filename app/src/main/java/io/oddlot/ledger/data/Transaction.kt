@@ -2,6 +2,7 @@ package io.oddlot.ledger.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.oddlot.ledger.utils.toDateString
 import kotlin.math.round
 
 
@@ -35,6 +36,11 @@ data class Transaction(
                 else -> -1
             }
         }
+    }
+
+    override fun toString(): String {
+        val formattedDate = this.date.toDateString()
+        return "$formattedDate: ${this.amount} ${this.description}"
     }
 }
 

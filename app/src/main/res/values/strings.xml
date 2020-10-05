@@ -1,5 +1,5 @@
 <resources>
-    <string name="AppName">TabManager</string>
+    <string name="AppName">TabKeeper</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
     <string name="paid_by">Paid By</string>
@@ -82,4 +82,5 @@
     <string name="app_store_link">https://play.google.com/store/apps/details?id=io.oddlot.ledger</string>
     <string name="my_email_address">thomaschlee@yahoo.com</string>
     <string name="menu_share">Share</string>
+    <string name="menu_pin_tab">Pin Tab</string>
 </resources>

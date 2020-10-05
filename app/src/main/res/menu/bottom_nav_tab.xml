@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/pinTab"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="@string/menu_pin_tab"/>
+
+    <item
+            android:id="@+id/deleteTab"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/actionbar_overflow_delete_tab"/>
+
+</menu>
