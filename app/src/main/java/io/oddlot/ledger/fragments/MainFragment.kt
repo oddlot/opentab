@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
     val TAG = this::class.java.simpleName
     var mainActivity: AppCompatActivity? = null
-    var mTabLayout: TabLayout? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -55,16 +54,20 @@ class MainFragment : Fragment() {
         super.onStart()
         Log.d(TAG, "starting")
 
+        /**
+         * Link tab layout and viewpager
+         * and configure tab strategy
+         */
         TabLayoutMediator(tabLayout, pager) { tab, position ->
             configureTab(tab, position)
-        }.attach() // Link tab layout and viewpager together
+        }.attach()
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "resuming")
 
-//        this.pager.currentItem
+        this.pager.currentItem
     }
 
     override fun onDestroy() {
@@ -78,7 +81,6 @@ class MainFragment : Fragment() {
 
     private fun configureTab(tab: TabLayout.Tab, position: Int) {
         tab.text = arrayOf("Tabs", "Transactions", "Placeholder")[position]
-        mTabLayout = tabLayout
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
