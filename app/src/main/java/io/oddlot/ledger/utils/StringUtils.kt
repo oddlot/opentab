@@ -5,6 +5,7 @@ import android.content.Context
 import android.text.InputFilter
 import android.text.InputType
 import android.text.Spanned
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -76,20 +77,31 @@ fun promptDialog(message: String?, callback: (() -> Unit)?) {
     callback?.invoke()
 }
 
-fun basicDialog(context: Context, title: String, pos: String, neg: String): AlertDialog {
-    val builder = AlertDialog.Builder(context).apply {
-        val container = FrameLayout(context)
-        // Config dialog box
-        setView(container)
-        setTitle(title)
+//fun basicDialog(context: Context, title: String, pos: String? = null, neg: String? = null): AlertDialog {
+//    val builder = AlertDialog.Builder(context).apply {
+//        val container = FrameLayout(context)
+//        // Config dialog box
+//        setView(container)
+//        setTitle(title)
+//
+//        // Config click listeners
+//        setPositiveButton(pos) { dialog, which -> }
+//        setNegativeButton(neg) { dialog, which -> }
+//    }
+//
+//    // Return dialog
+//    return builder.create()
+//}
+
+class BasicDialog(context: Context, title: String, pos: String? = null, neg: String? = null): AlertDialog(context) {
+    init {
+        this.setView(FrameLayout(context))
+        this.setTitle(title)
 
         // Config click listeners
-        setPositiveButton(pos) { dialog, which -> }
-        setNegativeButton(neg) { dialog, which -> }
+        setButton(BUTTON_POSITIVE, pos) { dialog, which -> }
+        setButton(BUTTON_NEGATIVE, neg) { dialog, which -> }
     }
-
-    // Return dialog
-    return builder.create()
 }
 
 fun basicEditText(context: Context): EditText {
@@ -114,7 +126,6 @@ fun basicEditText(context: Context): EditText {
 
     return input
 }
-
 
 fun View.hideKeyboard(activity: Activity) {
     val view = activity.currentFocus

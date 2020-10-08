@@ -3,14 +3,12 @@ package io.oddlot.ledger.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.SpannedString
-import android.text.style.UnderlineSpan
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import io.oddlot.ledger.R
+import io.oddlot.ledger.utils.BasicDialog
 
 class AboutActivity : AppCompatActivity() {
 
@@ -26,6 +24,7 @@ class AboutActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val tvLicenses = findViewById<TextView>(R.id.licenses)
+        val tvPrivacy = findViewById<TextView>(R.id.privacy)
         val tvFeedback = findViewById<TextView>(R.id.feedback)
         val tvRateMe = findViewById<TextView>(R.id.rateMe)
 
@@ -47,6 +46,14 @@ Unless required by applicable law or agreed to in writing, software distributed 
             builder.window?.findViewById<TextView>(android.R.id.message)
                 ?.typeface = ResourcesCompat.getFont(this, R.font.rajdhani)
         }
+
+        tvPrivacy.setOnClickListener {
+            BasicDialog(this, "Privacy", null, null).apply {
+                val appName = context.getString(R.string.AppName)
+                setMessage("$appName does not share your personal data with third parties as we do not collect any of your personal data.")
+            }.show()
+        }
+
         tvFeedback.setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "message/rfc822"

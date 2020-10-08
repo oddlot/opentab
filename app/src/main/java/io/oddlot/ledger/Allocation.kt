@@ -21,11 +21,6 @@ class Allocation(var payees: MutableSet<Member> = mutableSetOf()) : HashMap<Int,
         }
     }
 
-    fun addPayee(payee: Member) {
-        this.payees!! += payee
-        this.apply { splitEqual(getTotal())}
-    }
-
     fun getTotal(): Double {
         var total = 0.0
         this.values.let {
