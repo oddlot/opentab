@@ -5,6 +5,7 @@ import androidx.room.*
 import java.util.*
 
 @Entity(
+    tableName = "Tab",
     indices = [
         Index(value = ["name"], unique = true)
     ]
@@ -15,7 +16,8 @@ data class Tab (
     var name: String,
     var balance: Double = 0.0,
     var currency: String = "USD",
-    var pinned: Boolean = false
+    var pinned: Boolean = false,
+    var locked: Boolean = false
 ) : Comparable<Tab> {
     override fun compareTo(other: Tab): Int {
         return if (this.pinned && !other.pinned) { // only this pinned

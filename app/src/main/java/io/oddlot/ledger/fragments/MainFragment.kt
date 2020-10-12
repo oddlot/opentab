@@ -83,22 +83,24 @@ class MainFragment : Fragment() {
         tab.text = arrayOf("Tabs", "Transactions", "Placeholder")[position]
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            val fontId = R.font.quicksand
+
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Log.d(TAG, "Tab $position Selected")
                 val tabText = tab?.view?.getChildAt(1) as TextView
-                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, R.font.rajdhani), Typeface.BOLD)
+                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, fontId), Typeface.BOLD)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 Log.d(TAG, "Tab $position Unselected")
                 val tabText = tab?.view?.getChildAt(1) as TextView
-                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, R.font.rajdhani), Typeface.NORMAL)
+                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, fontId), Typeface.NORMAL)
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 Log.d(TAG, "Tab $position Reselected")
                 val tabText = tab?.view?.getChildAt(1) as TextView
-                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, R.font.rajdhani), Typeface.BOLD)
+                tabText.setTypeface(ResourcesCompat.getFont(tabText.context, fontId), Typeface.BOLD)
             }
         })
     }

@@ -44,14 +44,20 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
             // Set alert message font
             builder.window?.findViewById<TextView>(android.R.id.message)
-                ?.typeface = ResourcesCompat.getFont(this, R.font.rajdhani)
+                ?.typeface = ResourcesCompat.getFont(this, R.font.quicksand)
         }
 
         tvPrivacy.setOnClickListener {
-            BasicDialog(this, "Privacy", null, null).apply {
+            val dialog = BasicDialog(this, "Privacy Policy").apply {
                 val appName = context.getString(R.string.AppName)
-                setMessage("$appName does not share your personal data with third parties as we do not collect any of your personal data.")
-            }.show()
+                setMessage("$appName app only stores data on your personal device. Your information is never sold to nor shared with any third parties.")
+            }
+
+            dialog.show()
+
+            // Set alert message font
+            dialog.window?.findViewById<TextView>(android.R.id.message)
+                ?.typeface = ResourcesCompat.getFont(this, R.font.quicksand)
         }
 
         tvFeedback.setOnClickListener {
@@ -59,7 +65,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
                 type = "message/rfc822"
                 putExtra(Intent.EXTRA_TITLE, "Send Email")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.my_email_address)))
-                putExtra(Intent.EXTRA_SUBJECT, "[Feedback] TabManager")
+
+                val appname = getString(R.string.AppName)
+                putExtra(Intent.EXTRA_SUBJECT, "[Feedback] $appname")
             }
 
             startActivity(Intent.createChooser(intent, "Send Email"))

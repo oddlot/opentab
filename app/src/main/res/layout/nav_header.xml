@@ -11,11 +11,14 @@
         android:paddingLeft="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
         android:paddingRight="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
         android:paddingTop="@dimen/ACTIVITY_VERTICAL_MARGIN" >
-<!--    <ImageView-->
-<!--            android:id="@+id/imageView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@android:drawable/sym_def_app_icon" />-->
+
+    <ImageView
+            android:id="@+id/appIcon"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="42dp"
+            android:src="@mipmap/bubbles_inverse" />
+
     <TextView
             android:id="@+id/navHeaderTextPrimary"
             android:layout_width="match_parent"

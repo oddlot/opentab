@@ -49,7 +49,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="opacityPercent" value="60" />
+                                                <entry key="imagePath" value="C:\Users\thoma\Desktop\bubbles_offset_inverse.png" />
+                                                <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -81,7 +82,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\thoma\Desktop\bubbles_offset_inverse.png" />
                                       <entry key="outputName" value="ic_share" />
+                                      <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
@@ -98,6 +102,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="color" value="fcfcfc" />
                                                 <entry key="imagePath" value="C:\Users\thoma\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
@@ -110,6 +115,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\thoma\Desktop\bubbles_offset_inverse.png" />
+                                                <entry key="scalingPercent" value="61" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -137,6 +144,12 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="outputName" value="bubbles_inverse" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -307,11 +320,6 @@
                             </entry>
                           </map>
                         </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
-                          </map>
-                        </option>
                       </PersistentState>
                     </value>
                   </entry>
@@ -346,8 +354,8 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="b0b4b0" />
-                            <entry key="outputName" value="ic_baseline_share_24" />
-                            <entry key="sourceFile" value="C:\Users\thoma\Downloads\settings_applications-24px.svg" />
+                            <entry key="outputName" value="ic_baseline_share_white_24" />
+                            <entry key="sourceFile" value="C:\Users\thoma\Desktop\push_pin-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

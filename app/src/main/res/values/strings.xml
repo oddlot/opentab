@@ -1,5 +1,5 @@
 <resources>
-    <string name="AppName">TabKeeper</string>
+    <string name="AppName">OpenTab</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
     <string name="paid_by">Paid By</string>

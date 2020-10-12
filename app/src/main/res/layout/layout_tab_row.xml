@@ -2,9 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:theme="@style/AppTheme"
+        android:theme="@style/RowStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+    <View
+            android:id="@+id/tabRowClickable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+    </View>
 
     <TextView
             android:id="@+id/tabName"
@@ -20,7 +27,6 @@
             android:paddingTop="18dp"
             android:paddingBottom="18dp"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="24sp"
             android:textStyle="bold"
             tools:text="Cecilia" />
 
@@ -33,8 +39,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="6dp"
             android:paddingTop="2sp"
+            app:srcCompat="@drawable/ic_baseline_person_outline_24px"
             app:tint="?android:attr/textColorTertiary"
-            app:srcCompat="@drawable/ic_baseline_person_outline_24px" />
+            android:visibility="gone"/>
 
     <TextView
             android:id="@+id/tvTabCurrency"
@@ -45,7 +52,7 @@
             android:paddingTop="6dp"
             android:layout_toStartOf="@+id/tabBalance"
             android:text="HKD"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
     <TextView
             android:id="@+id/tabBalance"
@@ -60,7 +67,37 @@
             android:paddingEnd="18dp"
             android:text="0.00"
             android:textColor="?android:attr/textColorTertiary"
-            android:textSize="24sp"
             android:textStyle="bold" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/tabOptions"
+            android:background="@color/AppTheme"
+            android:layout_below="@id/tabName"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:src="@drawable/ic_push_pin_white_24px"
+                android:layout_weight="1"/>
+        <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_share_notint_24"
+                android:layout_weight="1"/>
+        <ImageView
+                android:id="@+id/deleteTab"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete_24"
+                android:layout_weight="1"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </RelativeLayout>

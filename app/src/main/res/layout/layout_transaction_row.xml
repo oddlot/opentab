@@ -25,7 +25,7 @@
 
     <TextView
             android:id="@+id/transactionDate"
-            android:layout_width="56dp"
+            android:layout_width="64dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingLeft="10dp"
@@ -82,7 +82,7 @@
             tools:text="0.00"
             android:textColor="?android:attr/textColorTertiary"
             android:textSize="20sp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_conversion_wrapHeight="147"
@@ -98,8 +98,7 @@
             android:paddingEnd="12dp"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/transactionSummary"
-            tools:text="(12010)" />
+            app:layout_constraintTop_toTopOf="@id/transactionSummary"/>
 
 <!--    <TextView-->
 <!--            android:id="@+id/transactionTags"-->

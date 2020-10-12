@@ -73,6 +73,7 @@ class TabActivity : AppCompatActivity() {
                 })
                 populateTabData(tab)
                 loadTransactionsRecyclerView(transactions)
+                Log.d(TAG, tab.toString())
             }
         }
 
@@ -82,8 +83,11 @@ class TabActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        Log.d(TAG, "Restarting")
 
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
+
+        supportActionBar?.title = tabParcelable.name
     }
 
     override fun onBackPressed() {
@@ -229,14 +233,15 @@ class TabActivity : AppCompatActivity() {
                             if (tabNameInput.text.isBlank() or (inputText.length > 15))
                                 throw IllegalArgumentException("Name is missing or too long")
                             else {
-                                val newTab = Tab(tabParcelable.id, tabNameInput.text.toString(), 0.0)
+                                val newTab = Tab(tabParcelable.id, tabNameInput.text.trim().toString(), 0.0)
                                 thread {
                                     db.tabDao().updateTab(newTab)
 
                                     val intent = Intent(this@TabActivity, TabActivity::class.java).apply {
                                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                         putExtra("NEW_TASK_ON_BACK", true)
-                                        putExtra("TAB_PARCELABLE", tabParcelable)
+
+                                        putExtra("TAB_PARCELABLE", TabParcelable(tab.id!!, newTab.name, tab.currency))
                                     }
 
                                     startActivity(intent)
@@ -405,7 +410,7 @@ class TabActivity : AppCompatActivity() {
         tabBalance.apply {
             animationDuration = 800
             animationInterpolator = OvershootInterpolator()
-            typeface = ResourcesCompat.getFont(context, R.font.rajdhani)
+            typeface = ResourcesCompat.getFont(context, R.font.quicksand)
             setCharacterLists(TickerUtils.provideNumberList())
             text = if (tab.balance > 0.0) "${tab.balance.commatize()}" else if (tab.balance < 0.0) "${(tab.balance * -1.0).commatize()}" else "0.0"
         }

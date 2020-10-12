@@ -5,7 +5,8 @@
         <item name="colorPrimary">@color/AppTheme</item>
         <item name="android:statusBarColor">@color/AppTheme</item>
         <item name="colorAccent">@color/AppTheme</item>
-        <item name="android:fontFamily">@font/rajdhani</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/quicksand</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="tabStyle">@style/TabLayoutStyle</item>
@@ -27,6 +28,10 @@
         <item name="android:layout_width">wrap_content</item>
     </style>
 
+    <style name="RowStyle" parent="AppTheme">
+        <item name="android:textSize">22sp</item>
+    </style>
+
     <style name="ClickableStyle">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -38,10 +43,6 @@
 <!--        <item name="backgroundTint">@color/AppTheme</item>-->
         <item name="font">@font/varela_round</item>
     </style>
-
-<!--    <style name="Base.TickerStyle" parent="">-->
-<!--        <item name="font">@font/rajdhani</item>-->
-<!--    </style>-->
 
     <style name="SectionTitle" parent="Theme.MaterialComponents.DayNight">
 <!--        <item name="android:paddingTop">@dimen/PADDING_SECTION_TITLE_VERTICAL</item>-->

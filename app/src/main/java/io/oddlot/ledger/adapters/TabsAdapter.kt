@@ -1,5 +1,6 @@
 package io.oddlot.ledger.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -70,6 +72,10 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
                 else "0.00"
         }
 
+        holder.view.findViewById<ImageView>(R.id.deleteTab).setOnClickListener {
+            deleteTabDialog(it.context, tab)
+        }
+
         // Click listener
         holder.view.setOnClickListener {
             val intent = Intent(
@@ -82,31 +88,37 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 
         // Long click listener
         holder.view.setOnLongClickListener {
-            val dialog = AlertDialog.Builder(it.context)
-            dialog.setTitle("Delete \"$tabName\"?")
-            dialog.setPositiveButton("OK") { dialog, which ->
+//            val dialog = AlertDialog.Builder(it.context)
+//            dialog.setTitle("Delete \"$tabName\"?")
+//            dialog.setPositiveButton("OK") { dialog, which ->
+//
+//                // Local
+//                CoroutineScope(IO).launch {
+//                    db.tabDao().deleteTabById(tabId!!)
+//
+//                    CoroutineScope(Main).launch {
+//                        val intent = Intent(it.context, MainActivity::class.java).apply {
+//                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // finish all activities on top of main activity (and below current activity)
+////                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // opens existing activity instead of recreating
+//                        }
+//
+//                        startActivity(it.context, intent,null)
+//                        Toast.makeText(it.context, "$tabName deleted", Toast.LENGTH_LONG).show()
+////                        val activity = it.context as Activity
+////                        activity.finish()
+//                    }
+//                }
+//            }
+//            dialog.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+//            dialog.show()
+            val menuBar = it.findViewById<LinearLayoutCompat>(R.id.tabOptions)
 
-                // Local
-                CoroutineScope(IO).launch {
-                    db.tabDao().deleteTabById(tabId!!)
-
-                    CoroutineScope(Main).launch {
-                        val intent = Intent(it.context, MainActivity::class.java).apply {
-                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // finish all activities on top of main activity (and below current activity)
-//                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // opens existing activity instead of recreating
-                        }
-
-                        startActivity(it.context, intent,null)
-                        Toast.makeText(it.context, "$tabName deleted", Toast.LENGTH_LONG).show()
-//                        val activity = it.context as Activity
-//                        activity.finish()
-                    }
-                }
+            if (menuBar.visibility == View.VISIBLE) {
+                menuBar.visibility = View.GONE
+            } else {
+                menuBar.visibility = View.VISIBLE
             }
 
-            dialog.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
-
-            dialog.show()
             true
         }
 
@@ -129,6 +141,29 @@ class TabsAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabsAdapter.TabVie
 //                tabBalanceView.text = tabBal.round(2).toString()
 //            }
 //        }
+    }
+
+    private fun deleteTabDialog(context: Context, tab: Tab) {
+        val dialog = AlertDialog.Builder(context)
+
+        dialog.setTitle("Delete \"${tab.name}\"?")
+        dialog.setPositiveButton("OK") { dialog, which ->
+            CoroutineScope(IO).launch {
+                db.tabDao().deleteTabById(tab.id!!)
+
+                CoroutineScope(Main).launch {
+                    val intent = Intent(context, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) // finish all activities on top of main activity (and below current activity)
+//                            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) // opens existing activity instead of recreating
+                    }
+
+                    startActivity(context, intent,null)
+                    Toast.makeText(context, "${tab.name} deleted", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        dialog.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+        dialog.show()
     }
 
     class TabViewHolder(val view: View): RecyclerView.ViewHolder(view)

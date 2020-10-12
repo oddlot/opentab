@@ -95,12 +95,16 @@ fun promptDialog(message: String?, callback: (() -> Unit)?) {
 
 class BasicDialog(context: Context, title: String, pos: String? = null, neg: String? = null): AlertDialog(context) {
     init {
-        this.setView(FrameLayout(context))
+//        this.setView(FrameLayout(context))
         this.setTitle(title)
 
         // Config click listeners
-        setButton(BUTTON_POSITIVE, pos) { dialog, which -> }
-        setButton(BUTTON_NEGATIVE, neg) { dialog, which -> }
+        pos?.let {
+//            setPositiveButton(pos) { dialog, which -> }
+//            setNegativeButton(pos) { dialog, which -> }
+            setButton(BUTTON_POSITIVE, pos) { dialog, which -> }
+            setButton(BUTTON_NEGATIVE, neg) { dialog, which -> }
+        }
     }
 }
 

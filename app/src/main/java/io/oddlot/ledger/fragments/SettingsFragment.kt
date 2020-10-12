@@ -52,10 +52,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun userNameListener(preference: Preference, newValue: String): Boolean {
         if (newValue.isEmpty()) return false
 
-        preference.summary = newValue
-        
+        val newName = newValue.trim()
+
+        preference.summary = newName
+
         CoroutineScope(IO).launch {
-            db.memberDao().updateMemberName(0, newValue)
+            db.memberDao().updateMemberName(0, newName)
         }
 
         return true
