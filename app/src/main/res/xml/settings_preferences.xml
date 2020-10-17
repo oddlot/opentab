@@ -6,7 +6,7 @@
         <EditTextPreference
                 app:iconSpaceReserved="false"
                 app:key="userName"
-                app:title="Your name"/>
+                app:title="Name"/>
         <ListPreference
                 app:defaultValue="USD"
                 app:entries="@array/currencyEntries"

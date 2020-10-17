@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/empty_tabs_hint"
-            android:textSize="16sp"
             android:visibility="visible"/>
 
     <com.google.android.material.tabs.TabLayout

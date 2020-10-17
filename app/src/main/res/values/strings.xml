@@ -2,7 +2,7 @@
     <string name="AppName">OpenTab</string>
     <string name="app_version">1.0.0</string>
     <string name="title_activity_login">Sign in</string>
-    <string name="paid_by">Paid By</string>
+    <string name="owed_to">Owed To</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -83,4 +83,7 @@
     <string name="my_email_address">thomaschlee@yahoo.com</string>
     <string name="menu_share">Share</string>
     <string name="menu_pin_tab">Pin Tab</string>
+    <string name="transferred_by">Transferred By</string>
+    <string name="link_ticker_license"><![CDATA[<a href=\'www.yahoo.com\'>Ticker by Robinhood</a>]]></string>
+    <string name="link_material_license"><![CDATA[<a href=\'www.yahoo.com\'>Material Components for Android</a>]]></string>
 </resources>

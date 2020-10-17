@@ -23,14 +23,12 @@
         <TextView
                 android:text="@string/AppName"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <TextView
                 android:paddingTop="10dp"
                 android:text="v1.0.0"
                 android:textColor="?android:attr/textColorTertiary"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -38,7 +36,6 @@
                 android:paddingTop="18dp"
                 android:text="Developer"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -46,7 +43,6 @@
                 android:paddingTop="10dp"
                 android:text="Thomas Lee"
                 android:textColor="?android:attr/textColorTertiary"
-                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -59,7 +55,6 @@
                 android:gravity="center_vertical"
                 android:text="Licenses"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"/>
 
@@ -68,7 +63,6 @@
                 android:gravity="center_vertical"
                 android:text="Privacy"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"/>
 
@@ -96,14 +90,12 @@
                 android:gravity="center_vertical"
                 android:text="Feedback / Support"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"/>
         <TextView
                 android:id="@+id/rateMe"
                 android:text="Rate app!"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"/>

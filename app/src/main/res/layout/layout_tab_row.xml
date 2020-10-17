@@ -86,6 +86,7 @@
                 android:src="@drawable/ic_push_pin_white_24px"
                 android:layout_weight="1"/>
         <ImageView
+                android:id="@+id/shareTab"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

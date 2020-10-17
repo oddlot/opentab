@@ -87,44 +87,77 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/tabWrapper"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+<!--                    android:id="@+id/tabWrapper"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content" >-->
+<!--                <TextView-->
+<!--                        android:id="@+id/tabTitleLabel"-->
+<!--                        style="@style/TextLabelStyle"-->
+<!--                        android:text="Tab"-->
+<!--                        app:layout_constraintVertical_bias="0.0" />-->
+<!--                <Spinner-->
+<!--                        android:id="@+id/tabSpinner"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="47dp"-->
+<!--                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"-->
+<!--                        app:layout_constraintHorizontal_bias="0.0"-->
+<!--                        app:layout_constraintVertical_bias="0.0" />-->
+<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+            <RelativeLayout
+                    android:id="@+id/transferTypeWrapper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="94dp">
                 <TextView
-                        android:id="@+id/tabTitleLabel"
+                        android:id="@+id/transactionTypeLabel"
                         style="@style/TextLabelStyle"
-                        android:text="Tab"
-                        app:layout_constraintVertical_bias="0.0" />
-                <Spinner
-                        android:id="@+id/tabSpinner"
-                        android:layout_width="match_parent"
+                        android:layout_width="112dp"
+                        android:layout_height="wrap_content"
+                        android:text="Type"/>
+                <LinearLayout
+                        android:layout_below="@id/transactionTypeLabel"
+                        android:layout_width="wrap_content"
                         android:layout_height="47dp"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintVertical_bias="0.0" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                        android:paddingStart="6dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Debt"/>
+                    <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/xferTypeSwitch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="18dp"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Xfer"/>
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/paidByWrapper"
                     android:orientation="vertical"
-                    android:layout_below="@id/tabWrapper"
+                    android:layout_below="@id/transferTypeWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
                         android:id="@+id/paidByLabel"
                         style="@style/TextLabelStyle"
-                        android:text="@string/paid_by"
-                        app:layout_constraintVertical_bias="0.0" />
+                        android:text="@string/owed_to"/>
                 <Spinner
                         android:id="@+id/paidBySpinner"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                         android:layout_below="@id/paidByLabel"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintVertical_bias="0.0" />
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
@@ -153,17 +186,17 @@
                     style="@style/TextLabelStyle"
                     android:text="Description"
                     android:layout_width="188dp"/>
-            <TextView
-                    android:id="@+id/isTransferLabel"
-                    style="@style/TextLabelStyle"
-                    android:layout_width="112dp"
-                    android:layout_height="wrap_content"
-                    android:text="Is Transfer"/>
-            <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/isTransferSwitch"
-                    android:layout_alignTop="@id/isTransferLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"/>
+<!--            <TextView-->
+<!--                    android:id="@+id/isTransferLabel"-->
+<!--                    style="@style/TextLabelStyle"-->
+<!--                    android:layout_width="112dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Is Transfer"/>-->
+<!--            <androidx.appcompat.widget.SwitchCompat-->
+<!--                    android:id="@+id/isTransferSwitch"-->
+<!--                    android:layout_alignTop="@id/isTransferLabel"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="32dp"/>-->
         </LinearLayout>
 
         <EditText

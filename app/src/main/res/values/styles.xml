@@ -5,21 +5,28 @@
         <item name="colorPrimary">@color/AppTheme</item>
         <item name="android:statusBarColor">@color/AppTheme</item>
         <item name="colorAccent">@color/AppTheme</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:fontFamily">@font/quicksand</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="tabStyle">@style/TabLayoutStyle</item>
         <item name="android:windowBackground">@color/DefaultWhite</item>
+        <item name="alertDialogTheme">@style/AlertDialog</item>
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme">
         <item name="colorSurface">@color/DefaultWhite</item>
         <item name="onSurfaceTranslucent">@color/LightTranslucent</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="DialogViewStyle" parent="">
-        <item name="android:paddingStart">50dp</item>
+    <style name="AlertDialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:textSize">16sp</item>
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle</item>
+    </style>
+
+    <style name="DialogWindowTitle" parent="AlertDialog">
+        <item name="android:textSize">120sp</item> // seems to cap out at ~16sp
     </style>
 
     <style name="TextLabelStyle">
@@ -68,7 +75,7 @@
     </style>
 
     <style name="TabLayoutTextAppearance" parent="Widget.MaterialComponents.TabLayout">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="tabTextColor">@color/Watermelon</item> // need to use in TabLayoutStyle (not TabLayoutTextAppearance)
         <item name="android:textColor">@color/Watermelon</item> // doesn't work in Widget.MaterialComponents.TabLayout
         <item name="textAllCaps">false</item>

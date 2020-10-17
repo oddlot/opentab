@@ -115,7 +115,7 @@
                 <TextView
                         android:id="@+id/paidByLabel"
                         style="@style/TextLabelStyle"
-                        android:text="@string/paid_by"
+                        android:text="@string/owed_to"
                         app:layout_constraintVertical_bias="0.0" />
                 <Spinner
                         android:id="@+id/paidBySpinner"
