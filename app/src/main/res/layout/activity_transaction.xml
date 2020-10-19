@@ -11,13 +11,49 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_transparent"/>
 
+    <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/xferTypeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:thumb="@drawable/switch_thumb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:switchTextAppearance="@style/SwitchTextAppearance"
+            app:track="@drawable/switch_track">
+
+    </androidx.appcompat.widget.SwitchCompat>
+
+    <TextView
+            android:id="@+id/switchDebtText"
+            app:layout_constraintTop_toTopOf="@id/xferTypeSwitch"
+            app:layout_constraintLeft_toLeftOf="@id/xferTypeSwitch"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debt"
+            android:textStyle="normal"/>
+
+    <TextView
+            android:id="@+id/switchXferText"
+            app:layout_constraintRight_toRightOf="@id/xferTypeSwitch"
+            app:layout_constraintTop_toTopOf="@id/xferTypeSwitch"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xfer"
+            android:textStyle="normal"/>
+
 <!--    Container-->
     <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container1"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/xferTypeSwitch"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
-            android:layout_marginTop="78dp"
+            android:layout_marginTop="8dp"
             android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
             android:layout_marginStart="16dp"
             android:layout_width="match_parent"
@@ -26,6 +62,7 @@
 <!--        Column 1-->
         <RelativeLayout
                 android:id="@+id/col_1"
+                android:layout_marginTop="4dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -44,15 +81,15 @@
                 <TextView
                         android:id="@+id/datePicker"
                         style="@style/ClickableStyle"
-                        android:layout_height="47dp"
                         android:clickable="true"
                         android:ems="10"
                         android:focusable="true"
-                        android:inputType="date"
-                        tools:text="2020/01/08"
                         android:gravity="center_vertical"
+                        android:inputType="date"
+                        android:layout_height="47dp"
                         android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         android:paddingLeft="4dp"
+                        tools:text="2020/01/08"
                         android:textColor="?android:attr/textColorPrimary" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -75,7 +112,7 @@
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                         android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                         android:gravity="left"
-                        android:inputType="numberDecimal" />
+                        android:inputType="numberDecimal"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </RelativeLayout>
@@ -84,68 +121,35 @@
         <RelativeLayout
                 android:id="@+id/col_2"
                 android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+                android:layout_marginTop="4dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
-<!--            <androidx.appcompat.widget.LinearLayoutCompat-->
-<!--                    android:id="@+id/tabWrapper"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content" >-->
-<!--                <TextView-->
-<!--                        android:id="@+id/tabTitleLabel"-->
-<!--                        style="@style/TextLabelStyle"-->
-<!--                        android:text="Tab"-->
-<!--                        app:layout_constraintVertical_bias="0.0" />-->
-<!--                <Spinner-->
-<!--                        android:id="@+id/tabSpinner"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="47dp"-->
-<!--                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintVertical_bias="0.0" />-->
-<!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
-
-            <RelativeLayout
-                    android:id="@+id/transferTypeWrapper"
-                    android:layout_width="wrap_content"
-                    android:layout_height="94dp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/tabWrapper"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
                 <TextView
-                        android:id="@+id/transactionTypeLabel"
+                        android:id="@+id/tabTitleLabel"
                         style="@style/TextLabelStyle"
-                        android:layout_width="112dp"
-                        android:layout_height="wrap_content"
-                        android:text="Type"/>
-                <LinearLayout
-                        android:layout_below="@id/transactionTypeLabel"
-                        android:layout_width="wrap_content"
+                        android:text="Tab"
+                        app:layout_constraintVertical_bias="0.0" />
+                <Spinner
+                        android:id="@+id/tabSpinner"
+                        android:layout_width="match_parent"
                         android:layout_height="47dp"
-                        android:paddingStart="6dp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Debt"/>
-                    <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/xferTypeSwitch"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="18dp"/>
-                    <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Xfer"/>
-                </LinearLayout>
-
-
-            </RelativeLayout>
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:theme="@style/ClickableStyle"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/paidByWrapper"
                     android:orientation="vertical"
-                    android:layout_below="@id/transferTypeWrapper"
+                    android:layout_below="@id/tabWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <TextView
@@ -157,10 +161,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                         android:layout_below="@id/paidByLabel"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"/>
+                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                        android:theme="@style/ClickableStyle"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-
 
         </RelativeLayout>
 
@@ -206,6 +209,7 @@
                 android:hint="@string/item_description_hint"
                 android:inputType="textCapSentences"
                 android:layout_below="@id/transferWrapper"
-                app:layout_constraintHorizontal_bias="0.0" />
+                app:layout_constraintHorizontal_bias="0.0"
+                android:theme="@style/ClickableStyle"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

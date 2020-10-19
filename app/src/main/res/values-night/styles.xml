@@ -6,10 +6,4 @@
         <item name="onSurfaceTranslucent">@color/DarkTranslucent</item>
     </style>
 
-    <style name="TextLabelStyle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
 </resources>

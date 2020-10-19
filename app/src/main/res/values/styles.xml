@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/AppTheme</item>
         <item name="android:statusBarColor">@color/AppTheme</item>
         <item name="colorAccent">@color/AppTheme</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:fontFamily">@font/quicksand</item>
         <item name="drawerArrowStyle">@style/DrawerArrowToggleStyle</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
@@ -33,10 +33,15 @@
         <item name="android:textSize">14sp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
     </style>
 
     <style name="RowStyle" parent="AppTheme">
         <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
+        <item name="android:textColor">@color/BrightTeal</item>
     </style>
 
     <style name="ClickableStyle">
@@ -65,7 +70,7 @@
         <item name="tabBackground">@color/AppTheme</item>
         <item name="tabGravity">fill</item>
         <item name="tabIndicatorColor">@color/Whitish</item>
-        <item name="tabIndicatorHeight">0dp</item>
+        <item name="tabIndicatorHeight">3dp</item>
         <item name="tabMode">fixed</item>
         <item name="tabPaddingStart">12dp</item>
         <item name="tabPaddingEnd">12dp</item>

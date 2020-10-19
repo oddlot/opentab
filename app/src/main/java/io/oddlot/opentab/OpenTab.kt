@@ -14,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 lateinit var db: AppDatabase
-
 var applicationFont = 0
 
 class OpenTab : Application() {
@@ -47,7 +46,7 @@ class OpenTab : Application() {
                 .apply()
 
             CoroutineScope(Dispatchers.IO).launch {
-                db.memberDao().insert(Member(0, "No Name"))
+                db.memberDao().insert(Member(0, "Nameless"))
             }
         }
     }
@@ -56,14 +55,6 @@ class OpenTab : Application() {
         @Volatile
         private var database:  AppDatabase? = null
         private var prefs: SharedPreferences? = null
-
-        abstract class PreferenceValue {
-            companion object {
-                const val LIGHT = "light"
-                const val DARK = "dark"
-                const val FOLLOW_SYSTEM = "followSystem"
-            }
-        }
 
         fun appDatabase(context: Context): AppDatabase {
             return database ?: Room.databaseBuilder(context, AppDatabase::class.java, "AppDatabase")

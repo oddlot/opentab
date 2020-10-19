@@ -74,15 +74,15 @@
             android:background="@color/AppTheme"
             android:layout_below="@id/tabName"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone">
         <ImageView
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:src="@drawable/ic_push_pin_white_24px"
                 android:layout_weight="1"/>
         <ImageView
@@ -90,6 +90,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:src="@drawable/ic_baseline_share_notint_24"
                 android:layout_weight="1"/>
         <ImageView
@@ -97,6 +99,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:src="@drawable/ic_baseline_delete_24"
                 android:layout_weight="1"/>
     </androidx.appcompat.widget.LinearLayoutCompat>

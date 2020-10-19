@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.opentab.R
-import io.oddlot.opentab.activities.GroupTransactionActivity
+import io.oddlot.opentab.transactions.GroupTransactionActivity
 import io.oddlot.opentab.db
 import io.oddlot.opentab.utils.StringUtils
 import io.oddlot.opentab.deserialize

@@ -17,11 +17,12 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import io.oddlot.opentab.R
-import io.oddlot.opentab.activities.*
+import io.oddlot.opentab.app.MainActivity
 import io.oddlot.opentab.utils.round
 import io.oddlot.opentab.data.Tab
 import io.oddlot.opentab.db
 import io.oddlot.opentab.parcelables.TabParcelable
+import io.oddlot.opentab.tabs.TabActivity
 import io.oddlot.opentab.utils.commatize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

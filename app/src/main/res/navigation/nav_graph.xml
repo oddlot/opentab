@@ -7,5 +7,5 @@
             android:id="@+id/nav_home"
             android:name="io.oddlot.opentab.fragments.MainFragment"
             android:label="Main fragment"
-            tools:layout="@layout/fragment_main_viewpager" />
+            tools:layout="@layout/fragment_main" />
 </navigation>

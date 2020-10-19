@@ -31,7 +31,7 @@
     <string name="actionbar_overflow_edit_members">Edit Members</string>
     <string name="actionbar_overflow_remove_member">Remove Member</string>
     <string name="actionbar_overflow_backup_restore">Backup / Restore</string>
-    <string name="actionbar_overflow_edit_currency">Edit Currency</string>
+    <string name="actionbar_overflow_change_currency">Change Currency</string>
     <string name="actionbar_overflow_export">Export to CSV</string>
     <string name="actionbar_overflow_import">Import from CSV</string>
     <string name="actionbar_overflow_about">About</string>
@@ -77,13 +77,14 @@
     <string name="baseCurrency">Base currency</string>
     <string name="baseCurrencyKey">baseCurrency</string>
     <string name="tab_type_icon">Tab Type Icon</string>
-    <string name="empty_tabs_hint">Click the + icon below to open a new Tab</string>
+    <string name="empty_tabs_hint">Click on the + icon below to open a new Tab</string>
     <string name="about_other">Other</string>
     <string name="app_store_link">https://play.google.com/store/apps/details?id=io.oddlot.ledger</string>
     <string name="my_email_address">thomaschlee@yahoo.com</string>
     <string name="menu_share">Share</string>
     <string name="menu_pin_tab">Pin Tab</string>
-    <string name="transferred_by">Transferred By</string>
+    <string name="transferred_by">From</string>
     <string name="link_ticker_license"><![CDATA[<a href=\'www.yahoo.com\'>Ticker by Robinhood</a>]]></string>
     <string name="link_material_license"><![CDATA[<a href=\'www.yahoo.com\'>Material Components for Android</a>]]></string>
+    <string name="welcome_greeting">Welcome to OpenTab! What should I call you?</string>
 </resources>
