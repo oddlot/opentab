@@ -6,7 +6,7 @@
             android:id="@+id/menu_rename_tab"
             android:title="@string/actionbar_overflow_rename_tab" />
     <item
-            android:id="@+id/menu_set_currency"
+            android:id="@+id/menu_change_currency"
             android:title="@string/actionbar_overflow_change_currency" />
     <item
             android:id="@+id/menu_delete_tab"

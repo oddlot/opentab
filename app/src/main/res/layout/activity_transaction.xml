@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.TransactionActivity">
+        tools:context=".ui.transaction.DebtActivity">
 
 <!--    Toolbar-->
     <include
@@ -12,7 +12,7 @@
             layout="@layout/toolbar_transparent"/>
 
     <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/xferTypeSwitch"
+            android:id="@+id/creditSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,31 +26,32 @@
     </androidx.appcompat.widget.SwitchCompat>
 
     <TextView
-            android:id="@+id/switchDebtText"
-            app:layout_constraintTop_toTopOf="@id/xferTypeSwitch"
-            app:layout_constraintLeft_toLeftOf="@id/xferTypeSwitch"
+            android:id="@+id/debitText"
+            app:layout_constraintTop_toTopOf="@id/creditSwitch"
+            app:layout_constraintLeft_toLeftOf="@id/creditSwitch"
             android:layout_marginTop="12dp"
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Debt"
+            android:text="I Owe"
             android:textStyle="normal"/>
 
     <TextView
-            android:id="@+id/switchXferText"
-            app:layout_constraintRight_toRightOf="@id/xferTypeSwitch"
-            app:layout_constraintTop_toTopOf="@id/xferTypeSwitch"
+            android:id="@+id/creditText"
+            app:layout_constraintStart_toEndOf="@id/debitText"
+            app:layout_constraintTop_toTopOf="@id/creditSwitch"
+            android:layout_marginStart="42dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Xfer"
+            android:text="I am Owed"
             android:textStyle="normal"/>
 
 <!--    Container-->
     <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container1"
-            app:layout_constraintTop_toBottomOf="@id/xferTypeSwitch"
+            app:layout_constraintTop_toBottomOf="@id/creditSwitch"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
@@ -151,7 +152,8 @@
                     android:orientation="vertical"
                     android:layout_below="@id/tabWrapper"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
                 <TextView
                         android:id="@+id/paidByLabel"
                         style="@style/TextLabelStyle"
@@ -178,38 +180,96 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
             android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
-
-
         <LinearLayout
-                android:id="@+id/transferWrapper"
+                android:id="@+id/descriptionWrapper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
                     android:id="@+id/descriptionLabel"
                     style="@style/TextLabelStyle"
-                    android:text="Description"
+                    android:text="Description (optional)"
                     android:layout_width="188dp"/>
-<!--            <TextView-->
-<!--                    android:id="@+id/isTransferLabel"-->
-<!--                    style="@style/TextLabelStyle"-->
-<!--                    android:layout_width="112dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Is Transfer"/>-->
-<!--            <androidx.appcompat.widget.SwitchCompat-->
-<!--                    android:id="@+id/isTransferSwitch"-->
-<!--                    android:layout_alignTop="@id/isTransferLabel"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="32dp"/>-->
         </LinearLayout>
-
         <EditText
                 android:id="@+id/transactionDescription"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
-                android:hint="@string/item_description_hint"
                 android:inputType="textCapSentences"
-                android:layout_below="@id/transferWrapper"
+                android:layout_below="@id/descriptionWrapper"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:theme="@style/ClickableStyle"/>
     </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/container3"
+            app:layout_constraintTop_toBottomOf="@id/container2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+            android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+            android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
+
+        <LinearLayout
+                android:id="@+id/allocationWrapper"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+            <TextView
+                    android:id="@+id/allocationLabel"
+                    style="@style/TextLabelStyle"
+                    android:text="Allocation (2/3)"
+                    android:layout_width="wrap_content"/>
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/allocationChips"
+                    android:layout_below="@id/allocationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/allMembersChip"
+                        android:backgroundTint="@color/chip_allocation"
+                        android:checked="true"
+                        android:checkable="true"
+                        app:chipIconEnabled="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        android:textColor="@color/checkable_text_color"/>
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/superuserChip"
+                        android:backgroundTint="@color/chip_allocation"
+                        android:checkable="true"
+                        app:chipIconEnabled="false"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/checkable_text_color"/>
+<!--                <com.google.android.material.chip.Chip-->
+<!--                        android:backgroundTint="@color/chip_allocation"-->
+<!--                        android:checkable="true"-->
+<!--                        app:chipIconEnabled="false"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Brian"-->
+<!--                        android:textColor="@color/DefaultWhite"/>-->
+<!--                <com.google.android.material.chip.Chip-->
+<!--                        android:backgroundTint="@color/chip_allocation"-->
+<!--                        android:checkable="true"-->
+<!--                        app:chipIconEnabled="false"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Josh"-->
+<!--                        android:textColor="@color/DefaultWhite"/>-->
+            </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                    android:id="@+id/addMemberChip"
+                    android:checkable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

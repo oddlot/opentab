@@ -86,5 +86,6 @@
     <string name="transferred_by">From</string>
     <string name="link_ticker_license"><![CDATA[<a href=\'www.yahoo.com\'>Ticker by Robinhood</a>]]></string>
     <string name="link_material_license"><![CDATA[<a href=\'www.yahoo.com\'>Material Components for Android</a>]]></string>
-    <string name="welcome_greeting">Welcome to OpenTab! What should I call you?</string>
+    <string name="welcome_greeting">Welcome to OpenTab!</string>
+    <string name="export_all">Export All</string>
 </resources>

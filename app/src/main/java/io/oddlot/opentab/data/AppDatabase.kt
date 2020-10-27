@@ -25,5 +25,6 @@ abstract class AppDatabase : RoomDatabase() {
 //                database.execSQL("ALTER TABLE `item` ADD isTransfer INT DEFAULT 0 NOT NULL")
             }
         }
+
     }
 }

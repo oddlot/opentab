@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="24dp"
+            android:paddingTop="14dp"
             android:paddingStart="14dp"
             android:paddingEnd="14dp">
 
@@ -44,8 +44,9 @@
                         android:layout_width="wrap_content"
                         android:singleLine="true"
                         android:text="You owe"
+                        android:textColor="?android:attr/textColorTertiary"
                         android:textSize="20sp"
-                        android:textStyle="normal"/>
+                        android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                         android:orientation="horizontal"
@@ -57,8 +58,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="$"
-                            android:textColor="?android:attr/textColorPrimary"
-                            android:textSize="18sp"/>
+                            android:textColor="?android:attr/textColorTertiary"
+                            android:textSize="18sp"
+                            android:textStyle="normal"/>
                     <com.robinhood.ticker.TickerView
                             android:id="@+id/tabBalance"
                             android:gravity="end"
@@ -66,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="4dp"
                             android:text="0"
-                            android:textColor="?android:attr/textColorTertiary"
+                            android:textColor="?android:attr/textColorPrimary"
                             android:textSize="34sp"
                             android:textStyle="bold"/>
 <!--                    <TextView-->
@@ -87,16 +89,38 @@
 
     </LinearLayout>
 
+<!--    <LinearLayout-->
+<!--            android:id="@+id/transactionsHeader"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/transactionsRecyclerView"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/header_row"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--        <Button-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="+ Debt"/>-->
+<!--        <Button-->
+<!--                android:backgroundTint="@android:color/holo_orange_dark"-->
+<!--                android:layout_weight="1"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="+ Payment"/>-->
+<!--    </LinearLayout>-->
+
     <TextView
             android:id="@+id/transactionsHeader"
-            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginBottom="4dp"
             android:layout_marginTop="8dp"
             android:text="Transactions"
+            android:textColor="?android:attr/textColorTertiary"
             android:textSize="18dp"
-            android:textStyle="bold"
+            android:textStyle="normal"
             app:layout_constraintBottom_toTopOf="@+id/transactionsRecyclerView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_row" />

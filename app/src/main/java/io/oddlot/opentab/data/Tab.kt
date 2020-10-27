@@ -38,7 +38,7 @@ interface TabDao {
     fun allTabsAsLiveData(): LiveData<List<Tab>>
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
-    fun tabById(tabId: Int): Tab
+    fun getTabById(tabId: Int): Tab
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
     fun getLiveTabById(tabId: Int): LiveData<Tab>

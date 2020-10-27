@@ -13,11 +13,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc087d52-0350-4a85-bf0a-1d1217226b64" name="Default Changelist" comment="&quot;Testing text color&quot;">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/OpenTab.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabsAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/GroupTransactionActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/switch_thumb.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/switch_track.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/GroupTab.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/MemberChip.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/PaymentActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/animator/text_size_animator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/color/checkable_text_color.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/color/chip_allocation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/opentab_logo.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/rounded_rectangle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/custom_tab.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -29,36 +35,55 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/OpenTab.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/OpenTab.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/opentab.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/opentab.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/OpenTab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/OpenTab.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/AboutActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/AboutActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/GroupTabActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/GroupTransactionActivity.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/HelpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/HelpActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/SettingsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/SettingsActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/TabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/activities/TransactionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/GroupExpensesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/GroupExpensesAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/TabsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/TransactionsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionsAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/Transaction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/Transaction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/HelpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/HelpFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/MainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/MainFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/SettingsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/TabBottomFragment.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/TabsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/fragments/TransactionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/CurrencyHelpers.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/utils/CurrencyHelpers.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/OpenTab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/AllocationAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/adapters/AllocationAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/GroupExpensesAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/adapters/GroupExpensesAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/MainViewPagerAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/main/MainViewPagerAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/MembersAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/adapters/MembersAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/adapters/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/adapters/TabAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/main/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/MainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/main/MainFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/app/OpenTab.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/AppDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/AppDatabase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/Tab.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/data/Tab.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/AboutActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/misc/AboutActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/HelpActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/misc/HelpActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/HelpFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/misc/HelpFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/SettingsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/misc/SettingsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/misc/SettingsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/misc/SettingsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/tab/TabActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/main/TabAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/tabs/TabsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/tab/TabsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/GroupTransactionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/GroupTransactionActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/DebtActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionsAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/adapters/TransactionAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/transactions/TransactionsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/TransactionsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/utils/StringUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/utils/StringUtils.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/viewmodels/GroupExpenseViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/GroupTransactionViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/viewmodels/GroupTabViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/tab/GroupTabViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/viewmodels/TabViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/tab/TabViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/viewmodels/TransactionViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/oddlot/opentab/ui/transaction/TransactionViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_notifications_grey_16dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_people_outline_black_24dp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_people_outline_black_24dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/switch_thumb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/switch_thumb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/switch_track.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/switch_track.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_tab.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tab.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main_viewpager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/layout_tab_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_tab_row.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/individual_tab_overflow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/tab_overflow.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-night/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-night/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/main_overflow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/main_overflow.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/tab_overflow.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/tab_overflow.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
     </list>
@@ -67,7 +92,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_API_26" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="88KX01C3K" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -129,13 +154,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
-        <option value="Class" />
         <option value="layoutResourceFile_vertical" />
-        <option value="valueResourceFile" />
         <option value="navigationResourceFile" />
-        <option value="layoutResourceFile" />
-        <option value="resourceFile" />
         <option value="Kotlin Class" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
+        <option value="valueResourceFile" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -162,10 +187,10 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ApkExportedModule" value="app" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3a_API_26" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-14T15:36:41.163Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="88KX01C3K" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-10-27T11:38:23.089Z" />
     <property name="ExportApk.ApkPath" value="C:\Users\thoma\Dropbox\projects\OpenTab" />
-    <property name="ExportApk.BuildVariants" value="release" />
+    <property name="ExportApk.BuildVariants" value="debug" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -184,11 +209,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
-      <recent name="io.oddlot.opentab.misc" />
-      <recent name="io.oddlot.ledger" />
-      <recent name="io.oddlot.ledger.classes" />
-      <recent name="io.oddlot.ledger.fragments" />
-      <recent name="io.oddlot.ledger.util" />
+      <recent name="io.oddlot.opentab.adapters" />
+      <recent name="io.oddlot.opentab.ui.transaction" />
+      <recent name="io.oddlot.opentab.viewmodels" />
+      <recent name="io.oddlot.opentab.ui.main" />
+      <recent name="io.oddlot.opentab.ui.tab" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="io.oddlot.opentab.transactions" />
@@ -202,11 +227,11 @@
       <recent name="io.oddlot.ledger" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\layout-night" />
-      <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\font" />
-      <recent name="C:\Users\thoma\Dropbox\projects\aLedger\app\src\main\res\xml" />
-      <recent name="C:\Users\thoma\Desktop\projects\android\ledger\app\src\assets\fonts" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/io/oddlot/ledger" />
+      <recent name="C:\Users\thoma\Dropbox\projects\opentab\app\src\main\res\animator" />
+      <recent name="C:\Users\thoma\Dropbox\projects\opentab\app\src\main\java\io\oddlot\opentab\ui\main" />
+      <recent name="C:\Users\thoma\Dropbox\projects\opentab\app\src\main\java\io\oddlot\opentab" />
+      <recent name="C:\Users\thoma\Dropbox\projects\opentab\app\src\main\java\io\oddlot\opentab\tabs" />
+      <recent name="C:\Users\thoma\Dropbox\projects\opentab\app\src\main\java\io\oddlot\opentab\transactions" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\thoma\Dropbox\projects\OpenTab\app\src\main\java\io\oddlot\opentab\misc" />
@@ -425,18 +450,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="452" y="95" key="#Auto_Import/0.0.1920.1040@0.0.1920.1040" timestamp="1598113598059" />
-    <state x="1210" y="164" key="#com.intellij.ide.util.MemberChooser" timestamp="1601388500040">
+    <state x="1210" y="164" key="#com.intellij.ide.util.MemberChooser" timestamp="1603275539430">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1210" y="164" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601388500040" />
+    <state x="1210" y="164" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1603275539430" />
     <state x="640" y="235" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1601217571746">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="235" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601217571746" />
-    <state x="526" y="431" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1603114768699">
+    <state x="526" y="431" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1603373315550">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="526" y="431" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603114768699" />
+    <state x="526" y="431" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603373315550" />
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1598792741415">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -446,27 +471,28 @@
     </state>
     <state x="2547" y="208" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602508834333" />
     <state x="627" y="208" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603117405556" />
-    <state x="726" y="121" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1603115821879">
+    <state x="726" y="121" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1603256509739">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="726" y="121" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601458970182" />
-    <state x="726" y="121" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603115821879" />
-    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog" timestamp="1602669706636">
+    <state x="726" y="121" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603256509739" />
+    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog" timestamp="1603625439516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601445712533" />
-    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602669706636" />
-    <state x="540" y="268" key="AndroidCreateResourceFileDialog" timestamp="1602951055743">
+    <state x="540" y="268" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603625439516" />
+    <state x="540" y="268" key="AndroidCreateResourceFileDialog" timestamp="1603725533439">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="540" y="268" key="AndroidCreateResourceFileDialog/0.0.1920.1040/1502.-1080.1920.1040@0.0.1920.1040" timestamp="1603683439361" />
     <state x="540" y="268" key="AndroidCreateResourceFileDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602421771850" />
     <state x="2460" y="268" key="AndroidCreateResourceFileDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601547583347" />
-    <state x="540" y="268" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602951055743" />
-    <state x="801" y="312" key="AndroidCreateXmlResourceDialog" timestamp="1603029543940">
+    <state x="540" y="268" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603725533439" />
+    <state x="801" y="312" key="AndroidCreateXmlResourceDialog" timestamp="1603796951708">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="801" y="312" key="AndroidCreateXmlResourceDialog/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603029543940" />
-    <state x="801" y="312" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1602905396654" />
+    <state x="801" y="312" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603796951708" />
     <state x="698" y="218" width="532" height="604" key="FileChooserDialogImpl" timestamp="1603118195173">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -474,34 +500,38 @@
     <state x="698" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1602422047898" />
     <state x="2610" y="218" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602508655965" />
     <state x="698" y="218" width="532" height="604" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1603118195173" />
-    <state width="1863" height="296" key="GridCell.Tab.0.bottom" timestamp="1603117319026">
+    <state width="1863" height="296" key="GridCell.Tab.0.bottom" timestamp="1603798755974">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603028418800" />
+    <state width="1863" height="206" key="GridCell.Tab.0.bottom/0.0.1920.1040/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1603555779355" />
+    <state width="1863" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603122472739" />
     <state width="1863" height="235" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601820893036" />
     <state width="1863" height="363" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602510635626" />
-    <state width="1863" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603117319026" />
-    <state width="1863" height="296" key="GridCell.Tab.0.center" timestamp="1603117319026">
+    <state width="1863" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603798755974" />
+    <state width="1863" height="296" key="GridCell.Tab.0.center" timestamp="1603798755974">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="296" key="GridCell.Tab.0.center/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603028418799" />
+    <state width="1863" height="206" key="GridCell.Tab.0.center/0.0.1920.1040/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1603555779354" />
+    <state width="1863" height="267" key="GridCell.Tab.0.center/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603122472738" />
     <state width="1863" height="235" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601820893036" />
     <state width="1863" height="363" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602510635626" />
-    <state width="1863" height="296" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603117319026" />
-    <state width="1863" height="296" key="GridCell.Tab.0.left" timestamp="1603117319026">
+    <state width="1863" height="296" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603798755974" />
+    <state width="1863" height="296" key="GridCell.Tab.0.left" timestamp="1603798755973">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="296" key="GridCell.Tab.0.left/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603028418799" />
+    <state width="1863" height="206" key="GridCell.Tab.0.left/0.0.1920.1040/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1603555779354" />
+    <state width="1863" height="267" key="GridCell.Tab.0.left/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603122472737" />
     <state width="1863" height="235" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601820893036" />
     <state width="1863" height="363" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602510635626" />
-    <state width="1863" height="296" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603117319026" />
-    <state width="1863" height="296" key="GridCell.Tab.0.right" timestamp="1603117319026">
+    <state width="1863" height="296" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603798755973" />
+    <state width="1863" height="296" key="GridCell.Tab.0.right" timestamp="1603798755974">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1863" height="296" key="GridCell.Tab.0.right/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603028418799" />
+    <state width="1863" height="206" key="GridCell.Tab.0.right/0.0.1920.1040/0.-1080.1920.1040@0.-1080.1920.1040" timestamp="1603555779355" />
+    <state width="1863" height="267" key="GridCell.Tab.0.right/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603122472738" />
     <state width="1863" height="235" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1601820893036" />
     <state width="1863" height="363" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602510635626" />
-    <state width="1863" height="296" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603117319026" />
+    <state width="1863" height="296" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603798755974" />
     <state x="573" y="87" key="SettingsEditor" timestamp="1602393955583">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -515,12 +545,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1597558549848" />
-    <state x="591" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1603118189327">
+    <state x="591" y="302" key="com.intellij.ide.util.TipDialog" timestamp="1603796047722">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="591" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603028053529" />
+    <state x="591" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1502.-1080.1920.1040@0.0.1920.1040" timestamp="1603690889529" />
     <state x="2511" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1602505329529" />
-    <state x="591" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603118189327" />
+    <state x="591" y="302" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603796047722" />
     <state x="553" y="44" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1601810842732">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -530,11 +561,11 @@
     </state>
     <state x="2658" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1601910353997" />
     <state x="738" y="417" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1600870009944" />
-    <state x="532" y="236" width="840" height="1034" key="run.anything.popup" timestamp="1603029476810">
+    <state x="532" y="236" width="840" height="1034" key="run.anything.popup" timestamp="1603512413130">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="532" y="236" width="840" height="1034" key="run.anything.popup/0.0.1920.1040/0.-1080.1920.1040@0.0.1920.1040" timestamp="1603029476810" />
-    <state x="532" y="236" width="840" height="1034" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1602911295786" />
+    <state x="532" y="236" width="840" height="1034" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603512413130" />
     <state x="539" y="5" width="840" height="1034" key="search.everywhere.popup" timestamp="1601730412126">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

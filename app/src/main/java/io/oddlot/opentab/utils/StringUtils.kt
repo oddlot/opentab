@@ -9,7 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import io.oddlot.opentab.R
+import io.oddlot.opentab.applicationFont
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
@@ -90,20 +92,16 @@ fun promptDialog(message: String?, callback: (() -> Unit)?) {
 
 fun basicEditText(context: Context): EditText {
     val input = EditText(context).apply {
-        inputType = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES
+        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_CAP_WORDS
         showSoftInputOnFocus = true
+        typeface = ResourcesCompat.getFont(getContext(), applicationFont)
 
         val lp = FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
-        ).apply {
-            setMargins(
-                resources.getDimensionPixelSize(R.dimen.DIALOG_INPUT_MARGIN),
-                50,
-                resources.getDimensionPixelSize(R.dimen.DIALOG_INPUT_MARGIN),
-                15
-            )
-        }
+        )
+
+        lp.setMargins(resources.getDimensionPixelSize(R.dimen.DIALOG_INPUT_MARGIN), 50, resources.getDimensionPixelSize(R.dimen.DIALOG_INPUT_MARGIN), 15)
 
         layoutParams = lp
     }
