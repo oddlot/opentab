@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.*
-import io.oddlot.opentab.PreferenceKeys
+import io.oddlot.opentab.PreferenceKey
 import io.oddlot.opentab.R
 import io.oddlot.opentab.db
 import kotlinx.coroutines.CoroutineScope
@@ -29,16 +29,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userName = findPreference<EditTextPreference>(PreferenceKeys.USER_NAME)?.apply {
+        val userName = findPreference<EditTextPreference>(PreferenceKey.USER_NAME)?.apply {
             summary = text
             setOnPreferenceChangeListener { preference, newValue ->  userNameListener(preference, newValue.toString()) }
         }
 
-        val baseCurrency = findPreference<ListPreference>(PreferenceKeys.BASE_CURRENCY).apply {
+        val baseCurrency = findPreference<ListPreference>(PreferenceKey.BASE_CURRENCY).apply {
             this?.setOnPreferenceChangeListener { preference, newValue ->  baseCurrencyListener(preference, newValue) }
         }
 
-        val theme = findPreference<ListPreference>(PreferenceKeys.THEME)?.apply {
+        val theme = findPreference<ListPreference>(PreferenceKey.THEME)?.apply {
             setOnPreferenceChangeListener { pref, newValue ->  themeListener(pref, newValue) }
         }
 
@@ -60,7 +60,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun baseCurrencyListener(preference: Preference, newValue: Any): Boolean {
         PreferenceManager.getDefaultSharedPreferences(activity?.applicationContext)
-            .edit().putString(PreferenceKeys.BASE_CURRENCY, newValue.toString())
+            .edit().putString(PreferenceKey.BASE_CURRENCY, newValue.toString())
             .apply()
 
         return true

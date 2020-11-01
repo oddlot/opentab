@@ -31,14 +31,14 @@
     <string name="actionbar_overflow_edit_members">Edit Members</string>
     <string name="actionbar_overflow_remove_member">Remove Member</string>
     <string name="actionbar_overflow_backup_restore">Backup / Restore</string>
-    <string name="actionbar_overflow_change_currency">Change Currency</string>
+    <string name="actionbar_overflow_change_currency">Change currency</string>
     <string name="actionbar_overflow_export">Export to CSV</string>
     <string name="actionbar_overflow_import">Import from CSV</string>
     <string name="actionbar_overflow_about">About</string>
     <string name="actionbar_overflow_help">Help</string>
-    <string name="actionbar_overflow_delete_tab">Delete Tab</string>
-    <string name="actionbar_overflow_close_tab">Close Tab</string>
-    <string name="actionbar_overflow_rename_tab">Rename Tab</string>
+    <string name="actionbar_overflow_delete_tab">Delete tab</string>
+    <string name="actionbar_overflow_close_tab">Close tab</string>
+    <string name="actionbar_overflow_rename_tab">Rename tab</string>
     <string name="actionbar_overflow_settings">Settings</string>
 
     <string name="title_activity_settings">Settings</string>
@@ -87,5 +87,5 @@
     <string name="link_ticker_license"><![CDATA[<a href=\'www.yahoo.com\'>Ticker by Robinhood</a>]]></string>
     <string name="link_material_license"><![CDATA[<a href=\'www.yahoo.com\'>Material Components for Android</a>]]></string>
     <string name="welcome_greeting">Welcome to OpenTab!</string>
-    <string name="export_all">Export All</string>
+    <string name="export_all">Export all</string>
 </resources>

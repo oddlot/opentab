@@ -23,7 +23,7 @@ class App : Application() {
         super.onCreate()
 
         val prefs = getPrefs(this)
-        val isFirstRun = prefs.getBoolean(PreferenceKeys.FIRST_RUN, true)
+        val isFirstRun = prefs.getBoolean(PreferenceKey.FIRST_RUN, true)
 
         // Regular startup initialization
         db = appDatabase(applicationContext)
@@ -35,14 +35,14 @@ class App : Application() {
         if (isFirstRun) {
             PreferenceManager.getDefaultSharedPreferences(applicationContext)
                 .edit()
-                .putString(PreferenceKeys.THEME, PreferenceValues.FOLLOW_SYSTEM)
-                .putString(PreferenceKeys.BASE_CURRENCY, "USD")
-                .putBoolean(PreferenceKeys.FIRST_RUN, false)
+                .putString(PreferenceKey.THEME, PreferenceValue.FOLLOW_SYSTEM)
+                .putString(PreferenceKey.BASE_CURRENCY, "USD")
+                .putBoolean(PreferenceKey.FIRST_RUN, false)
                 .apply()
 
             prefs.edit()
-                .putString(PreferenceKeys.BASE_CURRENCY, "USD")
-                .putBoolean(PreferenceKeys.FIRST_RUN, false)
+                .putString(PreferenceKey.BASE_CURRENCY, "USD")
+                .putBoolean(PreferenceKey.FIRST_RUN, false)
                 .apply()
 
             CoroutineScope(Dispatchers.IO).launch {
@@ -75,13 +75,13 @@ class App : Application() {
         }
 
         fun getUsername(context: Context): String? {
-            return PreferenceManager.getDefaultSharedPreferences(context).getString(PreferenceKeys.USER_NAME, "null")
+            return PreferenceManager.getDefaultSharedPreferences(context).getString(PreferenceKey.USER_NAME, "null")
         }
     }
 
     private fun setAppTheme() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-        val theme = sharedPreferences.getString(PreferenceKeys.THEME, getString(R.string.followSystemKey))
+        val theme = sharedPreferences.getString(PreferenceKey.THEME, getString(R.string.followSystemKey))
 
         when (theme) {
             "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -91,7 +91,7 @@ class App : Application() {
     }
 }
 
-abstract class PreferenceKeys {
+abstract class PreferenceKey {
     companion object {
         const val FIRST_RUN = "firstRun"
         const val THEME = "theme"
@@ -100,13 +100,13 @@ abstract class PreferenceKeys {
     }
 }
 
-abstract class PreferenceValues {
+abstract class PreferenceValue {
     companion object {
         const val FOLLOW_SYSTEM = "followSystem"
     }
 }
 
-abstract class RequestCodes {
+abstract class RequestCode {
     companion object {
         const val READ_EXTERNAL_STORAGE = 0
         const val WRITE_EXTERNAL_STORAGE = 1

@@ -19,7 +19,7 @@ class MemberChip(context: Context) : Chip(context) {
         chipIconTint = null
         isClickable = true
         setChipBackgroundColorResource(R.color.chip_allocation) // setBackgroundColor doesn't work
-//        setTextColor(ResourcesCompat.getColor(resources, R.color.checkable_text_color, ContextThemeWrapper(context, R.style.BaseChipStyle).theme))
+//        setTextColor(ResourcesCompat.getColor(resources, R.color.text_checkable, ContextThemeWrapper(context, R.style.BaseChipStyle).theme))
 
         setOnCheckedChangeListener { btn, isChecked ->
             if (isChecked) {

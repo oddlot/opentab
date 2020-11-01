@@ -115,7 +115,7 @@ class MainActivity : AppCompatActivity() {
                                 // Local
                                 thread {
                                     val baseCurrency = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-                                        .getString(PreferenceKeys.BASE_CURRENCY, "USD")
+                                        .getString(PreferenceKey.BASE_CURRENCY, "USD")
                                     val newTab = Tab(null, tabNameInput.text.toString(), 0.0, baseCurrency!!)
                                     db.tabDao().insertTab(newTab)
 
@@ -295,7 +295,7 @@ class MainActivity : AppCompatActivity() {
                         "all_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
                     )
                     // Launch Content Provider
-                    startActivityForResult(this, RequestCodes.CREATE_DOCUMENT) // invokes onActivityResult()
+                    startActivityForResult(this, RequestCode.CREATE_DOCUMENT) // invokes onActivityResult()
                 }
 
                 true
@@ -318,7 +318,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun exportTransactions(path: Uri?) {
         val output = contentResolver.openOutputStream(path!!, "w")?.also {
-            it.write("Date,Tab,Amount,Description\n".toByteArray()) // Headers
+            it.write("Date,Tab,Amount,Description,Is Payment\n".toByteArray()) // Headers
         }
 
         CoroutineScope(IO).launch {
@@ -327,7 +327,7 @@ class MainActivity : AppCompatActivity() {
             allTransactions.forEach {
                 val tab = db.tabDao().getTabById(it.tabId)
 
-                output?.write("${StringUtils.dateStringFromMillis(it.date)},${tab.name},${it.amount},${it.description}\n".toByteArray())
+                output?.write("${StringUtils.dateStringFromMillis(it.date)},${tab.name},${it.amount},${it.description},${it.isTransfer}\n".toByteArray())
             }
 
             runOnUiThread { Toast.makeText(this@MainActivity, "All transactions exported", Toast.LENGTH_SHORT).show() }
@@ -356,7 +356,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfFirstRun() {
-        val username = prefs.getString(PreferenceKeys.USER_NAME, null)
+        val username = prefs.getString(PreferenceKey.USER_NAME, null)
         if (username == null) {
             val usernameInput = basicEditText(this).apply {
                 hint = "Your name"
@@ -398,10 +398,10 @@ class MainActivity : AppCompatActivity() {
                             db.memberDao().updateMemberName(0, newName)
                         }
 
-                        prefs.edit().putString(PreferenceKeys.USER_NAME, newName).apply()
+                        prefs.edit().putString(PreferenceKey.USER_NAME, newName).apply()
                         PreferenceManager.getDefaultSharedPreferences(applicationContext)
                             .edit()
-                            .putString(PreferenceKeys.USER_NAME, newName)
+                            .putString(PreferenceKey.USER_NAME, newName)
                             .apply()
 
                         setGreeting()
@@ -415,7 +415,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setGreeting() {
         val hv = drawerMenu.getHeaderView(0).findViewById<TextView>(R.id.navHeaderTextPrimary)
-        val name = PreferenceManager.getDefaultSharedPreferences(this).getString(PreferenceKeys.USER_NAME, "No name")
+        val name = PreferenceManager.getDefaultSharedPreferences(this).getString(PreferenceKey.USER_NAME, "No name")
         val c = Calendar.getInstance()
 
         hv.text = "$name"

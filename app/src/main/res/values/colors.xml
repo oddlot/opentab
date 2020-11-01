@@ -9,6 +9,7 @@
     <color name="DefaultWhite">#FAFAFA</color>
     <color name="LightGray">#EEEEEE</color>
     <color name="Watermelon">#FF5050</color>
+    <color name="WatermelonTranslucent">#7FFF5050</color>
     <color name="LightTranslucent">#F3F3F3</color>
     <color name="DarkTranslucent">#2F3538</color>
     <color name="Whitish">#E8E8E8</color>

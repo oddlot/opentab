@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -19,7 +20,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import io.oddlot.opentab.App
-import io.oddlot.opentab.PreferenceKeys
+import io.oddlot.opentab.PreferenceKey
 import io.oddlot.opentab.R
 import io.oddlot.opentab.data.Member
 import io.oddlot.opentab.data.Tab
@@ -69,7 +70,7 @@ class DebtActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transaction)
 
         userName = PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(
-            PreferenceKeys.USER_NAME, "null")!!
+            PreferenceKey.USER_NAME, "null")!!
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
             txnParcelable = it
@@ -100,10 +101,15 @@ class DebtActivity : AppCompatActivity() {
         }
 
         /*
-        Debt Switch
+        Credit Debit Toggle
          */
         txnAmount?.let {
-            if (it > 0f) creditSwitch.isChecked = true
+//            if (it > 0f) creditSwitch.isChecked = true
+            credDebToggle.check (if (it > 0f) {
+                R.id.creditButton
+            } else {
+                R.id.debitButton
+            })
         }
 
         /*
@@ -207,19 +213,15 @@ class DebtActivity : AppCompatActivity() {
                 }
 
                 /*
-                Credit switch
+                CredDeb Toggle
                  */
-                creditSwitch.setOnCheckedChangeListener { btn, checked ->
-                    if (isTransfer) {
-                        paidByLabel?.text = "From"
-//                        switchDebtText.setTextColor(getColor(android.R.color.black))
-//                        switchXferText.setTextColor(getColor(R.color.DefaultWhite))
-                    } else {
-                        paidByLabel?.text = "Owed To"
-//                        switchDebtText.setTextColor(getColor(R.color.DefaultWhite))
-//                        switchXferText.setTextColor(getColor(android.R.color.black))
-                    }
-                }
+//                creditSwitch?.setOnCheckedChangeListener { btn, checked ->
+//                    if (isTransfer) {
+//                        paidByLabel?.text = "From"
+//                    } else {
+//                        paidByLabel?.text = "Owed To"
+//                    }
+//                }
 
                 txnDescription?.let { transactionDescription.text = SpannableStringBuilder(it) }
             }
@@ -276,7 +278,7 @@ class DebtActivity : AppCompatActivity() {
                     text = "New Member"
                     isCheckable = true
                     isChecked = false
-//                    setTextColor(ContextCompat.getColor(this@DebtActivity, R.color.checkable_text_color))
+//                    setTextColor(ContextCompat.getColor(this@DebtActivity, R.color.text_checkable))
                     setOnCheckedChangeListener { btn, isChecked ->
                         Log.d("CHECKED STATE = ", isChecked.toString())
 
@@ -335,7 +337,11 @@ class DebtActivity : AppCompatActivity() {
 //                        txnAmount *= -1.0
 //                    }
 
-                    if (!creditSwitch.isChecked) {
+//                    if (!creditSwitch.isChecked) {
+//                        txnAmount *= -1.0
+//                    }
+
+                    if (credDebToggle.checkedButtonId == R.id.debitButton) {
                         txnAmount *= -1.0
                     }
 

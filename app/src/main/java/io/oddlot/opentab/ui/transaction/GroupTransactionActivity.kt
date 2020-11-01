@@ -17,7 +17,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import io.oddlot.opentab.PreferenceKeys
+import io.oddlot.opentab.PreferenceKey
 import io.oddlot.opentab.R
 import io.oddlot.opentab.data.Member
 import io.oddlot.opentab.data.Tab
@@ -65,7 +65,7 @@ class GroupTransactionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transaction)
 
         userName = PreferenceManager.getDefaultSharedPreferences(applicationContext).getString(
-            PreferenceKeys.USER_NAME, "null")!!
+            PreferenceKey.USER_NAME, "null")!!
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE") as TabParcelable
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
             txnParcelable = it
@@ -177,12 +177,8 @@ class GroupTransactionActivity : AppCompatActivity() {
 
                     if (isTransfer) {
                         paidByLabel.text = "From"
-//                        switchDebtText.setTextColor(getColor(android.R.color.black))
-//                        switchXferText.setTextColor(getColor(R.color.DefaultWhite))
                     } else {
                         paidByLabel.text = "Owed To"
-//                        switchDebtText.setTextColor(getColor(R.color.DefaultWhite))
-//                        switchXferText.setTextColor(getColor(android.R.color.black))
                     }
                 }
 

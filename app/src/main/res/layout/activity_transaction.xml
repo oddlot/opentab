@@ -11,19 +11,47 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_transparent"/>
 
+    <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/credDebToggle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:layout_marginEnd="40dp"
+            app:checkedButton="@id/creditButton"
+            app:layout_constraintEnd_toEndOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="@+id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/creditButton"
+                style="@style/CreditButtonStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="I am Owed" />
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/debitButton"
+                style="@style/DebitButtonStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="I Owe" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
     <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/creditSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="?android:attr/actionBarSize"
+            android:layout_marginEnd="18dp"
             android:thumb="@drawable/switch_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:switchTextAppearance="@style/SwitchTextAppearance"
-            app:track="@drawable/switch_track">
-
-    </androidx.appcompat.widget.SwitchCompat>
+            app:track="@drawable/switch_track"
+            android:visibility="gone"/>
 
     <TextView
             android:id="@+id/debitText"
@@ -34,7 +62,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I Owe"
-            android:textStyle="normal"/>
+            android:textStyle="normal"
+            android:visibility="gone"/>
 
     <TextView
             android:id="@+id/creditText"
@@ -46,12 +75,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="I am Owed"
-            android:textStyle="normal"/>
+            android:textStyle="normal"
+            android:visibility="gone"/>
 
 <!--    Container-->
     <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container1"
-            app:layout_constraintTop_toBottomOf="@id/creditSwitch"
+            app:layout_constraintTop_toBottomOf="@id/credDebToggle"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
             android:layout_marginTop="8dp"
@@ -236,7 +266,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="All"
-                        android:textColor="@color/checkable_text_color"/>
+                        android:textColor="@color/text_checkable"/>
                 <com.google.android.material.chip.Chip
                         android:id="@+id/superuserChip"
                         android:backgroundTint="@color/chip_allocation"
@@ -244,7 +274,7 @@
                         app:chipIconEnabled="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/checkable_text_color"/>
+                        android:textColor="@color/text_checkable"/>
 <!--                <com.google.android.material.chip.Chip-->
 <!--                        android:backgroundTint="@color/chip_allocation"-->
 <!--                        android:checkable="true"-->

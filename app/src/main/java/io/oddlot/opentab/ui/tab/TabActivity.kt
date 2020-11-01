@@ -22,9 +22,9 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.robinhood.ticker.TickerUtils
-import io.oddlot.opentab.PreferenceKeys
+import io.oddlot.opentab.PreferenceKey
 import io.oddlot.opentab.R
-import io.oddlot.opentab.RequestCodes
+import io.oddlot.opentab.RequestCode
 import io.oddlot.opentab.ui.adapters.TransactionAdapter
 import io.oddlot.opentab.ui.main.MainActivity
 import io.oddlot.opentab.utils.StringUtils
@@ -110,8 +110,8 @@ class TabActivity : AppCompatActivity() {
         if (resultCode == 0) return
 
         when (requestCode) {
-            RequestCodes.READ_EXTERNAL_STORAGE ->  launchRestoreRequest(data)
-            RequestCodes.WRITE_EXTERNAL_STORAGE -> {
+            RequestCode.READ_EXTERNAL_STORAGE ->  launchRestoreRequest(data)
+            RequestCode.WRITE_EXTERNAL_STORAGE -> {
                 data!!.putExtra(
                     "FILENAME",
                     "${ tabParcelable.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }"
@@ -119,7 +119,7 @@ class TabActivity : AppCompatActivity() {
 
                 writeExportFile(data)
             }
-            RequestCodes.CLOSE_TAB -> {
+            RequestCode.CLOSE_TAB -> {
                 writeExportFile(data!!)
 
                 // Delete items
@@ -143,13 +143,17 @@ class TabActivity : AppCompatActivity() {
                     loadTransactionsRecyclerView(mutableListOf())
                 }
             }
-            RequestCodes.CREATE_DOCUMENT -> writeExportFile(data!!)
+            RequestCode.CREATE_DOCUMENT -> writeExportFile(data!!)
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.tab_overflow, menu)
+
+        transactions.forEach {
+
+        }
 
         return true
     }
@@ -162,11 +166,15 @@ class TabActivity : AppCompatActivity() {
                     type = "text/plain"
 
                     val userName = PreferenceManager.getDefaultSharedPreferences(this@TabActivity).getString(
-                        PreferenceKeys.USER_NAME, "NONAME")
-                    val balanceSummary = if (mTabBalance > 0.0) "${tab.name} owes $userName" else if (mTabBalance < 0.0) "$userName owes you" else resources.getString(R.string.flat_balance_primary)
-                    val adjustedBalance = if (mTabBalance > 0.0) mTabBalance else mTabBalance * -1f
+                        PreferenceKey.USER_NAME, "NONAME")
+                    val balanceSummary = if (mTabBalance > 0f) "${tab.name} owes $userName" else if (mTabBalance < 0.0) "$userName owes you" else resources.getString(R.string.flat_balance_primary)
+                    val adjustedBalance = if (mTabBalance > 0f) {
+                        "${tab.currency} $mTabBalance"
+                    } else if (mTabBalance < 0f) {
+                        "${tab.currency} ${mTabBalance * -1f}"
+                    } else ""
 
-                    var shareText = "<b>$balanceSummary ${adjustedBalance.commatize()} ${tab.currency}\n<b><br><br><u>Recent Transactions:</u><br>"
+                    var shareText = "<b>$balanceSummary  $adjustedBalance\n<b><br><br><u>Recent Transactions:</u><br>"
                     transactions.forEach { shareText += (it.toString() + "<br>") }
                     val shareSpannable = HtmlCompat.fromHtml(shareText, 0)
 
@@ -281,7 +289,7 @@ class TabActivity : AppCompatActivity() {
                                 putExtra(Intent.EXTRA_TITLE, "${tabParcelable.name} (closed).csv")
 
                                 // Invoke onActivityResult()
-                                startActivityForResult(this, RequestCodes.CLOSE_TAB)
+                                startActivityForResult(this, RequestCode.CLOSE_TAB)
                             }
                         }
                         catch (e: IllegalArgumentException) {
@@ -412,7 +420,7 @@ class TabActivity : AppCompatActivity() {
                 "${ tabParcelable.name }_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
             )
             // Launch Content Provider
-            startActivityForResult(this, RequestCodes.CREATE_DOCUMENT) // invokes onActivityResult()
+            startActivityForResult(this, RequestCode.CREATE_DOCUMENT) // invokes onActivityResult()
         }
 //                Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
 //                    startActivityForResult(this, reqCodes.indexOf("WRITE_EXTERNAL_STORAGE"))
