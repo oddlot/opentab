@@ -4,7 +4,6 @@ import android.app.ActivityOptions
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -105,7 +104,7 @@ class DebtActivity : AppCompatActivity() {
          */
         txnAmount?.let {
 //            if (it > 0f) creditSwitch.isChecked = true
-            credDebToggle.check (if (it > 0f) {
+            credDebToggle.check (if (it <= 0f) {
                 R.id.creditButton
             } else {
                 R.id.debitButton
@@ -341,7 +340,7 @@ class DebtActivity : AppCompatActivity() {
 //                        txnAmount *= -1.0
 //                    }
 
-                    if (credDebToggle.checkedButtonId == R.id.debitButton) {
+                    if (credDebToggle.checkedButtonId == R.id.creditButton) {
                         txnAmount *= -1.0
                     }
 

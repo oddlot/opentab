@@ -169,17 +169,6 @@ class GroupTransactionActivity : AppCompatActivity() {
 //                            switchDebtText.setTextColor(getColor(R.color.DefaultWhite))
 //                        }
                     }
-                    creditSwitch.isChecked = isTransfer
-                }
-                creditSwitch.setOnCheckedChangeListener { btn, checked ->
-                    Log.d(TAG, "Switch checked! $checked")
-                    isTransfer = checked
-
-                    if (isTransfer) {
-                        paidByLabel.text = "From"
-                    } else {
-                        paidByLabel.text = "Owed To"
-                    }
                 }
 
                 txnDescription?.let { transactionDescription.text = SpannableStringBuilder(it) }

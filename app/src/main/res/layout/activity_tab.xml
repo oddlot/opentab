@@ -68,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:paddingStart="4dp"
                             android:text="0"
-                            android:textColor="?android:attr/textColorPrimary"
+                            android:textColor="?android:attr/textColorTertiary"
                             android:textSize="34sp"
                             android:textStyle="bold"/>
 <!--                    <TextView-->

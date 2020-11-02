@@ -41,7 +41,8 @@ data class Transaction(
     override fun toString(): String {
         val formattedDate = this.date.toDateString()
         val formattedAmount = this.amount.toString()
-        return "$formattedAmount for ${this.description} on $formattedDate"
+
+        return "$formattedDate: $formattedAmount \n${this.description}"
     }
 }
 

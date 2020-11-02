@@ -25,6 +25,7 @@ import io.oddlot.opentab.data.Transaction
 import io.oddlot.opentab.parcelables.TabParcelable
 import io.oddlot.opentab.ui.tab.TabActivity
 import io.oddlot.opentab.ui.transaction.DebtActivity
+import io.oddlot.opentab.ui.transaction.PaymentActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -118,7 +119,15 @@ class TransactionAdapter(var transactions: List<Transaction>, startingTabBalance
             val tab = db.tabDao().getTabById(txn.tabId)
             tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
 
-            val intent = Intent(context, DebtActivity::class.java)
+
+            val launchActivity = if (txnParcelable.isTransfer == 1) {
+                PaymentActivity::class.java
+            } else {
+                DebtActivity::class.java
+            }
+
+            val intent = Intent(context, launchActivity)
+
             intent.putExtra("TXN_PARCELABLE", txnParcelable)
             intent.putExtra("TAB_PARCELABLE", tabParcelable)
 

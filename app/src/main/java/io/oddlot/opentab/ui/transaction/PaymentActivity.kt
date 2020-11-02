@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
@@ -22,13 +23,14 @@ import kotlinx.android.synthetic.main.activity_transaction.datePicker
 import kotlinx.android.synthetic.main.activity_transaction.transactionDescription
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.util.*
 
 class PaymentActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
 
-    var paymentParcelable: TransactionParcelable? = null
+    var txnParcelable: TransactionParcelable? = null
     var tabParcelable: TabParcelable? = null
     var paymentDate: Date = Date()
 
@@ -38,10 +40,9 @@ class PaymentActivity : AppCompatActivity() {
 
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE")
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
-            creditSwitch.isChecked = (it.amount > 0.0)
             paymentDate = Date(it.date)
             datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time)
-            paymentParcelable = it
+            txnParcelable = it
         }
 
         loadUiData()
@@ -53,10 +54,36 @@ class PaymentActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        creditText.text = "Paid"
-        debitText.text = "Received"
+        debitButton.text = "I Paid"
+        creditButton.text = "I Received"
+
+        txnParcelable?.let { payment ->
+            if (payment.isTransfer == 1) {
+                if (payment.amount < 0f) {
+                    credDebToggle.check(R.id.creditButton)
+                    amountPaid.setText((payment.amount * -1).toString())
+                } else {
+                    credDebToggle.check(R.id.debitButton)
+                    amountPaid.setText((payment.amount).toString())
+                }
+            }
+        }
+
         datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time)
-        tabSpinner.setSelection(0)
+
+        CoroutineScope(IO).launch {
+            val tabs = db.tabDao().allTabs()
+            val tabIndex = tabs.map { tab -> tab.id }.indexOf(tabParcelable?.id)
+            tabSpinner.adapter = ArrayAdapter<String>(
+                this@PaymentActivity,
+                android.R.layout.simple_spinner_dropdown_item,
+                tabs.map { tab -> tab.name }
+            )
+
+            tabSpinner.setSelection(tabIndex)
+        }
+
+        transactionDescription.setText(txnParcelable?.description)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -89,14 +116,14 @@ class PaymentActivity : AppCompatActivity() {
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {
-                    val transactionAmount = if (creditSwitch.isChecked == false) {
+                    val transactionAmount = if (creditButton.isChecked) {
                         amountPaid.text.toString().toDouble() * -1.0
                     } else {
                         amountPaid.text.toString().toDouble()
                     }
 
                     val payment = Transaction(
-                        paymentParcelable?.id,
+                        txnParcelable?.id,
                         tabParcelable!!.id,
                         transactionAmount,
                         transactionDescription.text.toString(),

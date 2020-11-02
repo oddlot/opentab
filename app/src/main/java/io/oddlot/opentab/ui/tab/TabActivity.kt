@@ -387,13 +387,13 @@ class TabActivity : AppCompatActivity() {
                 true
             }
             "longClick" -> {
-//                val intent = Intent(this, PaymentActivity::class.java).also {
-//                    it.putExtra("TAB_PARCELABLE", tabParcelable)
-//                }
-//
-//                val options = ActivityOptions.makeCustomAnimation(this, R.anim.enter_from_right, R.anim.exit_static)
-//                    .toBundle()
-//                startActivity(intent, options)
+                val intent = Intent(this@TabActivity, PaymentActivity::class.java).apply {
+                    putExtra("TAB_PARCELABLE", tabParcelable)
+                }
+
+                val options = ActivityOptions.makeCustomAnimation(this@TabActivity, R.anim.enter_from_right, R.anim.exit_static)
+                    .toBundle()
+                startActivity(intent, options)
 
                 true
             }

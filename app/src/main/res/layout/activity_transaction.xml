@@ -15,189 +15,131 @@
             android:id="@+id/credDebToggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginEnd="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
+            android:layout_marginStart="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
             android:layout_marginTop="?android:attr/actionBarSize"
-            android:layout_marginEnd="40dp"
-            app:checkedButton="@id/creditButton"
+            android:paddingTop="8dp"
+            app:checkedButton="@id/debitButton"
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintStart_toStartOf="@+id/toolbar"
             app:layout_constraintTop_toTopOf="parent"
             app:selectionRequired="true"
             app:singleSelection="true">
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/creditButton"
-                style="@style/CreditButtonStyle"
+                android:id="@+id/debitButton"
+                style="@style/DebitButtonStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="I am Owed" />
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/debitButton"
-                style="@style/DebitButtonStyle"
+                android:id="@+id/creditButton"
+                style="@style/CreditButtonStyle"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="I Owe" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/creditSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?android:attr/actionBarSize"
-            android:layout_marginEnd="18dp"
-            android:thumb="@drawable/switch_thumb"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:switchTextAppearance="@style/SwitchTextAppearance"
-            app:track="@drawable/switch_track"
-            android:visibility="gone"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/tabWrapper"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/credDebToggle"
+            android:layout_marginEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
+            android:layout_marginStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
+            android:layout_marginTop="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        <TextView
+                android:id="@+id/tabTitleLabel"
+                style="@style/TextLabelStyle"
+                android:text="Tab"
+                app:layout_constraintVertical_bias="0.0" />
+        <Spinner
+                android:id="@+id/tabSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"
+                android:theme="@style/ClickableStyle"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <TextView
-            android:id="@+id/debitText"
-            app:layout_constraintTop_toTopOf="@id/creditSwitch"
-            app:layout_constraintLeft_toLeftOf="@id/creditSwitch"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I Owe"
-            android:textStyle="normal"
-            android:visibility="gone"/>
-
-    <TextView
-            android:id="@+id/creditText"
-            app:layout_constraintStart_toEndOf="@id/debitText"
-            app:layout_constraintTop_toTopOf="@id/creditSwitch"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="22dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="I am Owed"
-            android:textStyle="normal"
-            android:visibility="gone"/>
-
-<!--    Container-->
+<!--   Container 1 -->
     <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/container1"
-            app:layout_constraintTop_toBottomOf="@id/credDebToggle"
+            app:layout_constraintTop_toBottomOf="@id/tabWrapper"
             app:layout_constraintStart_toStartOf="parent"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
-            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
+            android:layout_marginStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-<!--        Column 1-->
-        <RelativeLayout
-                android:id="@+id/col_1"
-                android:layout_marginTop="4dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-
 <!--            Date-->
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/dateWrapper"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
-                <TextView
-                        android:id="@+id/dateLabel"
-                        style="@style/TextLabelStyle"
-                        android:text="Date" />
-                <TextView
-                        android:id="@+id/datePicker"
-                        style="@style/ClickableStyle"
-                        android:clickable="true"
-                        android:ems="10"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:inputType="date"
-                        android:layout_height="47dp"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        android:paddingLeft="4dp"
-                        tools:text="2020/01/08"
-                        android:textColor="?android:attr/textColorPrimary" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/dateWrapper"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            <TextView
+                    android:id="@+id/dateLabel"
+                    style="@style/TextLabelStyle"
+                    android:text="Date" />
+            <TextView
+                    android:id="@+id/datePicker"
+                    style="@style/ClickableStyle"
+                    android:clickable="true"
+                    android:ems="10"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:inputType="date"
+                    android:layout_height="47dp"
+                    android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                    android:paddingLeft="4dp"
+                    tools:text="2020/01/08"
+                    android:textColor="?android:attr/textColorPrimary" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-<!--            Amount-->
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/amountWrapper"
-                    android:orientation="vertical"
-                    android:layout_below="@id/dateWrapper"
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent">
-                <TextView
-                        android:id="@+id/amountLabel"
-                        style="@style/TextLabelStyle"
-                        android:text="Amount" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/amountWrapper"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+            <TextView
+                    android:id="@+id/amountLabel"
+                    style="@style/TextLabelStyle"
+                    android:text="Amount" />
 
-                <EditText
-                        android:id="@+id/amountPaid"
-                        style="@style/ClickableStyle"
-                        android:layout_width="@dimen/AMOUNT_INPUT_WIDTH"
-                        android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        android:gravity="left"
-                        android:inputType="numberDecimal"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            <EditText
+                    android:id="@+id/amountPaid"
+                    style="@style/ClickableStyle"
+                    android:layout_width="@dimen/AMOUNT_INPUT_WIDTH"
+                    android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
+                    android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                    android:gravity="left"
+                    android:inputType="numberDecimal"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </RelativeLayout>
-
-<!--        Column 2-->
-        <RelativeLayout
-                android:id="@+id/col_2"
-                android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-                android:layout_marginTop="4dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content">
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/tabWrapper"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
+        <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/paidByWrapper"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+            <TextView
+                    android:id="@+id/paidByLabel"
+                    style="@style/TextLabelStyle"
+                    android:text="@string/owed_to"/>
+            <Spinner
+                    android:id="@+id/paidBySpinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                <TextView
-                        android:id="@+id/tabTitleLabel"
-                        style="@style/TextLabelStyle"
-                        android:text="Tab"
-                        app:layout_constraintVertical_bias="0.0" />
-                <Spinner
-                        android:id="@+id/tabSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="47dp"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:theme="@style/ClickableStyle"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/paidByWrapper"
-                    android:orientation="vertical"
-                    android:layout_below="@id/tabWrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
-                <TextView
-                        android:id="@+id/paidByLabel"
-                        style="@style/TextLabelStyle"
-                        android:text="@string/owed_to"/>
-                <Spinner
-                        android:id="@+id/paidBySpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
-                        android:layout_below="@id/paidByLabel"
-                        android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                        android:theme="@style/ClickableStyle"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </RelativeLayout>
+                    android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
+                    android:layout_below="@id/paidByLabel"
+                    android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                    android:theme="@style/ClickableStyle"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -208,8 +150,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-            android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
+            android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
+            android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS">
+
         <LinearLayout
                 android:id="@+id/descriptionWrapper"
                 android:layout_width="wrap_content"
@@ -223,7 +166,7 @@
         <EditText
                 android:id="@+id/transactionDescription"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="62dp"
                 android:inputType="textCapSentences"
                 android:layout_below="@id/descriptionWrapper"
                 app:layout_constraintHorizontal_bias="0.0"

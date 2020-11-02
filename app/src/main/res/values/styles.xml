@@ -118,25 +118,21 @@
 =    </style>
 
     <!-- Material Button theme -->
-    <style name="CreditButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="DebitButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="shapeAppearance">@style/MaterialButtonShapeAppearance</item>
         <item name="backgroundTint">@color/positive</item>
         <item name="textAllCaps">false</item>
         <item name="android:textColor">@color/text_checkable</item>  <!-- Text not border -->
-        <item name="android:strokeColor">@color/Whitish</item>
         <item name="android:layout_height">56dp</item>
     </style>
 
-    <style name="DebitButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
+    <style name="CreditButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="shapeAppearance">@style/MaterialButtonShapeAppearance</item>
         <item name="backgroundTint">@color/negative</item>
         <item name="textAllCaps">false</item>
         <item name="android:layout_height">56dp</item>
         <item name="android:textColor">@color/text_checkable</item>  <!-- Text not border -->
-        <item name="android:colorAccent">@color/Whitish</item>
-        <item name="android:color">@color/Whitish</item>
-        <item name="android:strokeColor">@color/Whitish</item>
-        <item name="android:strokeWidth">8</item>
+        <item name="rippleColor">@color/WatermelonTranslucent</item>
     </style>
 
     <style name="MaterialButtonShapeAppearance" parent="ShapeAppearance.MaterialComponents.SmallComponent">
