@@ -2,10 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/nav_graph">
+        android:id="@+id/nav_graph"
+        app:startDestination="@id/nav_home">
     <fragment
             android:id="@+id/nav_home"
-            android:name="io.oddlot.opentab.fragments.MainFragment"
+            android:name="io.oddlot.opentab.ui.main.MainFragment"
             android:label="Main fragment"
-            tools:layout="@layout/fragment_main" />
+            tools:layout="@layout/fragment_main" >
+        <action
+                android:id="@+id/action_nav_home_to_settingsFragment"
+                app:destination="@id/settingsFragment" />
+        <action
+                android:id="@+id/action_nav_home_to_helpFragment"
+                app:destination="@id/helpFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/settingsFragment"
+            android:name="io.oddlot.opentab.ui.misc.SettingsFragment"
+            android:label="SettingsFragment" />
+    <fragment
+            android:id="@+id/helpFragment"
+            android:name="io.oddlot.opentab.ui.misc.HelpFragment"
+            android:label="HelpFragment" />
 </navigation>

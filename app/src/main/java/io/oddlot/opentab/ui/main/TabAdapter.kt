@@ -60,18 +60,18 @@ class TabAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabAdapter.TabViewH
 
         val tabBalanceView = holder.view.findViewById<TextView>(R.id.tabBalance)
             .apply {
-            text =
-                if (tab.balance < 0.0) { (tab.balance * -1.0).round(2).commatize()
-                    .also {
-                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.Watermelon))
+                text =
+                    if (tab.balance < 0.0) { (tab.balance * -1.0).round(2).commatize()
+                        .also {
+                            this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.Watermelon))
+                        }
                     }
-                }
-                else if (tab.balance > 0.0) tab.balance.round(2).commatize()
-                    .also {
-                        this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.BrightTeal))
-                    }
-                else "0.00"
-        }
+                    else if (tab.balance > 0.0) tab.balance.round(2).commatize()
+                        .also {
+                            this.setTextColor(ContextCompat.getColor(holder.view.context, R.color.BrightTeal))
+                        }
+                    else "0.00"
+            }
 
         holder.view.findViewById<ImageView>(R.id.shareTab).setOnClickListener {
             // Hide action menu after it's clicked

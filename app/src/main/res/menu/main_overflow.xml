@@ -3,12 +3,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/export_all"
-            android:title="@string/export_all" />
+            android:id="@+id/menu_export_all"
+            android:title="@string/export_all"/>
+
+    <item
+            android:id="@+id/restore_from_csv"
+            android:title="Restore from CSV"/>
 
     <item
             android:id="@+id/menu_help"
             android:icon="@drawable/ic_help_24px"
-            android:title="@string/actionbar_overflow_help" />
+            android:title="@string/actionbar_overflow_help"
+            android:visible="false"/>
 
 </menu>

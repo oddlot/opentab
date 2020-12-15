@@ -2,6 +2,13 @@ package io.oddlot.opentab.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import io.oddlot.opentab.db
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 @Entity(
     tableName = "Tab",
@@ -32,10 +39,10 @@ data class Tab (
 @Dao
 interface TabDao {
     @Query("SELECT * FROM Tab ORDER BY name ASC")
-    fun allTabs(): List<Tab>
+    fun getAll(): List<Tab>
 
     @Query("SELECT * FROM Tab ORDER BY name ASC")
-    fun allTabsAsLiveData(): LiveData<List<Tab>>
+    fun getAllAsLiveData(): LiveData<List<Tab>>
 
     @Query("SELECT * FROM Tab WHERE id = :tabId")
     fun getTabById(tabId: Int): Tab
@@ -60,4 +67,16 @@ interface TabDao {
 
     @Query("UPDATE Tab SET balance = :balance WHERE id = :tabId")
     fun updateTabBalance(tabId: Int, balance: Double)
+}
+
+fun getTabBalance(tabId: Int) = runBlocking {
+    var balance = 0.toDouble()
+
+    CoroutineScope(IO).launch {
+        val transactions = db.transactionDao().getTransactionsByTabId(tabId).forEach { txn ->
+            balance += txn.amount
+        }
+    }
+
+    balance
 }

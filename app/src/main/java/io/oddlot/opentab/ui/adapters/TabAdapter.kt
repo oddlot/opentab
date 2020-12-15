@@ -9,13 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import io.oddlot.opentab.PreferenceKey
 import io.oddlot.opentab.R
 import io.oddlot.opentab.ui.main.MainActivity
 import io.oddlot.opentab.utils.round
@@ -82,7 +84,18 @@ class TabAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabAdapter.TabViewH
             val i = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
 
-                var shareText = "<b>${tab.name} owes Thomas ${tab.balance.commatize()} ${tab.currency}\n<b>\n<u>Recent Transactions</u><br><br>"
+                val userName = PreferenceManager.getDefaultSharedPreferences(it.context.applicationContext).getString(
+                    PreferenceKey.USER_NAME, "NO NAME")
+
+                val balanceSummary = if (tab.balance > 0f) {
+                    "${tab.name} owes $userName"
+                } else if (tab.balance < 0.0) {
+                    "$userName owes ${tab.name}"
+                } else {
+                    it.context.resources.getString(R.string.flat_balance_primary)
+                }
+
+                var shareText = "$balanceSummary ${tab.currency}\n\nRecent Transactions"
 
                 CoroutineScope(IO).launch {
                     val transactions = db.transactionDao().getTransactionsByTabId(tab.id!!)
@@ -91,10 +104,12 @@ class TabAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabAdapter.TabViewH
 
                 val shareSpannable = HtmlCompat.fromHtml(shareText, 0)
 
-                putExtra(Intent.EXTRA_TEXT, shareText)
+                putExtra(Intent.EXTRA_TEXT, shareSpannable.toString())
             }
+
             startActivity(ContextThemeWrapper(it.context, R.style.AppTheme), Intent.createChooser(i, "Share with"), null)
         }
+
         holder.view.findViewById<ImageView>(R.id.deleteTab).setOnClickListener {
             val actionMenu = it.parent as LinearLayoutCompat
             actionMenu.visibility = View.GONE
@@ -172,9 +187,8 @@ class TabAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabAdapter.TabViewH
     }
 
     private fun deleteTabDialog(context: Context, tab: Tab) {
-        val builder = AlertDialog.Builder(context)
+        val builder = MaterialAlertDialogBuilder(context)
 
-//        dialog.setTitle("Delete Tab")
         builder.setMessage("Are you sure you want to delete \"${tab.name}\"?")
         builder.setPositiveButton("OK") { dialog, which ->
             CoroutineScope(IO).launch {
@@ -191,11 +205,12 @@ class TabAdapter(var data: List<Tab>) : RecyclerView.Adapter<TabAdapter.TabViewH
                 }
             }
         }
+
         builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+
         val dialog = builder.show()
 
         val message = dialog.window?.findViewById<TextView>(android.R.id.message)
-
         message?.typeface = ResourcesCompat.getFont(context, R.font.quicksand)
         message?.textSize = 16f
     }

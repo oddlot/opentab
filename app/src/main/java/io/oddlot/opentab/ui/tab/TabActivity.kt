@@ -13,10 +13,8 @@ import android.view.*
 import android.view.animation.OvershootInterpolator
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.HtmlCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,12 +69,8 @@ class TabActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayShowHomeEnabled(true)
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-                viewModel.getItems().observe(this@TabActivity, Observer {
-
-                })
                 populateTabData(tab)
                 loadTransactionsRecyclerView(transactions)
-                Log.d(TAG, tab.toString())
             }
         }
 
@@ -167,7 +161,7 @@ class TabActivity : AppCompatActivity() {
 
                     val userName = PreferenceManager.getDefaultSharedPreferences(this@TabActivity).getString(
                         PreferenceKey.USER_NAME, "NONAME")
-                    val balanceSummary = if (mTabBalance > 0f) "${tab.name} owes $userName" else if (mTabBalance < 0.0) "$userName owes you" else resources.getString(R.string.flat_balance_primary)
+                    val balanceSummary = if (mTabBalance > 0f) "${tab.name} owes $userName" else if (mTabBalance < 0.0) "$userName owes ${tab.name}" else resources.getString(R.string.flat_balance_primary)
                     val adjustedBalance = if (mTabBalance > 0f) {
                         "${tab.currency} $mTabBalance"
                     } else if (mTabBalance < 0f) {
@@ -185,7 +179,7 @@ class TabActivity : AppCompatActivity() {
             }
             R.id.menu_export_to_csv -> exportAndLaunchContentProvider()
             R.id.menu_change_currency -> {
-                val builder = AlertDialog.Builder(this).apply {
+                val builder = MaterialAlertDialogBuilder(this).apply {
                     val currencies = resources.getStringArray(R.array.currencyEntries)
                     val ccySymbols = resources.getStringArray(R.array.currencySymbols)
                     val ccyValues = resources.getStringArray(R.array.currencyValues)
@@ -232,7 +226,7 @@ class TabActivity : AppCompatActivity() {
                 val container = FrameLayout(this)
                 container.addView(tabNameInput)
 
-                val builder = AlertDialog.Builder(this).apply {
+                val builder = MaterialAlertDialogBuilder(this).apply {
                     setView(container)
                     setTitle("Rename Tab")
                     setPositiveButton("OK") { dialog, which ->
@@ -254,49 +248,29 @@ class TabActivity : AppCompatActivity() {
 
                                     startActivity(intent)
                                 }
-                                Toast.makeText(context,"Tab renamed \"${newTab.name}\"", Toast.LENGTH_LONG)
+                                Toast.makeText(applicationContext,"Tab renamed \"${newTab.name}\"", Toast.LENGTH_LONG)
                                     .show()
                             }
                         } catch (e: IllegalArgumentException) {
                             if (tabNameInput.text.isBlank())
-                                Toast.makeText(context, "Name is required", Toast.LENGTH_LONG)
+                                Toast.makeText(applicationContext, "Name is required", Toast.LENGTH_LONG)
                                     .show()
                             else
-                                Toast.makeText(context, "Tab name must be 15 characters or less", Toast.LENGTH_LONG)
+                                Toast.makeText(applicationContext, "Tab name must be 15 characters or less", Toast.LENGTH_LONG)
                                     .show()
                         }
                     }
                     setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
                 }
-                val dialog = builder.show()
+
+                builder.show()
 
                 true
             }
             R.id.menu_delete_tab -> {
-                val dialog = AlertDialog.Builder(this).apply {
-                    setTitle("Close tab and export to CSV?")
+                val dialog = MaterialAlertDialogBuilder(this).apply {
+                    setTitle("Are you sure want to delete this tab?")
                     setPositiveButton("OK") { dialog, which ->
-                        try {
-                            Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                                // Insert closing transaction
-                                thread {
-                                    db.transactionDao().insert(
-                                        Transaction(null, tabParcelable.id, tab.balance * -1.0, "Closing", Date().time)
-                                    )
-                                }
-
-                                type = "text/csv"
-                                putExtra(Intent.EXTRA_TITLE, "${tabParcelable.name} (closed).csv")
-
-                                // Invoke onActivityResult()
-                                startActivityForResult(this, RequestCode.CLOSE_TAB)
-                            }
-                        }
-                        catch (e: IllegalArgumentException) {
-                            Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                    setNegativeButton("No, just Delete") { dialog, which ->
                         CoroutineScope(IO).launch {
                             db.tabDao().deleteTabById(tab.id!!)
                         }
@@ -306,9 +280,28 @@ class TabActivity : AppCompatActivity() {
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(this)
                         }
-
-//                        dialog.cancel()
                     }
+//                    setNegativeButton("No, just Delete") { dialog, which ->
+//                        try {
+//                            Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+//                                // Insert closing transaction
+//                                thread {
+//                                    db.transactionDao().insert(
+//                                        Transaction(null, tabParcelable.id, tab.balance * -1.0, "Closing", Date().time)
+//                                    )
+//                                }
+//
+//                                type = "text/csv"
+//                                putExtra(Intent.EXTRA_TITLE, "${tabParcelable.name} (closed).csv")
+//
+//                                // Invoke onActivityResult()
+//                                startActivityForResult(this, RequestCode.CLOSE_TAB)
+//                            }
+//                        }
+//                        catch (e: IllegalArgumentException) {
+//                            Toast.makeText(context, "Name is required", Toast.LENGTH_LONG).show()
+//                        }
+//                    }
                 }
                 dialog.show()
                 true
@@ -504,17 +497,17 @@ class TabActivity : AppCompatActivity() {
                         .split(",")
 //                                .split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)") // Preserves commas inside quotes
 
-                    val item = Transaction(
+                    val txn = Transaction(
                         null,
                         tabId = tabParcelable.id,
                         amount = rowItem[2].toDouble(),
                         description = rowItem[1].removeSurrounding("\""),
                         date = StringUtils.millisFromDateString(rowItem[0])
                     )
-                    db.transactionDao().insert(item)
+                    db.transactionDao().insert(txn)
 
                     Thread.sleep(50) // Update tab balance view every 50 milliseconds
-                    mTabBalance += item.amount
+                    mTabBalance += txn.amount
                     var viewBalance = if (mTabBalance >= 0.0) mTabBalance else mTabBalance * -1.0
                     runOnUiThread {
                         tabBalance.text = viewBalance.round(2).toString()
@@ -528,7 +521,7 @@ class TabActivity : AppCompatActivity() {
                 tab = db.tabDao().getTabById(tabParcelable.id)
 
                 runOnUiThread {
-                    Toast.makeText(this, "Items Restored!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "Transactions restored", Toast.LENGTH_SHORT).show()
                     populateTabData(tab)
                     loadTransactionsRecyclerView(transactions)
                 }

@@ -18,14 +18,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import io.oddlot.opentab.App
-import io.oddlot.opentab.PreferenceKey
-import io.oddlot.opentab.R
+import io.oddlot.opentab.*
 import io.oddlot.opentab.data.Member
 import io.oddlot.opentab.data.Tab
 import io.oddlot.opentab.utils.StringUtils
 import io.oddlot.opentab.data.Transaction
-import io.oddlot.opentab.db
 import io.oddlot.opentab.parcelables.TabParcelable
 import io.oddlot.opentab.parcelables.TransactionParcelable
 import io.oddlot.opentab.ui.tab.TabActivity
@@ -63,6 +60,7 @@ class DebtActivity : AppCompatActivity() {
     private lateinit var tabParcelable: TabParcelable
     private lateinit var userName: String
     private var isTransfer: Boolean = false
+    private var calendar: GregorianCalendar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,13 +114,29 @@ class DebtActivity : AppCompatActivity() {
          */
 //            val formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd") // min API level 26
         val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-
         val dateString = formatter.format(itemDate)
 
         datePicker.text = dateString
         datePicker.setOnClickListener {
-            var dpd = DatePickerDialog(this@DebtActivity)
+            if (calendar == null) {
+                calendar = GregorianCalendar()
+
+                txnParcelable?.let {
+                    calendar?.time = Date(it.date)
+                }
+            }
+
+            val year = calendar!!.get(Calendar.YEAR)
+            val month = calendar!!.get(Calendar.MONTH)
+            val day = calendar!!.get(Calendar.DAY_OF_MONTH)
+
+            var dpd = DatePickerDialog(this@DebtActivity, null, year, month, day)
+
             dpd.setOnDateSetListener { view, year, month, day ->
+                calendar?.set(Calendar.YEAR, year)
+                calendar?.set(Calendar.MONTH, month)
+                calendar?.set(Calendar.DAY_OF_MONTH, day)
+
                 // Set month and day string variables
                 var month = (month + 1).toString()
                 var day = day.toString()
@@ -145,7 +159,7 @@ class DebtActivity : AppCompatActivity() {
          */
         CoroutineScope(IO).launch {
             selectedTab = db.tabDao().getTabById(tabParcelable.id)
-            tabs = db.tabDao().allTabs()
+            tabs = db.tabDao().getAll()
 
             CoroutineScope(Main).launch {
                 /*
@@ -355,8 +369,8 @@ class DebtActivity : AppCompatActivity() {
                     // Redirect to Tab Activity
                     Intent(this@DebtActivity, TabActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        putExtra("NEW_TASK_ON_BACK", true)
-                        putExtra("TAB_PARCELABLE", tabParcelable)
+                        putExtra(ExtraKey.NEW_TASK_ON_BACK, true)
+                        putExtra(ExtraKey.TAB_PARCELABLE, tabParcelable)
                         startActivity(this)
                     }
                 }

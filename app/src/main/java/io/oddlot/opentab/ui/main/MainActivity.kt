@@ -19,17 +19,18 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.preference.PreferenceManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import io.oddlot.opentab.*
 import io.oddlot.opentab.ui.misc.AboutActivity
-import io.oddlot.opentab.ui.misc.HelpActivity
 import io.oddlot.opentab.ui.misc.SettingsActivity
 import io.oddlot.opentab.utils.basicEditText
 import io.oddlot.opentab.data.*
@@ -37,7 +38,9 @@ import io.oddlot.opentab.utils.StringUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 import java.util.*
 import kotlin.concurrent.thread
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerMenu: NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var mainFragment: MainFragment
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,11 +74,16 @@ class MainActivity : AppCompatActivity() {
         // Main Viewpager
         mainFragment = MainFragment()
 
+//        navController = findNavController(R.id.navHostFragment)
+
+
         fragmentManager = supportFragmentManager.also {
             it.beginTransaction()
                 .replace(R.id.container, mainFragment, "HOME")
                 .commit()
         }
+
+//        navController.navigate(R.id.action_nav_home_to_settingsFragment)
 
         // Nav drawer
         drawerLayout = findViewById(R.id.drawerLayout)
@@ -90,8 +99,8 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<FloatingActionButton>(R.id.fab).apply {
             setOnClickListener {
-                val builder = AlertDialog.Builder(context!!).apply {
-                    setTitle("New Tab")
+                val builder = MaterialAlertDialogBuilder(context!!).apply {
+                    setTitle("Open a new Tab")
 
                     val tabNameInput = basicEditText(context).also {
                         it.requestFocus()
@@ -99,6 +108,7 @@ class MainActivity : AppCompatActivity() {
                         it.hint = "Tab name"
                         it.typeface = ResourcesCompat.getFont(context, applicationFont)
                     }
+
                     val container = FrameLayout(context).apply {
                         addView(tabNameInput)
                     }
@@ -116,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                                 thread {
                                     val baseCurrency = PreferenceManager.getDefaultSharedPreferences(applicationContext)
                                         .getString(PreferenceKey.BASE_CURRENCY, "USD")
-                                    val newTab = Tab(null, tabNameInput.text.toString(), 0.0, baseCurrency!!)
+                                    val newTab = Tab(null, tabNameInput.text.toString().trim(), 0.0, baseCurrency!!)
                                     db.tabDao().insertTab(newTab)
 
                                     runOnUiThread {
@@ -272,27 +282,47 @@ class MainActivity : AppCompatActivity() {
         }
 
         return when (item.itemId) {
-            R.id.menu_help -> {
-                startActivity(Intent(this, HelpActivity::class.java))
+//            R.id.menu_help -> {
+//                startActivity(Intent(this, HelpActivity::class.java))
+//
+//                true
+//            }
+            R.id.restore_from_csv -> {
+//                val needsPermission = checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//                if (needsPermission) {
+//                    // Should we show an explanation?
+//
+//                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+//                }
+//                else {
+//                    // No explanation needed, we can request the permission.
+//                    requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+//                }
+
+                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    type = "text/*"
+
+                    startActivityForResult(this, RequestCode.READ_EXTERNAL_STORAGE)
+                }
 
                 true
             }
-            R.id.export_all -> {
-                val needsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                if (needsPermission) {
-                    // Should we show an explanation?
-
-                }
-                else {
-                    // No explanation needed, we can request the permission.
-                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
-                }
+            R.id.menu_export_all -> {
+//                val needsPermission = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//                if (needsPermission) {
+//                    // Should we show an explanation?
+//
+//                }
+//                else {
+//                    // No explanation needed, we can request the permission.
+//                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PackageManager.PERMISSION_GRANTED)
+//                }
 
                 Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                     type = "text/csv"
                     this.putExtra(
                         Intent.EXTRA_TITLE,
-                        "all_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
+                        "Consolidated_${ StringUtils.dateStringFromMillis(Date().time, "yyyyMMdd") }.csv"
                     )
                     // Launch Content Provider
                     startActivityForResult(this, RequestCode.CREATE_DOCUMENT) // invokes onActivityResult()
@@ -307,17 +337,18 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
-
         if (resultCode == 0) {
             return
         } else {
-            exportTransactions(data?.data)
+            when (requestCode) {
+                RequestCode.READ_EXTERNAL_STORAGE -> restoreTransactions(data?.data!!)
+                RequestCode.CREATE_DOCUMENT -> exportTransactions(data?.data)
+            }
         }
     }
 
     private fun exportTransactions(path: Uri?) {
-        val output = contentResolver.openOutputStream(path!!, "w")?.also {
+        val output = contentResolver.openOutputStream(path!!, "rw")?.also {
             it.write("Date,Tab,Amount,Description,Is Payment\n".toByteArray()) // Headers
         }
 
@@ -327,10 +358,68 @@ class MainActivity : AppCompatActivity() {
             allTransactions.forEach {
                 val tab = db.tabDao().getTabById(it.tabId)
 
-                output?.write("${StringUtils.dateStringFromMillis(it.date)},${tab.name},${it.amount},${it.description},${it.isTransfer}\n".toByteArray())
+                val trueOrFalse = if (it.isPayment) "T" else "F"
+                val writeString = "${StringUtils.dateStringFromMillis(it.date)},${tab.name},${it.amount},${it.description},$trueOrFalse\n"
+                output?.write(writeString.toByteArray())
+                withContext(Main) { Log.d(TAG, writeString) }
             }
 
-            runOnUiThread { Toast.makeText(this@MainActivity, "All transactions exported", Toast.LENGTH_SHORT).show() }
+            runOnUiThread { Toast.makeText(applicationContext, "Transactions exported successfully", Toast.LENGTH_SHORT).show() }
+        }
+    }
+
+    private fun restoreTransactions(csv: Uri, aggregate: Boolean = true) {
+        contentResolver.takePersistableUriPermission(csv, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        val inputStream = contentResolver.openInputStream(csv)
+        val reader = inputStream?.reader()
+        val lines = reader?.readLines()
+
+        CoroutineScope(IO).launch {
+            for (i in 1 until lines?.size!!) { // Start reading from line 2
+                val line = lines[i].split(",") // Date, Tab, Amount, Description, Is Payment
+                val name = line[1]
+
+                var tabId = 0
+
+                val tabs = db.tabDao().getAll().toMutableList()
+                val tabNames = tabs.map { tab -> tab.name }
+
+                /**
+                 * Create new Tab if one with the name does not exist
+                 * and was not previously added already
+                 */
+                if (name in tabNames) {
+                    tabId = db.tabDao().getTabByName(name).id!!
+                } else {
+                    val newTab = Tab(null, name)
+                    db.tabDao().insertTab(newTab).also {
+                        tabId = it.toInt()
+                    }
+                }
+
+                // insert restored Transaction
+                db.transactionDao().insert(
+                    Transaction(null, tabId, date = StringUtils.millisFromDateString(line[0]), amount = line[2].toDouble(), description = line[3], isPayment = line[4].toUpperCase(Locale.getDefault()) == "T")
+                )
+            }
+
+            /**
+             * Update tab balances after restore
+             */
+            db.tabDao().getAll().forEach {
+                Log.d(TAG, "Updating balance of Tab: ${it.id}")
+                db.tabDao().updateTabBalance(it.id!!, 88.0)
+            }
+
+            withContext(Main) {
+                this@MainActivity.finish()
+
+                val intent = Intent(this@MainActivity, MainActivity::class.java).apply {
+                }
+                startActivity(intent).also {
+                    Toast.makeText(this@MainActivity, "Transactions restored successfully", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -367,10 +456,10 @@ class MainActivity : AppCompatActivity() {
                 addView(usernameInput)
             }
 
-            val builder = AlertDialog.Builder(this).apply {
+            val builder = MaterialAlertDialogBuilder(this).apply {
                 setView(container)
                 setTitle(getString(R.string.welcome_greeting))
-                setMessage("What should I call you?")
+//                setMessage("")
                 setCancelable(false)
                 setPositiveButton("OK") { dialog, which ->
                     // Caught in event listener below

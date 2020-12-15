@@ -1,6 +1,7 @@
 package io.oddlot.opentab.ui.transaction
 
 import android.app.ActivityOptions
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -17,31 +18,40 @@ import io.oddlot.opentab.parcelables.TabParcelable
 import io.oddlot.opentab.parcelables.TransactionParcelable
 import io.oddlot.opentab.ui.tab.TabActivity
 import io.oddlot.opentab.utils.StringUtils
+import io.oddlot.opentab.utils.toDateString
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.activity_transaction.amountPaid
 import kotlinx.android.synthetic.main.activity_transaction.datePicker
 import kotlinx.android.synthetic.main.activity_transaction.transactionDescription
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class PaymentActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
 
-    var txnParcelable: TransactionParcelable? = null
-    var tabParcelable: TabParcelable? = null
-    var paymentDate: Date = Date()
+    private var txnParcelable: TransactionParcelable? = null
+    private var tabParcelable: TabParcelable? = null
+    private var paymentDate: Date = Date()
+    private var calendar: GregorianCalendar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = "New Payment"
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         tabParcelable = intent.getParcelableExtra("TAB_PARCELABLE")
         intent.getParcelableExtra<TransactionParcelable>("TXN_PARCELABLE")?.let {
+            supportActionBar?.title = "Edit Payment"
             paymentDate = Date(it.date)
-            datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time)
+            datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time, "yyyy/MM/dd")
+
             txnParcelable = it
         }
 
@@ -49,11 +59,6 @@ class PaymentActivity : AppCompatActivity() {
     }
 
     private fun loadUiData() {
-        setSupportActionBar(findViewById(R.id.toolbar))
-        supportActionBar?.title = "Payment"
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         debitButton.text = "I Paid"
         creditButton.text = "I Received"
 
@@ -69,10 +74,44 @@ class PaymentActivity : AppCompatActivity() {
             }
         }
 
-        datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time)
+        val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+        val dateString = paymentDate.time.toDateString("yyyy/MM/dd")
+
+        datePicker.text = StringUtils.dateStringFromMillis(paymentDate.time, "yyyy/MM/dd")
+        datePicker.setOnClickListener {
+            if (calendar == null) {
+                calendar = GregorianCalendar()
+
+                txnParcelable?.let {
+                    calendar?.time = Date(it.date)
+                }
+            }
+
+            val year = calendar!!.get(Calendar.YEAR)
+            val month = calendar!!.get(Calendar.MONTH)
+            val day = calendar!!.get(Calendar.DAY_OF_MONTH)
+
+            var dpd = DatePickerDialog(this, null, year, month, day)
+            dpd.setOnDateSetListener { view, year, month, day ->
+                // Set month and day string variables
+                var month = (month + 1).toString()
+                var day = day.toString()
+
+                // Zero Pad
+                if (month.length < 2) month = "0" + month
+                if (day.length < 2) day = "0" + day
+
+                var dialogDate = "$year/$month/$day"
+                datePicker.text = dialogDate
+//                paymentDate = formatter.parse(dialogDate)
+                paymentDate = formatter.parse(dialogDate)
+            }
+
+            dpd.show()
+        }
 
         CoroutineScope(IO).launch {
-            val tabs = db.tabDao().allTabs()
+            val tabs = db.tabDao().getAll()
             val tabIndex = tabs.map { tab -> tab.id }.indexOf(tabParcelable?.id)
             tabSpinner.adapter = ArrayAdapter<String>(
                 this@PaymentActivity,
@@ -115,7 +154,7 @@ class PaymentActivity : AppCompatActivity() {
                     return false
                 }
 
-                CoroutineScope(Dispatchers.IO).launch {
+                CoroutineScope(IO).launch {
                     val transactionAmount = if (creditButton.isChecked) {
                         amountPaid.text.toString().toDouble() * -1.0
                     } else {
@@ -127,7 +166,7 @@ class PaymentActivity : AppCompatActivity() {
                         tabParcelable!!.id,
                         transactionAmount,
                         transactionDescription.text.toString(),
-                        StringUtils.millisFromDateString(datePicker.text.toString()),
+                        StringUtils.millisFromDateString(datePicker.text.toString(), "yyyy/MM/dd"),
                         true
                     )
                     db.transactionDao().insert(payment)

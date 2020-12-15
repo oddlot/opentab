@@ -11,7 +11,7 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="tabStyle">@style/TabLayoutStyle</item>
         <item name="android:windowBackground">@color/DefaultWhite</item>
-        <item name="alertDialogTheme">@style/AlertDialog</item>
+        <item name="alertDialogTheme">@style/AlertDialog</item> // only affects PreferenceScreen dialogs
     </style>
 
     <style name="AppTheme" parent="Base.AppTheme">
@@ -26,7 +26,7 @@
     </style>
 
     <style name="DialogWindowTitle" parent="AlertDialog">
-        <item name="android:textSize">120sp</item> // seems to cap out at ~16sp
+        <item name="android:textSize">14sp</item> // seems to cap out at ~16sp
     </style>
 
     <style name="TextLabelStyle">
@@ -105,12 +105,12 @@
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
         <item name="android:actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item> <!-- Overflow menu item text -->
-        <item name="android:tint">@android:color/white</item> <!-- Drawer icon color -->
+        <item name="android:tint">@color/Whitish</item> <!-- Drawer icon color -->
         <item name="actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>
     </style>
 
     <style name="ActionOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/DefaultWhite</item>
+<!--        <item name="android:tint"></item>-->
     </style>
 
     <style name="DrawerArrowToggleStyle" parent="Widget.AppCompat.DrawerArrowToggle">

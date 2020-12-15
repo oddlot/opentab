@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.robinhood.ticker:ticker:2.0.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/194f32796ccb4f3279cb1f337c5c9f78/jetified-ticker-2.0.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/194f32796ccb4f3279cb1f337c5c9f78/jetified-ticker-2.0.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/194f32796ccb4f3279cb1f337c5c9f78/jetified-ticker-2.0.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbf1aacdb4c6e333123c7801a5d612b/jetified-ticker-2.0.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbf1aacdb4c6e333123c7801a5d612b/jetified-ticker-2.0.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8cbf1aacdb4c6e333123c7801a5d612b/jetified-ticker-2.0.2/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.robinhood.ticker/ticker/2.0.2/4082c9c9ae8535beeec54bd2f35f1d700eb5785c/ticker-2.0.2-javadoc.jar!/" />

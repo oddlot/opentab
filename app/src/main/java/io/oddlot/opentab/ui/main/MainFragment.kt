@@ -1,19 +1,15 @@
 package io.oddlot.opentab.ui.main
 
-import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.preference.PreferenceManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -44,7 +40,7 @@ class MainFragment : Fragment() {
         pager.adapter = MainViewPagerAdapter(mainActivity!!, fragments)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val tabs = db.tabDao().allTabs()
+            val tabs = db.tabDao().getAll()
 
             if (tabs.isNotEmpty()) {
                 view.findViewById<TextView>(R.id.noTabsPrompt).visibility = View.GONE

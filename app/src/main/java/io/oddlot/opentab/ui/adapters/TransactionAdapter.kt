@@ -91,11 +91,11 @@ class TransactionAdapter(var transactions: List<Transaction>, startingTabBalance
 
             withContext(Main) {
                 if (txn.amount > 0) {
-                    tvSummary.text = if (txn.isTransfer) { "You paid $tabName" } else { "$tabName owes you" }
+                    tvSummary.text = if (txn.isPayment) { "You paid $tabName" } else { "$tabName owes you" }
                     tvAmount.text = "+" + NumberFormat.getNumberInstance(Locale.getDefault()).format(roundedAmount)
                     tvAmount.setTextColor(ContextCompat.getColor(holder.view.context, R.color.BrightTeal))
                 } else {
-                    tvSummary.text = if (txn.isTransfer) { "$tabName paid you" } else { "You owe $tabName" }
+                    tvSummary.text = if (txn.isPayment) { "$tabName paid you" } else { "You owe $tabName" }
                     tvAmount.text = NumberFormat.getNumberInstance(Locale.getDefault()).format(roundedAmount * -1.0)
                     tvAmount.setTextColor(ContextCompat.getColor(holder.view.context, R.color.Watermelon))
                 }
@@ -113,12 +113,11 @@ class TransactionAdapter(var transactions: List<Transaction>, startingTabBalance
     }
 
     private fun clickListener(context: Context, txn: Transaction): Boolean {
-        val txnParcelable = TransactionParcelable(txn.tabId, txn.id!!, txn.amount, txn.description ?: "", txn.date, if (txn.isTransfer) 1 else 0)
+        val txnParcelable = TransactionParcelable(txn.tabId, txn.id!!, txn.amount, txn.description ?: "", txn.date, if (txn.isPayment) 1 else 0)
 
         thread {
             val tab = db.tabDao().getTabById(txn.tabId)
             tabParcelable = TabParcelable(tab.id!!, tab.name, tab.currency)
-
 
             val launchActivity = if (txnParcelable.isTransfer == 1) {
                 PaymentActivity::class.java
@@ -127,7 +126,6 @@ class TransactionAdapter(var transactions: List<Transaction>, startingTabBalance
             }
 
             val intent = Intent(context, launchActivity)
-
             intent.putExtra("TXN_PARCELABLE", txnParcelable)
             intent.putExtra("TAB_PARCELABLE", tabParcelable)
 

@@ -15,6 +15,7 @@ import io.oddlot.opentab.ui.main.TabAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TabsFragment: Fragment() {
 
@@ -31,8 +32,9 @@ class TabsFragment: Fragment() {
             layoutManager = LinearLayoutManager(activity)
 
             CoroutineScope(Dispatchers.IO).launch {
-                val tabs = db.tabDao().allTabs()
-                CoroutineScope(Dispatchers.Main).launch {
+                val tabs = db.tabDao().getAll()
+
+                withContext(Dispatchers.Main) {
                     adapter = TabAdapter(tabs)
                 }
             }

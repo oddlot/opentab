@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Tab::class, Transaction::class, Member::class, Membership::class, /* GroupTab::class, */ GroupExpense::class], version = 3)
+@Database(entities = [Tab::class, Transaction::class, Member::class, Membership::class, /* GroupTab::class, */ GroupExpense::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun tabDao(): TabDao
     abstract fun transactionDao(): TransactionDao
@@ -25,6 +25,11 @@ abstract class AppDatabase : RoomDatabase() {
 //                database.execSQL("ALTER TABLE `item` ADD isTransfer INT DEFAULT 0 NOT NULL")
             }
         }
-
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `item` ADD COLUMN isPayment INTEGER DEFAULT 0 NOT NULL")
+                database.execSQL("UPDATE `item` SET isPayment = isTransfer")
+            }
+        }
     }
 }

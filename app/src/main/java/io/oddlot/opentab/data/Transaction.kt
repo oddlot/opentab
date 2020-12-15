@@ -19,7 +19,7 @@ data class Transaction(
     var amount: Double,
     var description: String? = null,
     var date: Long = System.currentTimeMillis(),
-    var isTransfer: Boolean = false,
+    var isPayment: Boolean = false,
     var pinned: Boolean = false) : Comparable<Transaction> {
 
     override fun compareTo(other: Transaction): Int {

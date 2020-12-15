@@ -3,15 +3,22 @@ package io.oddlot.opentab
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import io.oddlot.opentab.data.AppDatabase
 import io.oddlot.opentab.data.Member
+import io.oddlot.opentab.data.Tab
+import io.oddlot.opentab.data.Transaction
+import io.oddlot.opentab.utils.StringUtils
+import io.oddlot.opentab.utils.round
+import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.InputStream
 
 lateinit var db: AppDatabase
 var applicationFont = 0
@@ -59,6 +66,7 @@ class App : Application() {
         fun appDatabase(context: Context): AppDatabase {
             return database ?: Room.databaseBuilder(context, AppDatabase::class.java, "AppDatabase")
                 .addMigrations(AppDatabase.MIGRATION_2_3)
+                .addMigrations(AppDatabase.MIGRATION_3_4)
 //                .fallbackToDestructiveMigration()
                 .build()
                 .also {
@@ -76,6 +84,37 @@ class App : Application() {
 
         fun getUsername(context: Context): String? {
             return PreferenceManager.getDefaultSharedPreferences(context).getString(PreferenceKey.USER_NAME, "null")
+        }
+
+        fun restoreTransactionsFromCsv(inputStream: InputStream) {
+            val reader = inputStream.reader()
+            val lines = reader.readLines()
+
+            for (i in 1 until lines.size) { // Start reading from line 2
+
+                val rowItem = lines[i]
+                    .split(",")
+
+                val tabName =  rowItem[1]
+
+                val transactionTab = db.tabDao().getTabByName(tabName)
+                var tabId: Long = 0
+
+                if (transactionTab == null) {
+                    tabId = db.tabDao().insertTab(Tab(null, tabName))
+                }
+
+                val txn = Transaction(
+                    null,
+                    tabId = tabId.toInt(),
+                    amount = rowItem[2].toDouble(),
+                    description = rowItem[1].removeSurrounding("\""),
+                    date = StringUtils.millisFromDateString(rowItem[0])
+                )
+                db.transactionDao().insert(txn)
+            }
+
+            inputStream.close()
         }
     }
 
@@ -116,19 +155,13 @@ abstract class RequestCode {
     }
 }
 
-abstract class Theme {
+abstract class ExtraKey {
     companion object {
-        const val LIGHT = 0
-        const val DARK = 1
-        const val FOLLOW_SYSTEM = 2
-
-        fun nameFromId(themeId: Int, context: Context? = null): String {
-            return when (themeId) {
-                LIGHT -> context?.getString(R.string.light) ?: "Light"
-                DARK -> context?.getString(R.string.dark) ?: "Dark"
-                FOLLOW_SYSTEM -> context?.getString(R.string.followSystem) ?: "Follow system"
-                else -> "Invalid theme"
-            }
-        }
+        val NEW_TASK_ON_BACK = "NEW_TASK_ON_BACK"
+        val TAB_PARCELABLE = "TAB_PARCELABLE"
     }
+}
+
+enum class TransactionType {
+    DEBT, PAYMENT, TRANSFER,
 }

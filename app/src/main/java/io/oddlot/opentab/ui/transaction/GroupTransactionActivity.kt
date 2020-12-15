@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -89,7 +88,7 @@ class GroupTransactionActivity : AppCompatActivity() {
          */
         CoroutineScope(IO).launch {
             selectedTab = db.tabDao().getTabById(tabParcelable.id)
-            tabs = db.tabDao().allTabs()
+            tabs = db.tabDao().getAll()
 
             CoroutineScope(Main).launch {
                 /*
