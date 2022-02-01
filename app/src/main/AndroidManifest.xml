@@ -20,9 +20,8 @@
                 android:required="false" />
 
         <activity
-                android:name="io.oddlot.opentab.ui.main.MainActivity"
+                android:name="io.oddlot.opentab.presentation.main.MainActivity"
                 android:configChanges="orientation"
-                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,31 +30,31 @@
         </activity>
 
         <activity
-                android:name="io.oddlot.opentab.ui.misc.HelpActivity"
+                android:name="io.oddlot.opentab.presentation.misc.HelpActivity"
                 android:configChanges="orientation"
-                android:parentActivityName="io.oddlot.opentab.ui.main.MainActivity"
+                android:parentActivityName="io.oddlot.opentab.presentation.main.MainActivity"
                 android:screenOrientation="portrait" />
 
         <activity
-                android:name="io.oddlot.opentab.ui.misc.SettingsActivity"
+                android:name="io.oddlot.opentab.presentation.misc.SettingsActivity"
                 android:configChanges="orientation"
                 android:label="Settings"
-                android:parentActivityName="io.oddlot.opentab.ui.main.MainActivity"
+                android:parentActivityName="io.oddlot.opentab.presentation.main.MainActivity"
                 android:screenOrientation="portrait" />
 
         <activity
-                android:name="io.oddlot.opentab.ui.tab.TabActivity"
+                android:name="io.oddlot.opentab.presentation.tab.TabActivity"
                 android:configChanges="orientation"
                 android:label=""
-                android:parentActivityName="io.oddlot.opentab.ui.main.MainActivity"
+                android:parentActivityName="io.oddlot.opentab.presentation.main.MainActivity"
                 android:theme="@style/AppTheme"
                 android:screenOrientation="portrait" />
 
         <activity
-                android:name="io.oddlot.opentab.ui.transaction.PaymentActivity"
+                android:name="io.oddlot.opentab.presentation.transaction.PaymentActivity"
                 android:configChanges="orientation"
                 android:label=""
-                android:parentActivityName="io.oddlot.opentab.ui.tab.TabActivity"
+                android:parentActivityName="io.oddlot.opentab.presentation.tab.TabActivity"
                 android:theme="@style/AppTheme"
                 android:screenOrientation="portrait" />
 
@@ -68,9 +67,9 @@
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:screenOrientation="portrait" />
 
-        <!-- adjustResize so main window is always resized to make room for the soft keyboard on screen -->
+        <!-- adjustResize so main window is always resized and not covered by the soft keyboard -->
         <activity
-                android:name="io.oddlot.opentab.ui.transaction.DebtActivity"
+                android:name="io.oddlot.opentab.presentation.transaction.TransactionActivity"
                 android:configChanges="orientation"
                 android:windowSoftInputMode="adjustResize"
                 android:screenOrientation="portrait"/>
@@ -82,9 +81,9 @@
                 android:screenOrientation="portrait" />
 
         <activity
-                android:name="io.oddlot.opentab.ui.misc.AboutActivity"
+                android:name="io.oddlot.opentab.presentation.misc.AboutActivity"
                 android:configChanges="orientation"
-                android:parentActivityName="io.oddlot.opentab.ui.main.MainActivity"
+                android:parentActivityName="io.oddlot.opentab.presentation.main.MainActivity"
                 android:screenOrientation="portrait" />
 
         <meta-data

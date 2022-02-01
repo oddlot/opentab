@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--android:background not necessary as it inherits from theme-->
+<!--<androidx.appcompat.widget.Toolbar-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize"-->
+<!--        android:background="@color/AppTheme"-->
+<!--        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"-->
+<!--        android:elevation="4dp"-->
+<!--        android:paddingTop="0dp">-->
+<!--</androidx.appcompat.widget.Toolbar>-->
+
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/AppTheme"
+        android:backgroundTint="@color/AppTheme"
+        android:theme="@style/ToolbarTheme"
+        app:elevation="0dp"
+        app:popupTheme="@style/ThemeOverlay.MaterialComponents"
+        app:titleTextColor="?attr/colorOnPrimarySurface"
+        tools:title="Activity Title" />

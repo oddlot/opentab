@@ -6,7 +6,7 @@
         app:startDestination="@id/nav_home">
     <fragment
             android:id="@+id/nav_home"
-            android:name="io.oddlot.opentab.ui.main.MainFragment"
+            android:name="io.oddlot.opentab.presentation.main.MainFragment"
             android:label="Main fragment"
             tools:layout="@layout/fragment_main" >
         <action
@@ -18,10 +18,10 @@
     </fragment>
     <fragment
             android:id="@+id/settingsFragment"
-            android:name="io.oddlot.opentab.ui.misc.SettingsFragment"
+            android:name="io.oddlot.opentab.presentation.misc.SettingsFragment"
             android:label="SettingsFragment" />
     <fragment
             android:id="@+id/helpFragment"
-            android:name="io.oddlot.opentab.ui.misc.HelpFragment"
+            android:name="io.oddlot.opentab.presentation.misc.HelpFragment"
             android:label="HelpFragment" />
 </navigation>

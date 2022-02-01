@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
         tools:context=".activities.TransactionActivity">
 
     <!--    Toolbar-->
@@ -19,7 +20,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="100dp"
             android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
-            android:layout_marginStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+            android:layout_marginStart="@dimen/PADDING_HORIZONTAL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
@@ -83,7 +84,7 @@
         <!--        Column 2-->
         <RelativeLayout
                 android:id="@+id/col_2"
-                android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+                android:paddingEnd="@dimen/PADDING_HORIZONTAL"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content">
@@ -137,8 +138,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-            android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
+            android:paddingStart="@dimen/PADDING_HORIZONTAL"
+            android:paddingEnd="@dimen/PADDING_HORIZONTAL">
         <TextView
                 android:id="@+id/descriptionLabel"
                 style="@style/TextLabelStyle"

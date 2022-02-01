@@ -16,6 +16,7 @@
             android:id="@+id/menu_share_tab"
             app:showAsAction="always"
             android:icon="@drawable/ic_share"
+            android:iconTint="?attr/colorControlNormal"
             android:title="@string/menu_share" />
 
     <item

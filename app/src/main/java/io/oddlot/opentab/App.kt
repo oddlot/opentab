@@ -14,7 +14,6 @@ import io.oddlot.opentab.data.Tab
 import io.oddlot.opentab.data.Transaction
 import io.oddlot.opentab.utils.StringUtils
 import io.oddlot.opentab.utils.round
-import kotlinx.android.synthetic.main.activity_tab.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -65,6 +64,7 @@ class App : Application() {
 
         fun appDatabase(context: Context): AppDatabase {
             return database ?: Room.databaseBuilder(context, AppDatabase::class.java, "AppDatabase")
+                .addMigrations(AppDatabase.MIGRATION_1_2)
                 .addMigrations(AppDatabase.MIGRATION_2_3)
                 .addMigrations(AppDatabase.MIGRATION_3_4)
 //                .fallbackToDestructiveMigration()
@@ -150,8 +150,9 @@ abstract class RequestCode {
         const val READ_EXTERNAL_STORAGE = 0
         const val WRITE_EXTERNAL_STORAGE = 1
         const val CAMERA = 2
-        const val CLOSE_TAB = 3
-        const val CREATE_DOCUMENT = 4
+        const val CHOOSE_IMAGE = 3
+        const val CLOSE_TAB = 4
+        const val CREATE_DOCUMENT = 5
     }
 }
 

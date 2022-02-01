@@ -1,18 +1,14 @@
 <resources>
     <style name="AppTheme" parent="Base.AppTheme">
         <item name="android:actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
-        <item name="android:windowBackground">@color/BlueBlack</item>
+        <item name="android:windowBackground">#111118</item>
         <item name="colorSurface">@color/BlueBlack</item> <!--Messes up nav drawer background for some reason-->
         <item name="onSurfaceTranslucent">@color/DarkTranslucent</item>
-        <item name="appBarLayoutStyle">@style/AppBarLayout</item>
     </style>
 
-<!--    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">-->
-<!--        <item name="android:actionMenuTextColor">?android:attr/textColorPrimary</item>-->
-<!--        <item name="android:textColor">?android:attr/textColorPrimary</item> &lt;!&ndash; Overflow menu item text &ndash;&gt;-->
-<!--        <item name="actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>-->
-<!--    </style>-->
-
-    <style name="AppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    <style name="Transparent.ToolbarTheme" parent="ToolbarTheme">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:tint">?android:attr/textColorPrimary</item> <!-- drawer/home indicator -->
     </style>
+
 </resources>

@@ -343,7 +343,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/share/baseline_share_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/attach_file/baseline_attach_file_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -354,7 +354,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="b0b4b0" />
-                            <entry key="outputName" value="ic_baseline_share_white_24" />
+                            <entry key="outputName" value="attach_file" />
                             <entry key="sourceFile" value="C:\Users\thoma\Desktop\push_pin-24px.svg" />
                           </map>
                         </option>

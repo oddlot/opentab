@@ -1,10 +1,10 @@
 package io.oddlot.opentab.data
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import io.oddlot.opentab.utils.toDateString
 import kotlin.math.round
-
 
 @Entity(
         tableName = "item",
@@ -20,7 +20,9 @@ data class Transaction(
     var description: String? = null,
     var date: Long = System.currentTimeMillis(),
     var isPayment: Boolean = false,
-    var pinned: Boolean = false) : Comparable<Transaction> {
+    var pinned: Boolean = false,
+    var attachments: MutableList<Uri>? = null
+) : Comparable<Transaction> {
 
     override fun compareTo(other: Transaction): Int {
         val timeDelta = round((this.date - other.date) / 10000.0)
@@ -42,7 +44,7 @@ data class Transaction(
         val formattedDate = this.date.toDateString()
         val formattedAmount = this.amount.toString()
 
-        return "$formattedDate: $formattedAmount \n${this.description}"
+        return "$formattedDate: $formattedAmount \n${this.description} ${this.attachments}"
     }
 }
 

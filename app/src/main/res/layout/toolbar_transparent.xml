@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.appcompat.widget.Toolbar
+<com.google.android.material.appbar.MaterialToolbar
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:background="@null"
+        android:background="?attr/colorSurface"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
+        android:elevation="0dp"
         android:paddingTop="0dp"
-        android:theme="@style/ToolbarTheme"
-        tools:title="Activity Title">
-</androidx.appcompat.widget.Toolbar>
+        android:theme="@style/Transparent.ToolbarTheme"
+        app:titleTextAppearance="@style/ToolbarTitleText"
+        tools:title="Activity Title" />

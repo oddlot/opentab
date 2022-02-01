@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/spacer"
-            android:background="@color/AppTheme"
-            android:layout_width="match_parent"
-            android:layout_height="85dp"/>
-
-    <TextView
-            android:id="@+id/noTabsPrompt"
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/empty_tabs_hint"
-            android:visibility="visible"/>
+            android:background="?attr/colorSurface"
+            android:orientation="vertical">
 
-    <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="?android:attr/actionBarSize"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            android:textAlignment="viewStart"/>
+        <View
+                android:id="@+id/bar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="@color/AppTheme"/>
 
-    <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_below="@id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bar"
+                android:background="@color/AppTheme"
+                android:textAlignment="viewStart"
+                app:tabGravity="fill"
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed" />
 
-</RelativeLayout>
+        <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tabLayout" />
+
+        <TextView
+                android:id="@+id/noTabsPrompt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/empty_tabs_hint"
+                android:visibility="visible" />
+
+<!--        <ImageView-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:layout_width="320dp"-->
+<!--                android:layout_height="124dp"-->
+<!--                android:src="@drawable/tab_square" />-->
+
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

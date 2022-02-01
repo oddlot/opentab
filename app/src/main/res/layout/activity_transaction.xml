@@ -3,124 +3,148 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true">
 
-    <!--    Toolbar-->
     <com.google.android.material.appbar.AppBarLayout
-            android:background="?attr/colorSurface"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@null">
+
         <include
                 android:id="@+id/toolbar"
-                layout="@layout/toolbar_transparent"/>
+                layout="@layout/toolbar" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.transaction.DebtActivity">
-            <com.google.android.material.button.MaterialButtonToggleGroup
-                    android:id="@+id/credDebToggle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
-                    android:layout_marginStart="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
-                    android:layout_marginTop="?android:attr/actionBarSize"
-                    android:paddingTop="8dp"
-                    app:checkedButton="@id/debitButton"
-                    app:layout_constraintEnd_toEndOf="@+id/toolbar"
-                    app:layout_constraintStart_toStartOf="@+id/toolbar"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/debitButton"
-                        style="@style/DebitButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="I am Owed" />
-                <com.google.android.material.button.MaterialButton
-                        android:id="@+id/creditButton"
-                        style="@style/CreditButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:text="I Owe" />
-            </com.google.android.material.button.MaterialButtonToggleGroup>
+                tools:context=".presentation.transaction.TransactionActivity">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/tabWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/PADDING_HORIZONTAL"
+                    android:layout_marginTop="78dp"
+                    android:layout_marginEnd="@dimen/PADDING_HORIZONTAL"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/credDebToggle"
-                    android:layout_marginEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
-                    android:layout_marginStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
-                    android:layout_marginTop="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                         android:id="@+id/tabTitleLabel"
                         style="@style/TextLabelStyle"
                         android:text="Tab"
                         app:layout_constraintVertical_bias="0.0" />
+
                 <Spinner
                         android:id="@+id/tabSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="47dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="62dp"
                         android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
+                        android:background="@null"
+                        android:theme="@style/ClickableStyle"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintVertical_bias="0.0"
-                        android:theme="@style/ClickableStyle"/>
+                        app:layout_constraintVertical_bias="0.0" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <RadioGroup
+                    android:id="@+id/credDebToggle"
+                    android:layout_width="wrap_content"
+                    android:minWidth="196dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/ACTIVITY_VERTICAL_MARGIN_PLUS"
+                    android:orientation="horizontal"
+                    app:checkedButton="@id/debitButton"
+                    app:layout_constraintBottom_toBottomOf="@id/tabWrapper"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tabWrapper"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/debitButton"
+                        style="@style/Debit.ButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="owes" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/creditButton"
+                        style="@style/Credit.ButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:text="is owed" />
+
+            </RadioGroup>
+
+            <!--            <View-->
+            <!--                    app:layout_constraintTop_toBottomOf="@id/tabWrapper"-->
+            <!--                    android:id="@+id/divider2"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="1dp"-->
+            <!--                    android:background="?android:attr/colorControlNormal"-->
+            <!--                    android:layout_marginStart="@dimen/PADDING_HORIZONTAL"-->
+            <!--                    android:layout_marginEnd="@dimen/PADDING_HORIZONTAL"-->
+            <!--                    app:layout_constraintBottom_toTopOf="@id/container1" />-->
 
             <!--   Container 1 -->
             <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/container1"
-                    app:layout_constraintTop_toBottomOf="@id/tabWrapper"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
-                    android:layout_marginStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/PADDING_HORIZONTAL"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="@dimen/PADDING_HORIZONTAL"
+                    android:orientation="horizontal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tabWrapper">
 
                 <!--            Date-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/dateWrapper"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
-                        android:layout_height="wrap_content"
                         android:layout_width="0dp"
-                        android:layout_weight="3">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
+                        android:layout_weight="3"
+                        android:orientation="vertical">
+
                     <TextView
                             android:id="@+id/dateLabel"
                             style="@style/TextLabelStyle"
                             android:text="Date" />
+
                     <TextView
                             android:id="@+id/datePicker"
                             style="@style/ClickableStyle"
+                            android:layout_height="47dp"
+                            android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                             android:clickable="true"
                             android:ems="10"
                             android:focusable="true"
                             android:gravity="center_vertical"
                             android:inputType="date"
-                            android:layout_height="47dp"
-                            android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
                             android:paddingLeft="4dp"
-                            tools:text="2020/01/08"
-                            android:textColor="?android:attr/textColorPrimary" />
+                            android:textColor="?android:attr/textColorPrimary"
+                            tools:text="2020/01/08" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/amountWrapper"
-                        android:orientation="vertical"
-                        android:layout_height="wrap_content"
                         android:layout_width="0dp"
-                        android:layout_weight="2">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
+
                     <TextView
                             android:id="@+id/amountLabel"
                             style="@style/TextLabelStyle"
@@ -132,27 +156,31 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                             android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                            android:gravity="left"
-                            android:inputType="numberDecimal"/>
+                            android:background="@null"
+                            android:gravity="start|center_vertical"
+                            android:hint="0.0"
+                            android:inputType="numberDecimal" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                         android:id="@+id/paidByWrapper"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:visibility="gone">
+
                     <TextView
                             android:id="@+id/paidByLabel"
                             style="@style/TextLabelStyle"
-                            android:text="@string/owed_to"/>
+                            android:text="@string/owed_to" />
+
                     <Spinner
                             android:id="@+id/paidBySpinner"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/VIEW_INPUT_HEIGHT"
                             android:layout_below="@id/paidByLabel"
                             android:layout_marginTop="@dimen/ACTIVITY_VIEW_PADDING"
-                            android:theme="@style/ClickableStyle"/>
+                            android:theme="@style/ClickableStyle" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -160,103 +188,68 @@
             <!--    Container 2-->
             <RelativeLayout
                     android:id="@+id/container2"
-                    app:layout_constraintTop_toBottomOf="@id/container1"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS"
-                    android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN_PLUS">
+                    android:paddingStart="@dimen/PADDING_HORIZONTAL"
+                    android:paddingEnd="@dimen/PADDING_HORIZONTAL"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container1">
 
                 <LinearLayout
                         android:id="@+id/descriptionWrapper"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                     <TextView
                             android:id="@+id/descriptionLabel"
                             style="@style/TextLabelStyle"
-                            android:text="Description (optional)"
-                            android:layout_width="188dp"/>
+                            android:layout_width="188dp"
+                            android:text="Description" />
                 </LinearLayout>
+
                 <EditText
                         android:id="@+id/transactionDescription"
                         android:layout_width="match_parent"
                         android:layout_height="62dp"
-                        android:inputType="textCapSentences"
                         android:layout_below="@id/descriptionWrapper"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        android:theme="@style/ClickableStyle"/>
+                        android:hint="(optional)"
+                        android:inputType="textMultiLine"
+                        android:theme="@style/ClickableStyle"
+                        app:layout_constraintHorizontal_bias="0.0" />
             </RelativeLayout>
 
             <RelativeLayout
-                    android:id="@+id/container3"
-                    app:layout_constraintTop_toBottomOf="@id/container2"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:id="@+id/attachmentsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-                    android:paddingStart="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
-                    android:paddingEnd="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
+                    android:paddingStart="@dimen/PADDING_HORIZONTAL"
+                    android:paddingTop="@dimen/PADDING_HORIZONTAL"
+                    android:paddingEnd="@dimen/PADDING_HORIZONTAL"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/container2">
 
-                <LinearLayout
-                        android:id="@+id/allocationWrapper"
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-                    <TextView
-                            android:id="@+id/allocationLabel"
-                            style="@style/TextLabelStyle"
-                            android:text="Allocation (2/3)"
-                            android:layout_width="wrap_content"/>
-                    <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/allocationChips"
-                            android:layout_below="@id/allocationLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/ACTIVITY_HORIZONTAL_MARGIN">
-                        <com.google.android.material.chip.Chip
-                                android:id="@+id/allMembersChip"
-                                android:backgroundTint="@color/chip_allocation"
-                                android:checked="true"
-                                android:checkable="true"
-                                app:chipIconEnabled="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="All"
-                                android:textColor="@color/text_checkable"/>
-                        <com.google.android.material.chip.Chip
-                                android:id="@+id/superuserChip"
-                                android:backgroundTint="@color/chip_allocation"
-                                android:checkable="true"
-                                app:chipIconEnabled="false"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/text_checkable"/>
-                        <!--                <com.google.android.material.chip.Chip-->
-                        <!--                        android:backgroundTint="@color/chip_allocation"-->
-                        <!--                        android:checkable="true"-->
-                        <!--                        app:chipIconEnabled="false"-->
-                        <!--                        android:layout_width="wrap_content"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:text="Brian"-->
-                        <!--                        android:textColor="@color/DefaultWhite"/>-->
-                        <!--                <com.google.android.material.chip.Chip-->
-                        <!--                        android:backgroundTint="@color/chip_allocation"-->
-                        <!--                        android:checkable="true"-->
-                        <!--                        app:chipIconEnabled="false"-->
-                        <!--                        android:layout_width="wrap_content"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:text="Josh"-->
-                        <!--                        android:textColor="@color/DefaultWhite"/>-->
-                    </com.google.android.material.chip.ChipGroup>
-                    <com.google.android.material.chip.Chip
-                            android:id="@+id/addMemberChip"
-                            android:checkable="false"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+"/>
-                </LinearLayout>
+                <TextView
+                        android:id="@+id/attachmentsLabel"
+                        style="@style/TextLabelStyle"
+                        android:layout_width="188dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="Attachments" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imagePlaceholder"
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:layout_below="@id/attachmentsLabel"
+                        android:layout_marginEnd="22dp"
+                        android:background="@color/DarkTranslucent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="74dp"
+                        android:layout_height="74dp"
+                        android:layout_below="@id/attachmentsLabel"
+                        android:layout_alignBaseline="@id/imagePlaceholder"
+                        android:layout_toEndOf="@id/imagePlaceholder"
+                        android:background="@color/DarkTranslucent" />
             </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

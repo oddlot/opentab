@@ -1,6 +1,5 @@
 <resources>
-    <dimen name="ACTIVITY_HORIZONTAL_MARGIN">16dp</dimen>
-    <dimen name="ACTIVITY_HORIZONTAL_MARGIN_PLUS">24dp</dimen>
+    <dimen name="PADDING_HORIZONTAL">22dp</dimen>
     <dimen name="ACTIVITY_VERTICAL_MARGIN">16dp</dimen>
     <dimen name="ACTIVITY_VERTICAL_MARGIN_PLUS">24dp</dimen>
     <dimen name="ACTIVITY_VIEW_PADDING">4dp</dimen>
@@ -20,4 +19,5 @@
     <dimen name="PADDING_SECTION_VERTICAL">16dp</dimen>
     <dimen name="SETTING_HEIGHT_SINGLE">39dp</dimen>
     <dimen name="SETTING_HEIGHT_DOUBLE">52dp</dimen>
+    <dimen name="BORDER_RADIUS_NORMAL">16dp</dimen>
 </resources>

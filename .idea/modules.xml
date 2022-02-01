@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="opentab/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opentab.iml" filepath="$PROJECT_DIR$/.idea/modules/opentab.iml" group="opentab" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/opentab.iml" filepath="$PROJECT_DIR$/.idea/modules/opentab.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/OpenTab.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/OpenTab.app.iml" />
     </modules>
   </component>
 </project>

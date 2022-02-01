@@ -3,6 +3,7 @@
 <!--    <color name="colorPrimary">#008577</color>-->
     <color name="colorAccent">#13C888</color>
     <color name="AppTheme">#13C888</color>
+    <color name="AppThemeTranslucent">#8013C888</color>
     <color name="BlueBlack">#232332</color>
     <color name="colorGreen">#51B46D</color>
     <color name="BrightTeal">#27DB91</color>

@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/ACTIVITY_VERTICAL_MARGIN"
         android:paddingLeft="8dp"
-        android:paddingRight="@dimen/ACTIVITY_HORIZONTAL_MARGIN"
+        android:paddingRight="@dimen/PADDING_HORIZONTAL"
         android:paddingTop="8dp" >
 
     <ImageView

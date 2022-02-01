@@ -19,7 +19,7 @@
 
     <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_home" />
+            layout="@layout/toolbar" />
 
 <!--    <androidx.appcompat.widget.LinearLayoutCompat-->
 <!--            android:layout_width="wrap_content"-->
